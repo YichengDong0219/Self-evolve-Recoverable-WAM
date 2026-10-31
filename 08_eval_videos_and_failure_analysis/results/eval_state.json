@@ -1,0 +1,162 @@
+{
+ "mugE_nv_step1000": {
+  "status": "done",
+  "machine": "old",
+  "gpus": [
+   1
+  ],
+  "started": "2026-10-30 02:25:11",
+  "passes": 1,
+  "finished": "2026-10-30 02:28:17",
+  "valid": 100,
+  "success": 30,
+  "still_invalid": []
+ },
+ "mugE_nv_step2000": {
+  "status": "done",
+  "machine": "old",
+  "gpus": [
+   1,
+   3
+  ],
+  "started": "2026-10-30 05:23:31",
+  "passes": 1,
+  "finished": "2026-10-30 05:26:36",
+  "valid": 100,
+  "success": 50,
+  "still_invalid": []
+ },
+ "mugE_nv_step3000": {
+  "status": "done",
+  "machine": "old",
+  "gpus": [
+   1,
+   3
+  ],
+  "started": "2026-10-30 07:59:37",
+  "passes": 1,
+  "finished": "2026-10-30 08:42:16",
+  "valid": 100,
+  "success": 69,
+  "still_invalid": []
+ },
+ "mugE_nv_step3194": {
+  "status": "stopped_by_user",
+  "machine": "old",
+  "gpus": [
+   1,
+   3
+  ],
+  "started": "2026-10-30 08:29 (launched by a timed-out round; recorded by hand)",
+  "passes": 1,
+  "on_old": true,
+  "note": "10-30 user: evaluate up to step 3000 only; 61/100 partial results kept in eval_ckpts/mugE_nv_step3194_partial"
+ },
+ "mugR_nv_step1000": {
+  "status": "done",
+  "on_old": true,
+  "machine": "old",
+  "gpus": [
+   1,
+   3
+  ],
+  "passes": 3,
+  "started": "2026-10-30 09:36 (launch timed out but ran; recorded by hand)",
+  "finished": "2026-10-30 11:43:38",
+  "valid": 99,
+  "success": 0,
+  "still_invalid": [
+   "160117"
+  ]
+ },
+ "mugR_nv_step3194": {
+  "status": "skipped",
+  "note": "10-30 user: step 3194 kept but not evaluated"
+ },
+ "mugR_nv_step2000": {
+  "status": "stopped_by_user",
+  "on_old": true,
+  "machine": "old",
+  "gpus": [
+   3,
+   1
+  ],
+  "started": "2026-10-30 11:34:19",
+  "passes": 1,
+  "note_1030": "GPU1 helper died 11:52 (port clash, scheduler bug fixed); removed so a helper can rejoin",
+  "stopped": "2026-10-30 13:54:51",
+  "note_stop": "user 10-30 13:5x: stop R2000 eval to free cluster GPUs for the MR7 smoke; 89/100 seeds done"
+ },
+ "mugR_nv_step3000": {
+  "status": "done",
+  "on_old": true,
+  "machine": "amax",
+  "gpus": [
+   4,
+   5,
+   6,
+   7
+  ],
+  "started": "2026-10-30 14:31:55",
+  "passes": 3,
+  "finished": "2026-10-30 15:30:16",
+  "valid": 100,
+  "success": 0,
+  "still_invalid": []
+ },
+ "mugM_nv_step3194": {
+  "status": "skipped",
+  "note": "10-30 protocol (as mugE/mugR): step 3194 kept but not evaluated; eval target step 3000"
+ },
+ "mugM_nv_step1000": {
+  "status": "done",
+  "on_old": true,
+  "machine": "old",
+  "gpus": [
+   1,
+   3
+  ],
+  "started": "2026-10-30 22:10:48",
+  "passes": 3,
+  "finished": "2026-10-31 00:04:26",
+  "valid": 99,
+  "success": 20,
+  "still_invalid": [
+   "160117"
+  ]
+ },
+ "mugM_nv_step2000": {
+  "status": "done",
+  "on_old": true,
+  "machine": "old",
+  "gpus": [
+   1,
+   3
+  ],
+  "started": "2026-10-31 00:52:54",
+  "passes": 3,
+  "finished": "2026-10-31 02:36:51",
+  "valid": 99,
+  "success": 45,
+  "still_invalid": [
+   "160117"
+  ]
+ },
+ "mugM_nv_step3000": {
+  "status": "done",
+  "on_old": true,
+  "machine": "old",
+  "gpus": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "started": "2026-10-31 03:28:10",
+  "passes": 3,
+  "finished": "2026-10-31 04:23:13",
+  "valid": 100,
+  "success": 52,
+  "still_invalid": []
+ }
+}
