@@ -1,0 +1,67 @@
+{
+ "name": "rf_hanging_mug_v1",
+ "built": "2026-10-30 12:02:09",
+ "n_states": 845,
+ "tiers": {
+  "B_feasible_unrecovered": 250,
+  "A_recovered": 130,
+  "C_no_feasible_chain": 454,
+  "U_untried": 11
+ },
+ "A_G8_pass": 61,
+ "A_G7_pass": 120,
+ "A_in_final100": 100,
+ "expert_demo_success": 130,
+ "G8_range": {
+  "lo": [
+   -1.5880000591278076,
+   -0.5350000262260437,
+   -0.5419999957084656,
+   -2.319999933242798,
+   -0.6330000162124634,
+   -1.6260000467300415,
+   -0.5,
+   -0.9629999995231628,
+   -0.5120000243186951,
+   -0.5090000033378601,
+   -1.9889999628067017,
+   -1.7719999551773071,
+   -1.3739999532699585,
+   -0.5
+  ],
+  "hi": [
+   0.5419999957084656,
+   3.1519999504089355,
+   3.4030001163482666,
+   0.5339999794960022,
+   0.6010000109672546,
+   1.7319999933242798,
+   1.5,
+   1.5959999561309814,
+   3.078000068664551,
+   2.7290000915527344,
+   2.4570000171661377,
+   1.6169999837875366,
+   3.1050000190734863,
+   1.5
+  ],
+  "margin": 0.5,
+  "source": "frozen-list expert demos + FACT failure prefixes"
+ },
+ "provenance": {
+  "jobs": "/workspace/fact_local/bench/stream_jobs_v7.jsonl",
+  "selections": "/workspace/fact_local/bench/SEL_v7",
+  "planner": "MR6 (code/mug_recovery_chain.py)",
+  "takeover_rule": "code/mug_takeover_step.py",
+  "curobo": "0.7.8",
+  "code_sha256": {
+   "takeover_bench.py": "8c85d572f2c40a8393ecd40c1ce095197aeeadbda0cb7029d4f7814a5f2ac9fd",
+   "mug_recovery_chain.py": "05091ea0d0b3c78dd5c52f473854c5292fbf69dd084ff69dfad64acb71b1be75",
+   "mug_takeover_step.py": "7ab5634b49b83383f1c4ca7e00c12d0fcf30081b8127884a89d127fe0acda40b",
+   "takeover_fixes.py": "b679078bc8d14381376f6263646261757e1aed42c7f5606389928c3f7b3351da",
+   "sim_select.py": "818e1ea7b3b6c2a4af00b53a12d55c6895dba3b58205480110b59e4afe22fffa",
+   "quality_gates.py": "7266760085dca76b8d9d21e8ad60c634ed629de1ffc60fc9b37d9dec70a4d972"
+  },
+  "hanging_mug_env_sha256": "8793ed6be6a80b18a10690767a1910c3c49a7a9e4887ecbdd48a191ca3e03034"
+ }
+}

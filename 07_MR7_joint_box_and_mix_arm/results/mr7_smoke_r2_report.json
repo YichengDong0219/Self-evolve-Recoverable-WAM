@@ -1,0 +1,402 @@
+{
+ "summary": {
+  "states": 12,
+  "finished": 11,
+  "A_G8fail_left": {
+   "n": 1,
+   "mr7_feasible": 1,
+   "mr7_recovered": 0,
+   "mr6_recovered": 1,
+   "mr6_recovered_G8": 0
+  },
+  "A_G8fail_right": {
+   "n": 2,
+   "mr7_feasible": 2,
+   "mr7_recovered": 0,
+   "mr6_recovered": 2,
+   "mr6_recovered_G8": 0
+  },
+  "B": {
+   "n": 8,
+   "mr7_feasible": 4,
+   "mr7_recovered": 0,
+   "mr6_recovered": 0,
+   "mr6_recovered_G8": 0
+  },
+  "selected_quality": {
+   "n": 0,
+   "G7": 0,
+   "G8": 0,
+   "wrist_in_expert_range": 0,
+   "flip": 0,
+   "max_abs_z_state_max": null
+  },
+  "boxchk_rejected_total": 0,
+  "plans_checked_total": 2167,
+  "wall_h_total": 0.48,
+  "wall_h_per_recovery": 0.48
+ },
+ "rows": [
+  {
+   "state_id": "hanging_mug/150007/step336",
+   "cat": "A_G8fail_right",
+   "mr6": {
+    "tier": "A_recovered",
+    "n_cand": 2,
+    "n_att": 2,
+    "G8": false
+   },
+   "mr7": {
+    "n_cand": 2,
+    "n_flip_cand": 1,
+    "n_att": 2,
+    "recovered": false,
+    "wall_s": 161.9,
+    "boxchk_rejected": 0,
+    "plans_checked": 77,
+    "error": null,
+    "attempt_gates": [
+     {
+      "G5_undisturbed": false
+     },
+     {
+      "G5_undisturbed": false
+     }
+    ]
+   }
+  },
+  {
+   "state_id": "hanging_mug/145005/step336",
+   "cat": "A_G8fail_right",
+   "mr6": {
+    "tier": "A_recovered",
+    "n_cand": 4,
+    "n_att": 1,
+    "G8": false
+   },
+   "mr7": null
+  },
+  {
+   "state_id": "hanging_mug/150071/step336",
+   "cat": "A_G8fail_right",
+   "mr6": {
+    "tier": "A_recovered",
+    "n_cand": 4,
+    "n_att": 2,
+    "G8": false
+   },
+   "mr7": {
+    "n_cand": 4,
+    "n_flip_cand": 2,
+    "n_att": 4,
+    "recovered": false,
+    "wall_s": 192.0,
+    "boxchk_rejected": 0,
+    "plans_checked": 212,
+    "error": null,
+    "attempt_gates": [
+     {
+      "G1_success_stable": false,
+      "G5_undisturbed": false
+     },
+     {
+      "G1_success_stable": false,
+      "G5_undisturbed": false
+     },
+     {
+      "G1_success_stable": false,
+      "G5_undisturbed": false
+     },
+     {
+      "G1_success_stable": false,
+      "G5_undisturbed": false
+     }
+    ]
+   }
+  },
+  {
+   "state_id": "hanging_mug/144089/step384",
+   "cat": "A_G8fail_left",
+   "mr6": {
+    "tier": "A_recovered",
+    "n_cand": 4,
+    "n_att": 8,
+    "G8": false
+   },
+   "mr7": {
+    "n_cand": 8,
+    "n_flip_cand": 4,
+    "n_att": 8,
+    "recovered": false,
+    "wall_s": 155.5,
+    "boxchk_rejected": 0,
+    "plans_checked": 268,
+    "error": null,
+    "attempt_gates": [
+     {
+      "G1_success_stable": false,
+      "G5_undisturbed": false
+     },
+     {
+      "G1_success_stable": false,
+      "G5_undisturbed": false
+     },
+     {
+      "G1_success_stable": false,
+      "G5_undisturbed": false
+     },
+     {
+      "G1_success_stable": false,
+      "G5_undisturbed": false
+     },
+     {
+      "G1_success_stable": false,
+      "G5_undisturbed": false
+     },
+     {
+      "G1_success_stable": false,
+      "G5_undisturbed": false
+     },
+     {
+      "G1_success_stable": false,
+      "G5_undisturbed": false
+     },
+     {
+      "G1_success_stable": false
+     }
+    ]
+   }
+  },
+  {
+   "state_id": "hanging_mug/145159/step336",
+   "cat": "B",
+   "mr6": {
+    "tier": "B_feasible_unrecovered",
+    "n_cand": 8,
+    "n_att": 16,
+    "G8": null
+   },
+   "mr7": {
+    "n_cand": 0,
+    "n_flip_cand": 0,
+    "n_att": 0,
+    "recovered": false,
+    "wall_s": 73.0,
+    "boxchk_rejected": 0,
+    "plans_checked": 176,
+    "error": null,
+    "attempt_gates": []
+   }
+  },
+  {
+   "state_id": "hanging_mug/142095/step336",
+   "cat": "B",
+   "mr6": {
+    "tier": "B_feasible_unrecovered",
+    "n_cand": 3,
+    "n_att": 6,
+    "G8": null
+   },
+   "mr7": {
+    "n_cand": 0,
+    "n_flip_cand": 0,
+    "n_att": 0,
+    "recovered": false,
+    "wall_s": 68.3,
+    "boxchk_rejected": 0,
+    "plans_checked": 68,
+    "error": null,
+    "attempt_gates": []
+   }
+  },
+  {
+   "state_id": "hanging_mug/146110/step336",
+   "cat": "B",
+   "mr6": {
+    "tier": "B_feasible_unrecovered",
+    "n_cand": 3,
+    "n_att": 6,
+    "G8": null
+   },
+   "mr7": {
+    "n_cand": 0,
+    "n_flip_cand": 0,
+    "n_att": 0,
+    "recovered": false,
+    "wall_s": 85.8,
+    "boxchk_rejected": 0,
+    "plans_checked": 158,
+    "error": null,
+    "attempt_gates": []
+   }
+  },
+  {
+   "state_id": "hanging_mug/150144/step240",
+   "cat": "B",
+   "mr6": {
+    "tier": "B_feasible_unrecovered",
+    "n_cand": 20,
+    "n_att": 16,
+    "G8": null
+   },
+   "mr7": {
+    "n_cand": 10,
+    "n_flip_cand": 5,
+    "n_att": 8,
+    "recovered": false,
+    "wall_s": 344.0,
+    "boxchk_rejected": 0,
+    "plans_checked": 606,
+    "error": null,
+    "attempt_gates": [
+     {
+      "G1_success_stable": false
+     },
+     {
+      "G1_success_stable": false
+     },
+     {
+      "G1_success_stable": false,
+      "G6_no_physical_flag": false
+     },
+     {
+      "G1_success_stable": false
+     },
+     {
+      "G1_success_stable": false,
+      "G6_no_physical_flag": false
+     },
+     {
+      "G1_success_stable": false
+     },
+     {
+      "G1_success_stable": false,
+      "G6_no_physical_flag": false
+     },
+     {
+      "G1_success_stable": false,
+      "G6_no_physical_flag": false
+     }
+    ]
+   }
+  },
+  {
+   "state_id": "hanging_mug/147022/step336",
+   "cat": "B",
+   "mr6": {
+    "tier": "B_feasible_unrecovered",
+    "n_cand": 4,
+    "n_att": 8,
+    "G8": null
+   },
+   "mr7": {
+    "n_cand": 4,
+    "n_flip_cand": 2,
+    "n_att": 4,
+    "recovered": false,
+    "wall_s": 241.3,
+    "boxchk_rejected": 0,
+    "plans_checked": 200,
+    "error": null,
+    "attempt_gates": [
+     {
+      "G1_success_stable": false
+     },
+     {
+      "G1_success_stable": false
+     },
+     {
+      "G1_success_stable": false
+     },
+     {
+      "G1_success_stable": false
+     }
+    ]
+   }
+  },
+  {
+   "state_id": "hanging_mug/140084/step336",
+   "cat": "B",
+   "mr6": {
+    "tier": "B_feasible_unrecovered",
+    "n_cand": 2,
+    "n_att": 4,
+    "G8": null
+   },
+   "mr7": {
+    "n_cand": 0,
+    "n_flip_cand": 0,
+    "n_att": 0,
+    "recovered": false,
+    "wall_s": 24.7,
+    "boxchk_rejected": 0,
+    "plans_checked": 18,
+    "error": null,
+    "attempt_gates": []
+   }
+  },
+  {
+   "state_id": "hanging_mug/145070/step336",
+   "cat": "B",
+   "mr6": {
+    "tier": "B_feasible_unrecovered",
+    "n_cand": 1,
+    "n_att": 2,
+    "G8": null
+   },
+   "mr7": {
+    "n_cand": 2,
+    "n_flip_cand": 1,
+    "n_att": 2,
+    "recovered": false,
+    "wall_s": 117.7,
+    "boxchk_rejected": 0,
+    "plans_checked": 174,
+    "error": null,
+    "attempt_gates": [
+     {
+      "G1_success_stable": false
+     },
+     {
+      "G1_success_stable": false,
+      "G6_no_physical_flag": false
+     }
+    ]
+   }
+  },
+  {
+   "state_id": "hanging_mug/146099/step288",
+   "cat": "B",
+   "mr6": {
+    "tier": "B_feasible_unrecovered",
+    "n_cand": 2,
+    "n_att": 4,
+    "G8": null
+   },
+   "mr7": {
+    "n_cand": 4,
+    "n_flip_cand": 2,
+    "n_att": 4,
+    "recovered": false,
+    "wall_s": 248.9,
+    "boxchk_rejected": 0,
+    "plans_checked": 210,
+    "error": null,
+    "attempt_gates": [
+     {
+      "G1_success_stable": false
+     },
+     {
+      "G1_success_stable": false
+     },
+     {
+      "G1_success_stable": false
+     },
+     {
+      "G1_success_stable": false
+     }
+    ]
+   }
+  }
+ ]
+}
