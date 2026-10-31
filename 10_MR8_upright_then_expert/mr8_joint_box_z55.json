@@ -1,0 +1,40 @@
+{
+ "note": "MR8 planning joint box (Claude 2026-11-01): per arm joint, FACT state normalization mean +- 5.5 std (norm_stats_delta.json of the deployed FACT model). Round-1 audit: expert demos reach max |z| 5.13, the audit rejects > 5.63; planning inside this box keeps every planned waypoint below that. Replaces the MR7 box (expert demos + FACT prefixes +-0.4 rad), which blocked the 90-degree upright rotation of MR8.",
+ "z": 5.5,
+ "left": {
+  "lo": [
+   -2.5217307229848878,
+   -4.395231327160778,
+   -3.4655581164574585,
+   -4.01341165932725,
+   -1.434613875737509,
+   -3.4467638232641677
+  ],
+  "hi": [
+   2.0449638364402203,
+   6.654980282158854,
+   5.079290563303527,
+   3.3929529180832896,
+   1.5444028284815656,
+   3.3707942173159573
+  ]
+ },
+ "right": {
+  "lo": [
+   -1.7039982162878566,
+   -4.558176977635622,
+   -3.581445878012721,
+   -4.087493733120638,
+   -1.3615695874998028,
+   -3.3432202358897034
+  ],
+  "hi": [
+   2.1373103279985317,
+   6.716310844457279,
+   5.156591049318274,
+   3.445244324805903,
+   1.3265590754933232,
+   3.414012903691067
+  ]
+ }
+}

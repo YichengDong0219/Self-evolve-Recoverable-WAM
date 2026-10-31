@@ -1,0 +1,740 @@
+{
+ "run": "bench_mr8/LIST_v1z",
+ "summary": {
+  "K1_side_no_grasp": {
+   "states": 10,
+   "direct": 0,
+   "with_candidate": 5,
+   "with_handle_cand": 5,
+   "with_rim_cand": 1,
+   "selected": 0,
+   "yield": 0.0,
+   "attempts": 0,
+   "wall_h": 0.09,
+   "sel_family": {},
+   "expert": {},
+   "frames_median": null,
+   "z_max": null,
+   "G8_info_pass": 0,
+   "rejects": {}
+  },
+  "K2_side_grasp_no_chain": {
+   "states": 9,
+   "direct": 0,
+   "with_candidate": 6,
+   "with_handle_cand": 4,
+   "with_rim_cand": 4,
+   "selected": 0,
+   "yield": 0.0,
+   "attempts": 0,
+   "wall_h": 0.12,
+   "sel_family": {},
+   "expert": {},
+   "frames_median": null,
+   "z_max": null,
+   "G8_info_pass": 0,
+   "rejects": {}
+  },
+  "K3_side_has_chain": {
+   "states": 9,
+   "direct": 0,
+   "with_candidate": 9,
+   "with_handle_cand": 0,
+   "with_rim_cand": 9,
+   "selected": 0,
+   "yield": 0.0,
+   "attempts": 0,
+   "wall_h": 0.09,
+   "sel_family": {},
+   "expert": {},
+   "frames_median": null,
+   "z_max": null,
+   "G8_info_pass": 0,
+   "rejects": {}
+  },
+  "K4_upright": {
+   "states": 9,
+   "direct": 5,
+   "with_candidate": 9,
+   "with_handle_cand": 0,
+   "with_rim_cand": 4,
+   "selected": 0,
+   "yield": 0.0,
+   "attempts": 0,
+   "wall_h": 0.03,
+   "sel_family": {},
+   "expert": {},
+   "frames_median": null,
+   "z_max": null,
+   "G8_info_pass": 0,
+   "rejects": {}
+  },
+  "ALL": {
+   "states": 37,
+   "direct": 5,
+   "with_candidate": 29,
+   "with_handle_cand": 9,
+   "with_rim_cand": 18,
+   "selected": 0,
+   "yield": 0.0,
+   "attempts": 0,
+   "wall_h": 0.33,
+   "sel_family": {},
+   "expert": {},
+   "frames_median": null,
+   "z_max": null,
+   "G8_info_pass": 0,
+   "rejects": {}
+  }
+ },
+ "rows": [
+  {
+   "seed": 100000,
+   "cat": "K4_upright",
+   "tier": "B_feasible_unrecovered",
+   "direct": false,
+   "n_feasible": 12,
+   "families": [
+    "rim"
+   ],
+   "yaws": [
+    -60,
+    -30,
+    0,
+    30,
+    60
+   ],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 29.2,
+   "reject": {}
+  },
+  {
+   "seed": 100001,
+   "cat": "K3_side_has_chain",
+   "tier": "U_untried",
+   "direct": false,
+   "n_feasible": 12,
+   "families": [
+    "rim"
+   ],
+   "yaws": [
+    -60,
+    -30,
+    0,
+    30
+   ],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 36.9,
+   "reject": {}
+  },
+  {
+   "seed": 100004,
+   "cat": "K2_side_grasp_no_chain",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 12,
+   "families": [
+    "rim"
+   ],
+   "yaws": [
+    -60,
+    -30,
+    0,
+    30
+   ],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 30.5,
+   "reject": {}
+  },
+  {
+   "seed": 100011,
+   "cat": "K1_side_no_grasp",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 4,
+   "families": [
+    "handle"
+   ],
+   "yaws": [
+    60
+   ],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 29.3,
+   "reject": {}
+  },
+  {
+   "seed": 140081,
+   "cat": "K2_side_grasp_no_chain",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 0,
+   "families": [],
+   "yaws": [],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 47.6,
+   "reject": {}
+  },
+  {
+   "seed": 140124,
+   "cat": "K3_side_has_chain",
+   "tier": "B_feasible_unrecovered",
+   "direct": false,
+   "n_feasible": 12,
+   "families": [
+    "rim"
+   ],
+   "yaws": [
+    -60,
+    -30,
+    0,
+    30,
+    60
+   ],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 44.7,
+   "reject": {}
+  },
+  {
+   "seed": 140127,
+   "cat": "K4_upright",
+   "tier": "B_feasible_unrecovered",
+   "direct": true,
+   "n_feasible": 1,
+   "families": [],
+   "yaws": [],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 0.1,
+   "reject": {}
+  },
+  {
+   "seed": 141002,
+   "cat": "K1_side_no_grasp",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 12,
+   "families": [
+    "handle",
+    "rim"
+   ],
+   "yaws": [
+    -60,
+    0,
+    30,
+    60
+   ],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 53.5,
+   "reject": {}
+  },
+  {
+   "seed": 141147,
+   "cat": "K4_upright",
+   "tier": "C_no_feasible_chain",
+   "direct": true,
+   "n_feasible": 1,
+   "families": [],
+   "yaws": [],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 0.5,
+   "reject": {}
+  },
+  {
+   "seed": 141173,
+   "cat": "K2_side_grasp_no_chain",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 6,
+   "families": [
+    "handle"
+   ],
+   "yaws": [
+    0,
+    30,
+    60
+   ],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 68.8,
+   "reject": {}
+  },
+  {
+   "seed": 141178,
+   "cat": "K3_side_has_chain",
+   "tier": "B_feasible_unrecovered",
+   "direct": false,
+   "n_feasible": 12,
+   "families": [
+    "rim"
+   ],
+   "yaws": [
+    -60,
+    -30,
+    0,
+    30,
+    60
+   ],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 23.3,
+   "reject": {}
+  },
+  {
+   "seed": 141181,
+   "cat": "K1_side_no_grasp",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 0,
+   "families": [],
+   "yaws": [],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 27.0,
+   "reject": {}
+  },
+  {
+   "seed": 142135,
+   "cat": "K2_side_grasp_no_chain",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 2,
+   "families": [
+    "handle"
+   ],
+   "yaws": [
+    60
+   ],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 30.6,
+   "reject": {}
+  },
+  {
+   "seed": 143016,
+   "cat": "K1_side_no_grasp",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 0,
+   "families": [],
+   "yaws": [],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 33.8,
+   "reject": {}
+  },
+  {
+   "seed": 143029,
+   "cat": "K4_upright",
+   "tier": "B_feasible_unrecovered",
+   "direct": false,
+   "n_feasible": 12,
+   "families": [
+    "rim"
+   ],
+   "yaws": [
+    -60,
+    -30,
+    0,
+    30,
+    60
+   ],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 23.0,
+   "reject": {}
+  },
+  {
+   "seed": 143173,
+   "cat": "K2_side_grasp_no_chain",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 12,
+   "families": [
+    "handle",
+    "rim"
+   ],
+   "yaws": [
+    -60,
+    0,
+    30,
+    60
+   ],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 73.9,
+   "reject": {}
+  },
+  {
+   "seed": 144018,
+   "cat": "K3_side_has_chain",
+   "tier": "A_recovered",
+   "direct": false,
+   "n_feasible": 12,
+   "families": [
+    "rim"
+   ],
+   "yaws": [
+    -60,
+    -30,
+    0,
+    30,
+    60
+   ],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 39.5,
+   "reject": {}
+  },
+  {
+   "seed": 144034,
+   "cat": "K1_side_no_grasp",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 0,
+   "families": [],
+   "yaws": [],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 23.3,
+   "reject": {}
+  },
+  {
+   "seed": 145022,
+   "cat": "K3_side_has_chain",
+   "tier": "A_recovered",
+   "direct": false,
+   "n_feasible": 12,
+   "families": [
+    "rim"
+   ],
+   "yaws": [
+    -60,
+    -30,
+    0,
+    30,
+    60
+   ],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 24.9,
+   "reject": {}
+  },
+  {
+   "seed": 145069,
+   "cat": "K4_upright",
+   "tier": "B_feasible_unrecovered",
+   "direct": true,
+   "n_feasible": 1,
+   "families": [],
+   "yaws": [],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 0.8,
+   "reject": {}
+  },
+  {
+   "seed": 145137,
+   "cat": "K2_side_grasp_no_chain",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 0,
+   "families": [],
+   "yaws": [],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 60.8,
+   "reject": {}
+  },
+  {
+   "seed": 145180,
+   "cat": "K1_side_no_grasp",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 2,
+   "families": [
+    "handle"
+   ],
+   "yaws": [
+    -60
+   ],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 25.1,
+   "reject": {}
+  },
+  {
+   "seed": 146021,
+   "cat": "K3_side_has_chain",
+   "tier": "A_recovered",
+   "direct": false,
+   "n_feasible": 12,
+   "families": [
+    "rim"
+   ],
+   "yaws": [
+    -30,
+    0,
+    30,
+    60
+   ],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 46.9,
+   "reject": {}
+  },
+  {
+   "seed": 146065,
+   "cat": "K4_upright",
+   "tier": "B_feasible_unrecovered",
+   "direct": false,
+   "n_feasible": 12,
+   "families": [
+    "rim"
+   ],
+   "yaws": [
+    -60,
+    -30,
+    0,
+    30,
+    60
+   ],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 33.1,
+   "reject": {}
+  },
+  {
+   "seed": 146135,
+   "cat": "K2_side_grasp_no_chain",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 0,
+   "families": [],
+   "yaws": [],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 34.5,
+   "reject": {}
+  },
+  {
+   "seed": 146154,
+   "cat": "K1_side_no_grasp",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 2,
+   "families": [
+    "handle"
+   ],
+   "yaws": [
+    -60
+   ],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 36.8,
+   "reject": {}
+  },
+  {
+   "seed": 147112,
+   "cat": "K3_side_has_chain",
+   "tier": "A_recovered",
+   "direct": false,
+   "n_feasible": 12,
+   "families": [
+    "rim"
+   ],
+   "yaws": [
+    -60,
+    -30,
+    0,
+    30,
+    60
+   ],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 31.6,
+   "reject": {}
+  },
+  {
+   "seed": 147171,
+   "cat": "K1_side_no_grasp",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 0,
+   "families": [],
+   "yaws": [],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 24.4,
+   "reject": {}
+  },
+  {
+   "seed": 147183,
+   "cat": "K4_upright",
+   "tier": "B_feasible_unrecovered",
+   "direct": false,
+   "n_feasible": 12,
+   "families": [
+    "rim"
+   ],
+   "yaws": [
+    -30,
+    0,
+    30,
+    60
+   ],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 18.4,
+   "reject": {}
+  },
+  {
+   "seed": 150091,
+   "cat": "K2_side_grasp_no_chain",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 12,
+   "families": [
+    "handle",
+    "rim"
+   ],
+   "yaws": [
+    -60,
+    -30,
+    0,
+    30,
+    60
+   ],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 32.2,
+   "reject": {}
+  },
+  {
+   "seed": 150152,
+   "cat": "K4_upright",
+   "tier": "C_no_feasible_chain",
+   "direct": true,
+   "n_feasible": 1,
+   "families": [],
+   "yaws": [],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 0.2,
+   "reject": {}
+  },
+  {
+   "seed": 152026,
+   "cat": "K3_side_has_chain",
+   "tier": "B_feasible_unrecovered",
+   "direct": false,
+   "n_feasible": 12,
+   "families": [
+    "rim"
+   ],
+   "yaws": [
+    -60,
+    -30,
+    0,
+    30,
+    60
+   ],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 48.0,
+   "reject": {}
+  },
+  {
+   "seed": 152083,
+   "cat": "K1_side_no_grasp",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 2,
+   "families": [
+    "handle"
+   ],
+   "yaws": [
+    -60
+   ],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 43.1,
+   "reject": {}
+  },
+  {
+   "seed": 152126,
+   "cat": "K2_side_grasp_no_chain",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 12,
+   "families": [
+    "rim"
+   ],
+   "yaws": [
+    -60,
+    -30,
+    0,
+    30,
+    60
+   ],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 61.0,
+   "reject": {}
+  },
+  {
+   "seed": 152142,
+   "cat": "K4_upright",
+   "tier": "C_no_feasible_chain",
+   "direct": true,
+   "n_feasible": 1,
+   "families": [],
+   "yaws": [],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 0.1,
+   "reject": {}
+  },
+  {
+   "seed": 154052,
+   "cat": "K3_side_has_chain",
+   "tier": "B_feasible_unrecovered",
+   "direct": false,
+   "n_feasible": 12,
+   "families": [
+    "rim"
+   ],
+   "yaws": [
+    -60,
+    -30,
+    0,
+    30,
+    60
+   ],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 21.6,
+   "reject": {}
+  },
+  {
+   "seed": 154097,
+   "cat": "K1_side_no_grasp",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 0,
+   "families": [],
+   "yaws": [],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 24.3,
+   "reject": {}
+  }
+ ]
+}
