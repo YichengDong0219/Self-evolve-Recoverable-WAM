@@ -44,7 +44,10 @@ def joint_gates(npz):
 
 
 def required(g):
-    return all(v for k, v in g.items() if k.startswith(("G1", "G2", "G3", "G4", "G5", "G6", "G7", "Z_")))
+    return all(v for k, v in g.items() if k.startswith(("G1", "G2", "G3", "G4", "G5", "G6", "G7", "Z_", "L900")))
+
+
+EARLY_STOP = 3  # v3: stop a state after this many consecutive attempts that never held the mug (grasp_fail)
 
 
 def bench(gpu, roll, step, variant, out, extra):
@@ -89,13 +92,20 @@ def process(job, gpu, out_dir, max_cands, variant, list_only):
             os.remove(claim)
             return {"name": name, "error": f"cand_{i:02d} no output"}
         g = QG8.gates(r)
-        npz = (r.get("capture") or {}).get("npz")
+        cap = r.get("capture") or {}
+        npz = cap.get("npz")
         if npz and os.path.exists(npz):
             g.update(joint_gates(npz))
+            # v3: the whole episode (policy prefix + recovery) must fit the 900-step evaluation limit, else a policy
+            # that imitates it cannot finish in time
+            g["L900"] = cap.get("prefix_frames", 0) + cap.get("expert_frames", 0) <= 900
         ok = bool(npz) and "Z_state" in g and required(g)
-        tried.append({**c, "idx": i, "status": r["status"], "layer": r["layer"], "gates": g, "pass": ok})
+        res_path = next((e.get("result") for e in reversed(r.get("mr_log") or []) if e["stage"] == "path"), None)
+        tried.append({**c, "idx": i, "status": r["status"], "layer": r["layer"], "gates": g, "pass": ok, "result": res_path})
         if ok:
             selected = {**c, "idx": i, "json": out, "video": out[:-5] + ".mp4"}
+            break
+        if len(tried) >= EARLY_STOP and all(t.get("result") == "grasp_fail" for t in tried[-EARLY_STOP:]):
             break
     res = {"name": name, "rollout": roll, "step": step, "job": job, "n_candidates": len(cands), "tried": tried,
            "selected": selected, "list_only": bool(list_only)}

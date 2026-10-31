@@ -56,6 +56,7 @@ def main(run, jobs_path, out=None):
                         "alpha": sel.get("alpha"), "alpha_now": up.get("alpha_now"), "upright_deg": up.get("upright_deg"),
                         "spot_err_m": up.get("spot_err_m"), "expert": hang.get("expert"),
                         "frames": (r.get("capture") or {}).get("expert_frames"),
+                        "prefix_frames": (r.get("capture") or {}).get("prefix_frames"),
                         "z_state_max": t["gates"].get("z_state_max"), "max_step": t["gates"].get("max_step"),
                         "G8_info": t["gates"].get("G8_joint_range_info")})
         fails = collections.Counter()
@@ -89,6 +90,9 @@ def main(run, jobs_path, out=None):
                    "sel_family": dict(collections.Counter(r.get("sel_family") for r in sel)),
                    "expert": dict(collections.Counter(r.get("expert") for r in sel)),
                    "frames_median": st.median([r["frames"] for r in sel if r.get("frames")]) if sel else None,
+                   "total_le_900": sum(1 for r in sel if r.get("frames") and r["frames"] + (r.get("prefix_frames") or 0) <= 900),
+                   "distinct_spots": len({tuple(r["spot"]) for r in sel if r.get("spot")}),
+                   "alphas": dict(collections.Counter(r.get("alpha") for r in sel if r.get("alpha") is not None)),
                    "z_max": max([r["z_state_max"] for r in sel if r.get("z_state_max") is not None], default=None),
                    "G8_info_pass": sum(1 for r in sel if r.get("G8_info")),
                    "rejects": dict(sum((collections.Counter(r["reject"]) for r in R), collections.Counter()))}

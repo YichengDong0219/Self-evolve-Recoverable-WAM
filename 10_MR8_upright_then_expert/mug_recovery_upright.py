@@ -38,10 +38,14 @@ import mug_recovery_chain as MRC
 import mug_recovery_direct as MRD
 import recovery_dispatch as RD
 import takeover_diag as TD
+from envs._GLOBAL_CONFIGS import GRASP_DIRECTION_DIC
 from envs.utils import *  # noqa: F401,F403
 
 PRE_DIS = 0.08
 LIFTS = (0.10, 0.07, 0.05)
+YAWS_UPRIGHT = (0, -30, 30, -45, 45)  # v3: an upright mug far back needs the approach pitched toward the robot;
+                                     # at the side rim points a yaw about the finger axis does that while the fingers
+                                     # slide along the wall plane (reach_map: pitch >= 45 reaches y 0.25)
 YAWS = (0, -30, 30)  # degrees. v2: +-60 dropped (v1: 0/36 hung, the inner finger hits the curved wall and shoves the mug)
 FLIPS = (False, True)
 APPROACH_CONSTRAINT = [1, 1, 1, 0, 0, 0]
@@ -235,6 +239,110 @@ def chain_check(env, arm, cid, yaw, flip, spots, n_spots=SPOTS_PER_GRASP, forced
     return False, why, None
 
 
+HOOK_PITCHES = (60, 45)  # v3: gripper pitched forward-down (reach_map: top-down reaches only y <= 0.05; pitch 45-60
+                         # reaches y 0.25-0.30, where most fallen mugs lie)
+HOOK_DEPTH = 0.03        # fingertip below the rim
+HOOK_MAX_PULL = 0.25
+import json as _json  # noqa: E402
+import os as _os  # noqa: E402
+RIM_GEO = _json.load(open(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "mug_rim_geometry.json")))
+
+
+def _pitched_quat(pitch):
+    q0, q1 = np.asarray(GRASP_DIRECTION_DIC["top_down"], float), np.asarray(GRASP_DIRECTION_DIC["front"], float)  # noqa: F405
+    if np.dot(q0, q1) < 0:
+        q1 = -q1
+    t = pitch / 90.0
+    om = np.arccos(np.clip(np.dot(q0, q1), -1, 1))
+    q = q0 if om < 1e-6 else (np.sin((1 - t) * om) * q0 + np.sin(t * om) * q1) / np.sin(om)
+    return list(q / np.linalg.norm(q))
+
+
+def hook_target(env):
+    """Nearest expert-region point at least RACK_CLEAR from the rack, for an upright mug outside the regions."""
+    spots = nearby_spots(env)
+    return spots[0] if spots else None
+
+
+def hook_poses(env, arm, pitch, target_xy):
+    """End-link poses for dragging an upright mug by its mouth: above the mouth, fingertip HOOK_DEPTH inside, the pull
+    (fingertip moves horizontally toward the target by the mug-to-target distance plus the inner radius, so the finger
+    pushes the inner wall on that side), and back out along the approach. None if the pull is too long."""
+    # rim centre and inner radius measured on each model's collision mesh (mug_rim_geometry.json); the contact points
+    # are not a usable proxy (v3 smoke: their mean was 3.8-4 cm off the mouth and the finger landed on the rim)
+    geo = RIM_GEO[str(int(env.mug_id))]
+    T = env.mug.get_pose().to_transformation_matrix()
+    rim = T[:3, :3] @ (geo["scale"] * np.asarray(geo["rim_local"])) + T[:3, 3]
+    r_in = geo["scale"] * geo["r_in_local"]
+    up = env.mug.get_pose().to_transformation_matrix()[:3, 1]
+    c = np.asarray(env.mug.get_pose().p)
+    d = np.asarray(target_xy) - c[:2]
+    D = float(np.linalg.norm(d))
+    if D > HOOK_MAX_PULL or D < 1e-3:
+        return None
+    u = np.r_[d / D, 0.0]
+    q = _pitched_quat(pitch)
+    a = t3d.quaternions.quat2mat(q)[:, 0]
+    # the pitched finger enters along its approach, so at rim height it is HOOK_DEPTH / tan(elevation) short of its
+    # target: aim near the far wall (along the approach's horizontal direction), so it passes inside the rim (v3 smoke:
+    # aimed at the centre, a 60-degree finger hit the near rim and shoved the mug back 2.8 cm)
+    h = np.r_[a[:2], 0.0]
+    h = h / (np.linalg.norm(h) + 1e-9)
+    tip_in = rim + h * (r_in - 0.015) - HOOK_DEPTH * up
+    tip_end = tip_in + u * (D + 0.03)
+    ee = lambda tip: list(tip - 0.12 * a) + q  # noqa: E731
+    # pre-pose 10 cm back along the approach and 5 cm higher (v3 smoke: 7 cm back, the transit already shoved the
+    # mug 2-3 cm against the near rim)
+    return {"above": ee(tip_in - 0.10 * a + np.array([0, 0, 0.05])), "in": ee(tip_in), "end": ee(tip_end), "out": ee(tip_end - 0.07 * a),
+            "pull_m": round(D, 3), "rim": rim.tolist(), "tip_in": [round(float(x), 4) for x in tip_in], "r_in": r_in}
+
+
+def hook_check(env, arm, pitch, target_xy):
+    P = hook_poses(env, arm, pitch, target_xy)
+    if P is None:
+        return False, "pull_len", None
+    q = _qpos(env, arm)
+    env._world_set(rack=True, mug=True)
+    ok, q = MRC._plan(env, arm, P["above"], q)
+    env._world_set(rack=True, mug=False)
+    if not ok:
+        return False, "above", None
+    for k in ("in", "end", "out"):
+        ok, q = MRC._plan(env, arm, P[k], q, APPROACH_CONSTRAINT if k == "in" else None)
+        if not ok:
+            return False, k, None
+    return True, "ok", P
+
+
+def hook_drag(env, arm, pitch, target_xy, log):
+    ok, why, P = hook_check(env, arm, pitch, target_xy)
+    if not ok:
+        log.append({"stage": "hook", "arm": arm, "pitch": pitch, "ok": False, "why": why})
+        return False
+    tag = ArmTag(arm)  # noqa: F405
+    env.plan_success = True
+    env.move(env.close_gripper(tag))
+    env._world_set(rack=True, mug=True)
+    env.move((tag, [Action(tag, "move", target_pose=P["above"], _prim="push")]))  # noqa: F405
+    env._world_set(rack=True, mug=False)
+    tcp = lambda: [round(float(x), 4) for x in (env.robot.get_left_tcp_pose() if arm == "left" else env.robot.get_right_tcp_pose())[:3]]  # noqa: E731
+    dbg = {"rim": [round(float(x), 4) for x in P["rim"]], "tcp_above": tcp(), "mug_p0": [round(float(x), 4) for x in env.mug.get_pose().p]}
+    env.move((tag, [Action(tag, "move", target_pose=P["in"], constraint_pose=APPROACH_CONSTRAINT, _prim="push")]))  # noqa: F405
+    dbg.update({"tcp_in": tcp(), "tip_in_target": P["tip_in"], "mug_p_in": [round(float(x), 4) for x in env.mug.get_pose().p]})
+    env.move((tag, [Action(tag, "move", target_pose=P["end"], _prim="push")]))  # noqa: F405
+    dbg.update({"tcp_end": tcp(), "mug_p_end": [round(float(x), 4) for x in env.mug.get_pose().p]})
+    env.move((tag, [Action(tag, "move", target_pose=P["out"], _prim="push")]))  # noqa: F405
+    log.append({"stage": "hook_debug", **dbg})
+    env.move(env.open_gripper(tag))
+    env._world_set(rack=False, mug=False)
+    MR.mug_rest(env, log)
+    c = MR.classify(env)
+    log.append({"stage": "hook", "arm": arm, "pitch": pitch, "ok": bool(env.plan_success), "target": list(target_xy),
+                "pull_m": P["pull_m"], "dist_to_target_m": round(float(np.linalg.norm(np.asarray(c["p"][:2]) - np.asarray(target_xy))), 3),
+                **{k: c[k] for k in ("class", "upright_deg", "rack_xy", "p")}})
+    return bool(env.plan_success)
+
+
 def retreat(env, arm, log):
     """Back the open gripper off the standing mug: along the arm (stock), else straight up, else back along the
     approach axis. v1 counted 8 perfectly placed mugs as failures because the stock 8 cm move along the arm was IK_FAIL."""
@@ -304,6 +412,27 @@ def run(env, forced=None, list_only=False):
             return False
         expert_remainder(env, log)
         return True
+    # v3: an upright mug outside the expert's regions (mostly far back, beyond top-down reach) is dragged by its mouth
+    # to the nearest region point, then handed to the expert as it stands
+    hooks = []
+    if c1["class"] == "upright" and not direct and (forced is None or forced.get("hook")):
+        tgt = hook_target(env)
+        if tgt is not None:
+            arms_p = [(forced["arm"], forced["pitch"])] if forced else [(a, p) for a in MR.arm_order(env) for p in HOOK_PITCHES]
+            for arm, p in arms_p:
+                ok, why, _ = hook_check(env, arm, p, tgt)
+                hooks.append({"hook": True, "arm": arm, "pitch": p, "target": list(tgt), "ok": ok, "why": why})
+        env._world_set(rack=False, mug=False)
+        if forced and forced.get("hook"):
+            h = hooks[0] if hooks else None
+            if not h or not h["ok"] or not hook_drag(env, h["arm"], h["pitch"], h["target"], log):
+                log.append({"stage": "path", "result": "hook_fail"})
+                return True
+            c1 = MR.classify(env)
+            if c1["class"] == "upright" and c1["rack_xy"] >= RACK_FREE and region_of(c1["p"][:2], pad=0.02) is not None:
+                expert_remainder(env, log)
+                return True
+            forced = None  # dragged but not ready for the expert (tipped over / short): restage from here, same attempt
     spots = nearby_spots(env)
     tried, feas = [], []
     if forced:
@@ -311,7 +440,8 @@ def run(env, forced=None, list_only=False):
         spots = [tuple(forced["spot"])] + [s for s in spots if list(s) != list(forced["spot"])]
     else:
         grasps = [cid for cid, _ in env.mug.iter_contact_points()] + list(HANDLE_KINDS)
-        combos = [(arm, cid, yaw, flip) for yaw in YAWS for arm in MR.arm_order(env) for cid in grasps for flip in FLIPS]
+        yaws = YAWS_UPRIGHT if c1["class"] == "upright" else YAWS
+        combos = [(arm, cid, yaw, flip) for yaw in yaws for arm in MR.arm_order(env) for cid in grasps for flip in FLIPS]
     for arm, cid, yaw, flip in combos:
         ok, why, poses = chain_check(env, arm, cid, yaw, flip, spots, n_spots=SPOTS_PER_GRASP,
                                      forced_alpha=forced.get("alpha") if forced else None)
@@ -322,8 +452,9 @@ def run(env, forced=None, list_only=False):
             if forced or len(feas) >= MAX_LIST:
                 break
     env._world_set(rack=False, mug=False)
-    log.append({"stage": "chain", "n_spots": len(spots), "tried": tried,
-                "feasible": [{"arm": a, "cid": c, "yaw": y, "flip": f, "spot": p["spot"], "alpha": p["alpha"], "dz": p["dz"]}
+    hook_feas = [{k: h[k] for k in ("hook", "arm", "pitch")} for h in hooks if h["ok"]][:2]
+    log.append({"stage": "chain", "n_spots": len(spots), "tried": tried, "hooks": hooks,
+                "feasible": hook_feas + [{"arm": a, "cid": c, "yaw": y, "flip": f, "spot": p["spot"], "alpha": p["alpha"], "dz": p["dz"]}
                              for a, c, y, f, p in feas]})
     if list_only:
         return False
