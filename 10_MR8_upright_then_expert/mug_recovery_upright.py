@@ -42,12 +42,15 @@ from envs.utils import *  # noqa: F401,F403
 
 PRE_DIS = 0.08
 LIFTS = (0.10, 0.07, 0.05)
-YAWS = (0, 30, -30, 60, -60)  # degrees
+YAWS = (0, -30, 30)  # degrees. v2: +-60 dropped (v1: 0/36 hung, the inner finger hits the curved wall and shoves the mug)
 FLIPS = (False, True)
 APPROACH_CONSTRAINT = [1, 1, 1, 0, 0, 0]
 GRID = 0.04
-REGION_X, REGION_Y = (-0.28, 0.20), (-0.20, 0.06)  # expert's table area: initial mug box x[-0.25,-0.1] y[-0.05,0.05],
-                                                    # middle_pos (0, -0.15), right-arm pick region around it
+# v2: spots only where the stock expert itself works (v1: mugs set at x -0.28 or left far back made play_once fail):
+#   A = the expert's initial mug box (rand_create_actor xlim/ylim) -> stock play_once
+#   B = the right arm's pick region around middle_pos (0, -0.15), incl. where v1's S3-S4 hangs succeeded -> stock S3-S4
+REGIONS = {"A": ((-0.25, -0.10), (-0.05, 0.05)), "B": ((-0.04, 0.14), (-0.16, 0.04))}
+USE_HANDLE = False  # v2: handle grasps paused (v1: 0/22 held or stood the mug up)
 RACK_CLEAR = 0.18  # spot to rack base (xy); MR4 used the same margin
 RACK_FREE = 0.12   # an upright mug closer than this to the rack is restaged (MRv1: grasps next to the rack slipped)
 SPOTS_PER_GRASP = 4
@@ -86,7 +89,7 @@ def grasp_pose(env, arm, cid, yaw_deg=0, flip=False):
 
 HANDLE_BAR_Z = -0.89  # model frame (mesh units): centre of the handle's outer bar; z_min -0.96..-0.97, bar depth
                       # 0.15 (measured on base0/2/5/9 collision meshes); bar height = functional point 0's y
-HANDLE_KINDS = ("H1", "H2+", "H2-")
+HANDLE_KINDS = ("H1", "H2+", "H2-") if USE_HANDLE else ()
 
 
 def handle_grasp_pose(env, kind, yaw_deg=0, flip=False):
@@ -172,13 +175,22 @@ def alpha_order(env, ee_pose):
     return sorted(HANDLE_ALPHAS, key=lambda a: abs((a - a0 + 180) % 360 - 180))
 
 
+def region_of(xy, pad=0.0):
+    for k, ((x0, x1), (y0, y1)) in REGIONS.items():
+        if x0 - pad <= xy[0] <= x1 + pad and y0 - pad <= xy[1] <= y1 + pad:
+            return k
+    return None
+
+
 def nearby_spots(env):
     c = np.asarray(env.mug.get_pose().p[:2])
     rack = np.asarray(env.rack.get_pose().p[:2])
-    xs = np.arange(REGION_X[0], REGION_X[1] + 1e-6, GRID)
-    ys = np.arange(REGION_Y[0], REGION_Y[1] + 1e-6, GRID)
-    spots = [(round(float(x), 3), round(float(y), 3)) for x in xs for y in ys
-             if np.linalg.norm(np.array([x, y]) - rack) >= RACK_CLEAR]
+    spots = set()
+    for (x0, x1), (y0, y1) in REGIONS.values():
+        for x in np.arange(x0, x1 + 1e-6, GRID):
+            for y in np.arange(y0, y1 + 1e-6, GRID):
+                if np.linalg.norm(np.array([x, y]) - rack) >= RACK_CLEAR:
+                    spots.add((round(float(x), 3), round(float(y), 3)))
     return sorted(spots, key=lambda s: float(np.linalg.norm(np.asarray(s) - c)))
 
 
@@ -207,7 +219,9 @@ def chain_check(env, arm, cid, yaw, flip, spots, n_spots=SPOTS_PER_GRASP, forced
         if not ok_l:
             continue
         why = "place"
-        alphas = [forced_alpha] if forced_alpha is not None else alpha_order(env, grasp)
+        alphas = alpha_order(env, grasp)
+        if forced_alpha is not None:  # forced (execution) run: the listed yaw first, then the others (cuRobo's plans
+            alphas = [forced_alpha] + [a for a in alphas if a != forced_alpha]  # vary between runs; v2, 11-01)
         for xy in spots[:n_spots]:
             for alpha in alphas:
                 pp, place = place_poses(env, grasp, xy, alpha)
@@ -221,6 +235,28 @@ def chain_check(env, arm, cid, yaw, flip, spots, n_spots=SPOTS_PER_GRASP, forced
     return False, why, None
 
 
+def retreat(env, arm, log):
+    """Back the open gripper off the standing mug: along the arm (stock), else straight up, else back along the
+    approach axis. v1 counted 8 perfectly placed mugs as failures because the stock 8 cm move along the arm was IK_FAIL."""
+    tag = ArmTag(arm)  # noqa: F405
+    if not env.plan_success:
+        return
+    for how in ("arm", "up", "back"):
+        env.plan_success = True
+        if how == "arm":
+            env.move(env.move_by_displacement(arm_tag=tag, z=0.08, move_axis="arm"))
+        elif how == "up":
+            env.move(env.move_by_displacement(arm_tag=tag, z=0.06))
+        else:
+            ee = np.asarray(env.robot.get_left_ee_pose() if arm == "left" else env.robot.get_right_ee_pose(), float)
+            a = t3d.quaternions.quat2mat(ee[3:])[:, 0]
+            env.move((tag, [Action(tag, "move", target_pose=list(ee[:3] - 0.06 * a) + list(ee[3:]))]))  # noqa: F405
+        if env.plan_success:
+            log.append({"stage": "retreat", "how": how})
+            return
+    log.append({"stage": "retreat", "how": None})
+
+
 def expert_remainder(env, log):
     env._world_set(rack=False, mug=False)
     MR.mug_rest(env, log)
@@ -230,7 +266,8 @@ def expert_remainder(env, log):
         log.append({"stage": "path", "result": "not_upright"})
         return
     env.plan_success = True
-    kind = "S3-S4" if env.mug.get_pose().p[0] > SPLIT_X else "play_once"
+    reg = region_of(env.mug.get_pose().p[:2], pad=0.02)
+    kind = "play_once" if reg == "A" else ("S3-S4" if reg == "B" else ("S3-S4" if env.mug.get_pose().p[0] > SPLIT_X else "play_once"))
     if kind == "S3-S4":
         RD.s3_s4(env)
     else:
@@ -260,7 +297,7 @@ def run(env, forced=None, list_only=False):
             log.append({"stage": "clear", "arm": arm, "tcp_xy_dist": round(d, 3)})
     MR.mug_rest(env, log)
     c1 = MR.classify(env)
-    direct = c1["class"] == "upright" and c1["rack_xy"] >= RACK_FREE
+    direct = c1["class"] == "upright" and c1["rack_xy"] >= RACK_FREE and region_of(c1["p"][:2], pad=0.02) is not None
     if direct and (forced is None or forced.get("direct")):
         log.append({"stage": "chain", "direct": True, "feasible": [{"direct": True}]})
         if list_only:
@@ -274,9 +311,9 @@ def run(env, forced=None, list_only=False):
         spots = [tuple(forced["spot"])] + [s for s in spots if list(s) != list(forced["spot"])]
     else:
         grasps = [cid for cid, _ in env.mug.iter_contact_points()] + list(HANDLE_KINDS)
-        combos = [(arm, cid, yaw, flip) for arm in MR.arm_order(env) for cid in grasps for yaw in YAWS for flip in FLIPS]
+        combos = [(arm, cid, yaw, flip) for yaw in YAWS for arm in MR.arm_order(env) for cid in grasps for flip in FLIPS]
     for arm, cid, yaw, flip in combos:
-        ok, why, poses = chain_check(env, arm, cid, yaw, flip, spots, n_spots=1 if forced else SPOTS_PER_GRASP,
+        ok, why, poses = chain_check(env, arm, cid, yaw, flip, spots, n_spots=SPOTS_PER_GRASP,
                                      forced_alpha=forced.get("alpha") if forced else None)
         tried.append({"arm": arm, "cid": cid, "yaw": yaw, "flip": flip, "ok": ok, "why": why,
                       **({"spot": poses["spot"], "alpha": poses["alpha"]} if ok else {})})
@@ -316,22 +353,44 @@ def run(env, forced=None, list_only=False):
         env._world_set(rack=False, mug=False)
         log.append({"stage": "path", "result": "grasp_fail"})
         return True
-    # re-compute the place poses from the ACTUAL in-hand pose (the grasp may have shifted the mug in the fingers)
+    # v2: from the ACTUAL in-hand pose and joint state, the listed spot/yaw first, then the other nearby spots and
+    # yaws: the first pair whose pre-place and place both plan from here (v1: 10 upright_place IK_FAILs on re-plan)
     ee = env.robot.get_left_ee_pose() if arm == "left" else env.robot.get_right_ee_pose()
-    pp, place = place_poses(env, ee, poses["spot"], poses["alpha"])
-    env.move((tag, [Action(tag, "move", target_pose=pp, _prim="upright_place"),  # noqa: F405
-                    Action(tag, "move", target_pose=place, _prim="upright_place"),  # noqa: F405
+    env._world_set(rack=True, mug=False)
+    q = _qpos(env, arm)
+    order = [tuple(poses["spot"])] + [s for s in nearby_spots(env) if list(s) != list(poses["spot"])][:SPOTS_PER_GRASP]
+    alphas = [poses["alpha"]] + [a for a in alpha_order(env, ee) if a != poses["alpha"]]
+    pick = None
+    for xy in order:
+        for alpha in alphas:
+            pp, place = place_poses(env, ee, xy, alpha)
+            ok, q_p = MRC._plan(env, arm, pp, q)
+            if ok and MRC._plan(env, arm, place, q_p)[0]:
+                pick = (xy, alpha, pp, place)
+                break
+        if pick:
+            break
+    if pick is None:
+        env._world_set(rack=False, mug=False)
+        log.append({"stage": "path", "result": "place_replan_fail"})
+        return True
+    poses["spot"], poses["alpha"] = list(pick[0]), pick[1]
+    env.plan_success = True
+    env.move((tag, [Action(tag, "move", target_pose=pick[2], _prim="upright_place"),  # noqa: F405
+                    Action(tag, "move", target_pose=pick[3], _prim="upright_place"),  # noqa: F405
                     Action(tag, "open", target_gripper_pos=1.0, _prim="upright_place")]))  # noqa: F405
-    env.move(env.move_by_displacement(arm_tag=tag, z=0.08, move_axis="arm"))
+    place_ok = bool(env.plan_success)
+    retreat(env, arm, log)
     env._world_set(rack=False, mug=False)
     MR.mug_rest(env, log)
     c2 = MR.classify(env)
-    log.append({"stage": "uprighted", "arm": arm, "spot": poses["spot"], "alpha_target": poses["alpha"],
+    log.append({"stage": "uprighted", "arm": arm, "spot": poses["spot"], "alpha_target": poses["alpha"], "place_ok": place_ok,
                 "alpha_now": round(handle_alpha_now(env), 1), "plan_success": bool(env.plan_success),
                 "spot_err_m": round(float(np.linalg.norm(np.asarray(env.mug.get_pose().p[:2]) - np.asarray(poses["spot"]))), 4),
                 **c2})
-    if not env.plan_success or c2["upright_deg"] > UPRIGHT_OK_DEG:
+    if not place_ok or c2["upright_deg"] > UPRIGHT_OK_DEG or c2["holder"] != "none":
         log.append({"stage": "path", "result": "upright_fail"})
         return True
+    env.plan_success = True  # a retreat that found no plan leaves the arm where it is; the expert plans from there
     expert_remainder(env, log)
     return True
