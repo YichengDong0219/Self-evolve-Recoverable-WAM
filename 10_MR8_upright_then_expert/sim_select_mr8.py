@@ -7,6 +7,7 @@ Several comma-separated variants: candidates of the first are tried first (each 
 Job line: {"rollout", "step", "group", ...}. Writes <out_dir>/<group>_<seed>/{list.json, cand_*.json/.mp4/.npz/.log,
 selection.json} and <out_dir>/summary_<hostname>.jsonl.
 """
+import glob
 import json
 import os
 import queue
@@ -28,9 +29,8 @@ Z_MAX = 5.63  # round-1 audit (audit_mix_lists): reject state |z| above the expe
 
 def joint_gates(npz):
     """G7 (single-frame arm step <= 0.2 rad), Z (every recovery frame's arm state within |z| <= Z_MAX under the
-    deployed FACT model's state normalization: the usability criterion for distillation, required) and G8 (asset
-    range, expert + prefixes +-0.5 rad: reported only, since MR8's upright step needs wrist angles the expert never
-    used)."""
+    deployed FACT model's state normalization: the usability criterion for distillation) and G8 (asset range,
+    expert + prefixes +-0.5 rad); all three required."""
     import numpy as np
     meta = json.load(open(os.path.join(L, "assets/rf_hanging_mug_v1/meta.json")))
     lo, hi = np.array(meta["G8_range"]["lo"]), np.array(meta["G8_range"]["hi"])
@@ -39,12 +39,14 @@ def joint_gates(npz):
     q = np.load(npz)["expert_state"]
     step = float(np.abs(np.diff(q[:, _ARM], axis=0)).max()) if len(q) > 1 else 0.0
     z = float(np.abs((q - sm) / ss)[:, _ARM].max())
+    # G8 required again (11-01 audit of v4: two kept left-arm z-box recoveries went up to 0.9 rad beyond the expert +
+    # prefix range, |q| > pi on 101 frames, yet passed Z because FACT's std for those joints is wide)
     return {"G7_no_joint_snap": step <= 0.2, "Z_state": z <= Z_MAX, "z_state_max": round(z, 2), "max_step": round(step, 3),
-            "G8_joint_range_info": not bool(((q < lo) | (q > hi))[:, _ARM].any())}
+            "G8_joint_range": not bool(((q < lo) | (q > hi))[:, _ARM].any())}
 
 
 def required(g):
-    return all(v for k, v in g.items() if k.startswith(("G1", "G2", "G3", "G4", "G5", "G6", "G7", "Z_", "L900")))
+    return all(v for k, v in g.items() if k.startswith(("G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "Z_", "L900")))
 
 
 EARLY_STOP = 3  # v3: stop a state after this many consecutive attempts that never held the mug (grasp_fail)
@@ -99,7 +101,7 @@ def process(job, gpu, out_dir, max_cands, variant, list_only):
             # v3: the whole episode (policy prefix + recovery) must fit the 900-step evaluation limit, else a policy
             # that imitates it cannot finish in time
             g["L900"] = cap.get("prefix_frames", 0) + cap.get("expert_frames", 0) <= 900
-        ok = bool(npz) and "Z_state" in g and required(g)
+        ok = bool(npz) and "Z_state" in g and "G8_joint_range" in g and required(g)
         res_path = next((e.get("result") for e in reversed(r.get("mr_log") or []) if e["stage"] == "path"), None)
         tried.append({**c, "idx": i, "status": r["status"], "layer": r["layer"], "gates": g, "pass": ok, "result": res_path})
         if ok:
@@ -130,9 +132,14 @@ def main():
     for j in jobs:
         q.put(j)
     lock = threading.Lock()
+    target = int(os.environ.get("SIM_SELECT_TARGET", "0"))  # 11-01: stop claiming new states once this many are kept
+    kept = [sum(1 for p in glob.glob(os.path.join(out_dir, "*", "selection.json"))
+                if (json.load(open(p)).get("selected")))]
 
     def worker(gpu):
         while True:
+            if target and kept[0] >= target:
+                return
             try:
                 j = q.get_nowait()
             except queue.Empty:
@@ -144,6 +151,7 @@ def main():
                 print(r["name"], "ERROR", r["error"], flush=True)
                 continue
             with lock:
+                kept[0] += bool(r["selected"])
                 with open(os.path.join(out_dir, f"summary_{socket.gethostname()}.jsonl"), "a") as f:
                     f.write(json.dumps({"name": r["name"], "n_candidates": r["n_candidates"], "n_tried": len(r["tried"]),
                                         "selected": r["selected"]}) + "\n")
