@@ -54,6 +54,7 @@ GRID = 0.04
 #   A = the expert's initial mug box (rand_create_actor xlim/ylim) -> stock play_once
 #   B = the right arm's pick region around middle_pos (0, -0.15), incl. where v1's S3-S4 hangs succeeded -> stock S3-S4
 REGIONS = {"A": ((-0.25, -0.10), (-0.05, 0.05)), "B": ((-0.04, 0.14), (-0.16, 0.04))}
+A_PENALTY = 0.08    # v4
 USE_HANDLE = False  # v2: handle grasps paused (v1: 0/22 held or stood the mug up)
 RACK_CLEAR = 0.18  # spot to rack base (xy); MR4 used the same margin
 RACK_FREE = 0.12   # an upright mug closer than this to the rack is restaged (MRv1: grasps next to the rack slipped)
@@ -195,7 +196,8 @@ def nearby_spots(env):
             for y in np.arange(y0, y1 + 1e-6, GRID):
                 if np.linalg.norm(np.array([x, y]) - rack) >= RACK_CLEAR:
                     spots.add((round(float(x), 3), round(float(y), 3)))
-    return sorted(spots, key=lambda s: float(np.linalg.norm(np.asarray(s) - c)))
+    # v4: region A (stock play_once, ~2x longer than S3-S4) costs A_PENALTY extra metres in the nearest-first order
+    return sorted(spots, key=lambda s: float(np.linalg.norm(np.asarray(s) - c)) + (A_PENALTY if region_of(s) == "A" else 0.0))
 
 
 def chain_check(env, arm, cid, yaw, flip, spots, n_spots=SPOTS_PER_GRASP, forced_alpha=None):
@@ -333,7 +335,8 @@ def hook_drag(env, arm, pitch, target_xy, log):
     dbg.update({"tcp_end": tcp(), "mug_p_end": [round(float(x), 4) for x in env.mug.get_pose().p]})
     env.move((tag, [Action(tag, "move", target_pose=P["out"], _prim="push")]))  # noqa: F405
     log.append({"stage": "hook_debug", **dbg})
-    env.move(env.open_gripper(tag))
+    # the opening that ends the drag belongs to the push (v4: a mug leaning on the finger falls when it opens)
+    env.move((tag, [Action(tag, "open", target_gripper_pos=1.0, _prim="push")]))  # noqa: F405
     env._world_set(rack=False, mug=False)
     MR.mug_rest(env, log)
     c = MR.classify(env)
@@ -367,7 +370,8 @@ def retreat(env, arm, log):
 
 def expert_remainder(env, log):
     env._world_set(rack=False, mug=False)
-    MR.mug_rest(env, log)
+    # v4: no settle here; every caller has just let the mug come to rest (v3: duplicate waits pushed 10 successful
+    # hangs over the 900-step budget)
     c = MR.classify(env)
     log.append({"stage": "before_expert", **c})
     if c["class"] != "upright":
@@ -398,12 +402,15 @@ def run(env, forced=None, list_only=False):
         MRD.lift(env, c0["holder"], 0.08)
         MR.mug_rest(env, log)
         log.append({"stage": "release", **MR.classify(env)})
+    cleared = False
     for arm in ("left", "right"):
         d = MRD.tcp_xy_dist(env, arm)
         if d < 0.12:
             MRD.lift(env, arm)
+            cleared = True
             log.append({"stage": "clear", "arm": arm, "tcp_xy_dist": round(d, 3)})
-    MR.mug_rest(env, log)
+    if cleared:  # v4: settle again only if an arm moved away from the mug
+        MR.mug_rest(env, log)
     c1 = MR.classify(env)
     direct = c1["class"] == "upright" and c1["rack_xy"] >= RACK_FREE and region_of(c1["p"][:2], pad=0.02) is not None
     if direct and (forced is None or forced.get("direct")):

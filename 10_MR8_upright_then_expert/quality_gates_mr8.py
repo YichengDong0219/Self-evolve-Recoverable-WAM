@@ -6,8 +6,8 @@ MR8 restages by design and ends with the stock expert, so two MR6 gates change m
                         own back_to_origin (left arm, in parallel with the right grasp) is the demonstration's style
   G3 single_restage     at most one restage grasp (no retries of the upright step)
   G4 upright_ok         the mug stood within 15 deg of upright before the expert started (or was upright already)
-  G5 undisturbed        unchanged: < 5 mm mug motion before the first close
-  G6 no_physical_flag   no drop / off-table / fling / disturbed flag on any move before the final hang move
+  G5 undisturbed        < 5 mm mug motion before the first close, counted from the last deliberate push (v4, as MR6)
+  G6 no_physical_flag   no drop / off-table / fling / disturbed flag before the final hang move (push moves may disturb)
 The pair-level joint gates G7 (single-frame step <= 0.2 rad) and G8 (asset joint range) are added by the driver.
 """
 import json
@@ -21,7 +21,11 @@ def gates(d):
     expert0 = next((i for i, ps in enumerate(prims) if "grasp_actor" in ps), len(moves))
     closes = [i for i, m in enumerate(moves) if any(p["action"] == "gripper" and p["prim"] in ("grasp_actor", "?")
                                                     for p in m["prims"])]
-    first_close = closes[0] if closes else len(moves)
+    # v4: deliberate pushes (moves tagged "push", e.g. the mouth-hook drag) are exempt, as in MR6's quality_gates: G5
+    # counts from the last push on, G6 ignores "object_disturbed" on push moves (drop / off-table / fling still count)
+    pushes = [i for i, ps in enumerate(prims) if "push" in ps]
+    last_push = pushes[-1] if pushes else -1
+    first_close = next((i for i in closes if i > last_push), len(moves))
     hang_idx = max([i for i, ps in enumerate(prims) if "place_actor" in ps], default=len(moves))
     hang = next((e for e in log if e["stage"] == "hang"), {})
     before = next((e for e in log if e["stage"] == "before_expert"), {})
@@ -30,8 +34,9 @@ def gates(d):
         "G2_no_homing_before_expert": not any("back_to_origin" in ps for ps in prims[:expert0]),
         "G3_single_restage": sum(1 for e in log if e["stage"] == "grasp+lift") <= 1,
         "G4_upright_ok": before.get("class") == "upright" and before.get("upright_deg", 99) <= 15,
-        "G5_undisturbed": sum(m.get("obj_disp", 0) for m in moves[:first_close]) < 0.005,
-        "G6_no_physical_flag": not any(m.get("flags") for m in moves[:hang_idx]),
+        "G5_undisturbed": sum(m.get("obj_disp", 0) for m in moves[last_push + 1:first_close]) < 0.005,
+        "G6_no_physical_flag": not any([f for f in m.get("flags", []) if not (i in pushes and f == "object_disturbed")]
+                                       for i, m in enumerate(moves[:hang_idx])),
     }
 
 

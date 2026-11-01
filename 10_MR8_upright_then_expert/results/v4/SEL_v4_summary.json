@@ -1,0 +1,887 @@
+{
+ "run": "bench_mr8/SEL_v4",
+ "summary": {
+  "K1_side_no_grasp": {
+   "states": 10,
+   "direct": 0,
+   "with_candidate": 0,
+   "with_handle_cand": 0,
+   "with_rim_cand": 0,
+   "selected": 0,
+   "yield": 0.0,
+   "attempts": 0,
+   "wall_h": 0.08,
+   "sel_family": {},
+   "expert": {},
+   "frames_median": null,
+   "total_le_900": 0,
+   "distinct_spots": 0,
+   "alphas": {},
+   "z_max": null,
+   "G8_info_pass": 0,
+   "rejects": {}
+  },
+  "K2_side_grasp_no_chain": {
+   "states": 9,
+   "direct": 0,
+   "with_candidate": 3,
+   "with_handle_cand": 0,
+   "with_rim_cand": 3,
+   "selected": 2,
+   "yield": 0.222,
+   "attempts": 11,
+   "wall_h": 0.26,
+   "sel_family": {
+    "rim": 2
+   },
+   "expert": {
+    "S3-S4": 2
+   },
+   "frames_median": 410.5,
+   "total_le_900": 2,
+   "distinct_spots": 2,
+   "alphas": {
+    "30": 2
+   },
+   "z_max": 4.83,
+   "G8_info_pass": 1,
+   "rejects": {
+    "no_feasible_chain|G1,G4": 2,
+    "grasp_fail|G1,G4": 1,
+    "grasp_fail|G1,G4,G5,G6": 4,
+    "upright_fail|G1,G4,G5,G6": 2
+   }
+  },
+  "K3_side_has_chain": {
+   "states": 8,
+   "direct": 0,
+   "with_candidate": 6,
+   "with_handle_cand": 0,
+   "with_rim_cand": 6,
+   "selected": 4,
+   "yield": 0.5,
+   "attempts": 25,
+   "wall_h": 0.75,
+   "sel_family": {
+    "rim": 4
+   },
+   "expert": {
+    "S3-S4": 4
+   },
+   "frames_median": 465.0,
+   "total_le_900": 4,
+   "distinct_spots": 3,
+   "alphas": {
+    "90": 2,
+    "150": 1,
+    "60": 1
+   },
+   "z_max": 5.37,
+   "G8_info_pass": 3,
+   "rejects": {
+    "hung|L900": 6,
+    "grasp_fail|G1,G4": 3,
+    "grasp_fail|G1,G4,G5": 4,
+    "hung|G5": 2,
+    "expert_plan_fail|G1,G6": 1,
+    "grasp_fail|G1,G4,G5,G6": 4,
+    "no_feasible_chain|G1,G4": 1
+   }
+  },
+  "K4_upright": {
+   "states": 9,
+   "direct": 0,
+   "with_candidate": 7,
+   "with_handle_cand": 0,
+   "with_rim_cand": 7,
+   "selected": 1,
+   "yield": 0.111,
+   "attempts": 27,
+   "wall_h": 0.65,
+   "sel_family": {
+    "rim": 1
+   },
+   "expert": {
+    "S3-S4": 1
+   },
+   "frames_median": 543,
+   "total_le_900": 1,
+   "distinct_spots": 0,
+   "alphas": {},
+   "z_max": 3.92,
+   "G8_info_pass": 1,
+   "rejects": {
+    "expert_plan_fail|G7": 1,
+    "grasp_fail|G1,G4": 7,
+    "grasp_fail|G1,G4,G5": 4,
+    "hung|L900": 1,
+    "expert_plan_fail|G1": 1,
+    "grasp_fail|G1,G4,G5,G6": 7,
+    "hook_fail|G1,G4": 1,
+    "upright_fail|G1,G4,G5,G6": 1,
+    "no_feasible_chain|G1,G4,G6": 1,
+    "hung|G7,L900": 1,
+    "upright_fail|G1,G4,G6": 1
+   }
+  },
+  "ALL": {
+   "states": 36,
+   "direct": 0,
+   "with_candidate": 16,
+   "with_handle_cand": 0,
+   "with_rim_cand": 16,
+   "selected": 7,
+   "yield": 0.194,
+   "attempts": 63,
+   "wall_h": 1.73,
+   "sel_family": {
+    "rim": 7
+   },
+   "expert": {
+    "S3-S4": 7
+   },
+   "frames_median": 446,
+   "total_le_900": 7,
+   "distinct_spots": 5,
+   "alphas": {
+    "90": 2,
+    "30": 2,
+    "150": 1,
+    "60": 1
+   },
+   "z_max": 5.37,
+   "G8_info_pass": 5,
+   "rejects": {
+    "expert_plan_fail|G7": 1,
+    "grasp_fail|G1,G4": 11,
+    "grasp_fail|G1,G4,G5": 8,
+    "hung|L900": 7,
+    "hung|G5": 2,
+    "expert_plan_fail|G1": 1,
+    "grasp_fail|G1,G4,G5,G6": 15,
+    "expert_plan_fail|G1,G6": 1,
+    "hook_fail|G1,G4": 1,
+    "upright_fail|G1,G4,G5,G6": 3,
+    "no_feasible_chain|G1,G4,G6": 1,
+    "hung|G7,L900": 1,
+    "upright_fail|G1,G4,G6": 1,
+    "no_feasible_chain|G1,G4": 3
+   }
+  }
+ },
+ "rows": [
+  {
+   "seed": 100000,
+   "cat": "K4_upright",
+   "tier": "B_feasible_unrecovered",
+   "direct": false,
+   "n_feasible": 10,
+   "families": [
+    "rim"
+   ],
+   "yaws": [
+    -45,
+    -30,
+    30,
+    45
+   ],
+   "tried": 4,
+   "selected": false,
+   "wall_s": 332.8,
+   "reject": {
+    "expert_plan_fail|G7": 1,
+    "grasp_fail|G1,G4": 1,
+    "grasp_fail|G1,G4,G5": 2
+   }
+  },
+  {
+   "seed": 100001,
+   "cat": "K3_side_has_chain",
+   "tier": "U_untried",
+   "direct": false,
+   "n_feasible": 8,
+   "families": [
+    "rim"
+   ],
+   "yaws": [
+    -30,
+    0,
+    30
+   ],
+   "tried": 2,
+   "selected": true,
+   "wall_s": 330.4,
+   "sel_family": "rim",
+   "sel_cid": 1,
+   "sel_yaw": 0,
+   "spot": [
+    0.04,
+    0.04
+   ],
+   "alpha": 90,
+   "alpha_now": 93.3,
+   "upright_deg": 0.3,
+   "spot_err_m": 0.0018,
+   "expert": "S3-S4",
+   "frames": 545,
+   "prefix_frames": 336,
+   "z_state_max": 3.29,
+   "max_step": 0.14,
+   "G8_info": true,
+   "reject": {
+    "hung|L900": 1
+   }
+  },
+  {
+   "seed": 100004,
+   "cat": "K2_side_grasp_no_chain",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 12,
+   "families": [
+    "rim"
+   ],
+   "yaws": [
+    -30,
+    0,
+    30
+   ],
+   "tried": 1,
+   "selected": true,
+   "wall_s": 145.2,
+   "sel_family": "rim",
+   "sel_cid": 0,
+   "sel_yaw": 0,
+   "spot": [
+    0.12,
+    0.04
+   ],
+   "alpha": 30,
+   "alpha_now": 27.6,
+   "upright_deg": 0.0,
+   "spot_err_m": 0.0034,
+   "expert": "S3-S4",
+   "frames": 416,
+   "prefix_frames": 336,
+   "z_state_max": 4.77,
+   "max_step": 0.125,
+   "G8_info": true,
+   "reject": {}
+  },
+  {
+   "seed": 100011,
+   "cat": "K1_side_no_grasp",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 0,
+   "families": [],
+   "yaws": [],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 24.7,
+   "reject": {}
+  },
+  {
+   "seed": 140081,
+   "cat": "K2_side_grasp_no_chain",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 0,
+   "families": [],
+   "yaws": [],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 58.6,
+   "reject": {}
+  },
+  {
+   "seed": 140124,
+   "cat": "K3_side_has_chain",
+   "tier": "B_feasible_unrecovered",
+   "direct": false,
+   "n_feasible": 3,
+   "families": [
+    "rim"
+   ],
+   "yaws": [
+    -30,
+    30
+   ],
+   "tried": 3,
+   "selected": false,
+   "wall_s": 182.5,
+   "reject": {
+    "grasp_fail|G1,G4": 3
+   }
+  },
+  {
+   "seed": 140127,
+   "cat": "K4_upright",
+   "tier": "B_feasible_unrecovered",
+   "direct": false,
+   "n_feasible": 14,
+   "families": [
+    "rim"
+   ],
+   "yaws": [
+    -45,
+    -30,
+    30,
+    45
+   ],
+   "tried": 1,
+   "selected": true,
+   "wall_s": 261.0,
+   "sel_family": "rim",
+   "sel_cid": null,
+   "sel_yaw": null,
+   "spot": null,
+   "alpha": null,
+   "alpha_now": 150.1,
+   "upright_deg": 0.1,
+   "spot_err_m": 0.0022,
+   "expert": "S3-S4",
+   "frames": 543,
+   "prefix_frames": 336,
+   "z_state_max": 3.92,
+   "max_step": 0.14,
+   "G8_info": true,
+   "reject": {}
+  },
+  {
+   "seed": 141002,
+   "cat": "K1_side_no_grasp",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 0,
+   "families": [],
+   "yaws": [],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 53.8,
+   "reject": {}
+  },
+  {
+   "seed": 141147,
+   "cat": "K4_upright",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 0,
+   "families": [],
+   "yaws": [],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 64.0,
+   "reject": {}
+  },
+  {
+   "seed": 141173,
+   "cat": "K2_side_grasp_no_chain",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 0,
+   "families": [],
+   "yaws": [],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 38.4,
+   "reject": {}
+  },
+  {
+   "seed": 141178,
+   "cat": "K3_side_has_chain",
+   "tier": "B_feasible_unrecovered",
+   "direct": false,
+   "n_feasible": 6,
+   "families": [
+    "rim"
+   ],
+   "yaws": [
+    -30,
+    0,
+    30
+   ],
+   "tried": 6,
+   "selected": false,
+   "wall_s": 375.5,
+   "reject": {
+    "grasp_fail|G1,G4,G5": 4,
+    "hung|G5": 2
+   }
+  },
+  {
+   "seed": 141181,
+   "cat": "K1_side_no_grasp",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 0,
+   "families": [],
+   "yaws": [],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 27.0,
+   "reject": {}
+  },
+  {
+   "seed": 142135,
+   "cat": "K2_side_grasp_no_chain",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 0,
+   "families": [],
+   "yaws": [],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 26.0,
+   "reject": {}
+  },
+  {
+   "seed": 143016,
+   "cat": "K1_side_no_grasp",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 0,
+   "families": [],
+   "yaws": [],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 25.7,
+   "reject": {}
+  },
+  {
+   "seed": 143029,
+   "cat": "K4_upright",
+   "tier": "B_feasible_unrecovered",
+   "direct": false,
+   "n_feasible": 14,
+   "families": [
+    "rim"
+   ],
+   "yaws": [
+    -30,
+    0
+   ],
+   "tried": 5,
+   "selected": false,
+   "wall_s": 400.5,
+   "reject": {
+    "hung|L900": 1,
+    "expert_plan_fail|G1": 1,
+    "grasp_fail|G1,G4,G5": 1,
+    "grasp_fail|G1,G4,G5,G6": 2
+   }
+  },
+  {
+   "seed": 143173,
+   "cat": "K2_side_grasp_no_chain",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 0,
+   "families": [],
+   "yaws": [],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 64.8,
+   "reject": {}
+  },
+  {
+   "seed": 144018,
+   "cat": "K3_side_has_chain",
+   "tier": "A_recovered",
+   "direct": false,
+   "n_feasible": 12,
+   "families": [
+    "rim"
+   ],
+   "yaws": [
+    -30,
+    0
+   ],
+   "tried": 1,
+   "selected": true,
+   "wall_s": 216.2,
+   "sel_family": "rim",
+   "sel_cid": 0,
+   "sel_yaw": 0,
+   "spot": [
+    0.04,
+    0.04
+   ],
+   "alpha": 150,
+   "alpha_now": 149.2,
+   "upright_deg": 0.0,
+   "spot_err_m": 0.003,
+   "expert": "S3-S4",
+   "frames": 446,
+   "prefix_frames": 336,
+   "z_state_max": 4.64,
+   "max_step": 0.122,
+   "G8_info": true,
+   "reject": {}
+  },
+  {
+   "seed": 144034,
+   "cat": "K1_side_no_grasp",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 0,
+   "families": [],
+   "yaws": [],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 26.1,
+   "reject": {}
+  },
+  {
+   "seed": 145022,
+   "cat": "K3_side_has_chain",
+   "tier": "A_recovered",
+   "direct": false,
+   "n_feasible": 0,
+   "families": [],
+   "yaws": [],
+   "tried": 6,
+   "selected": false,
+   "wall_s": 660.2,
+   "reject": {
+    "hung|L900": 5,
+    "expert_plan_fail|G1,G6": 1
+   }
+  },
+  {
+   "seed": 145069,
+   "cat": "K4_upright",
+   "tier": "B_feasible_unrecovered",
+   "direct": false,
+   "n_feasible": 14,
+   "families": [
+    "rim"
+   ],
+   "yaws": [
+    -45,
+    -30,
+    30
+   ],
+   "tried": 5,
+   "selected": false,
+   "wall_s": 426.4,
+   "reject": {
+    "hook_fail|G1,G4": 1,
+    "upright_fail|G1,G4,G5,G6": 1,
+    "grasp_fail|G1,G4,G5": 1,
+    "grasp_fail|G1,G4,G5,G6": 2
+   }
+  },
+  {
+   "seed": 145137,
+   "cat": "K2_side_grasp_no_chain",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 0,
+   "families": [],
+   "yaws": [],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 73.6,
+   "reject": {}
+  },
+  {
+   "seed": 145180,
+   "cat": "K1_side_no_grasp",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 0,
+   "families": [],
+   "yaws": [],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 29.6,
+   "reject": {}
+  },
+  {
+   "seed": 146021,
+   "cat": "K3_side_has_chain",
+   "tier": "A_recovered",
+   "direct": false,
+   "n_feasible": 0,
+   "families": [],
+   "yaws": [],
+   "tried": 1,
+   "selected": true,
+   "wall_s": 157.4,
+   "sel_family": "rim",
+   "sel_cid": 2,
+   "sel_yaw": 0,
+   "spot": [
+    -0.04,
+    0.04
+   ],
+   "alpha": 60,
+   "alpha_now": 30.2,
+   "upright_deg": 0.1,
+   "spot_err_m": 0.0038,
+   "expert": "S3-S4",
+   "frames": 484,
+   "prefix_frames": 336,
+   "z_state_max": 5.37,
+   "max_step": 0.124,
+   "G8_info": false,
+   "reject": {}
+  },
+  {
+   "seed": 146065,
+   "cat": "K4_upright",
+   "tier": "B_feasible_unrecovered",
+   "direct": false,
+   "n_feasible": 14,
+   "families": [
+    "rim"
+   ],
+   "yaws": [
+    -30,
+    0
+   ],
+   "tried": 5,
+   "selected": false,
+   "wall_s": 301.2,
+   "reject": {
+    "no_feasible_chain|G1,G4,G6": 1,
+    "hung|G7,L900": 1,
+    "grasp_fail|G1,G4": 3
+   }
+  },
+  {
+   "seed": 146135,
+   "cat": "K2_side_grasp_no_chain",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 0,
+   "families": [],
+   "yaws": [],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 48.3,
+   "reject": {}
+  },
+  {
+   "seed": 146154,
+   "cat": "K1_side_no_grasp",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 0,
+   "families": [],
+   "yaws": [],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 18.8,
+   "reject": {}
+  },
+  {
+   "seed": 147112,
+   "cat": "K3_side_has_chain",
+   "tier": "A_recovered",
+   "direct": false,
+   "n_feasible": 12,
+   "families": [
+    "rim"
+   ],
+   "yaws": [
+    -30,
+    0,
+    30
+   ],
+   "tried": 1,
+   "selected": true,
+   "wall_s": 188.2,
+   "sel_family": "rim",
+   "sel_cid": 0,
+   "sel_yaw": 0,
+   "spot": [
+    0.08,
+    0.04
+   ],
+   "alpha": 90,
+   "alpha_now": 83.4,
+   "upright_deg": 0.1,
+   "spot_err_m": 0.003,
+   "expert": "S3-S4",
+   "frames": 430,
+   "prefix_frames": 336,
+   "z_state_max": 3.05,
+   "max_step": 0.119,
+   "G8_info": true,
+   "reject": {}
+  },
+  {
+   "seed": 147171,
+   "cat": "K1_side_no_grasp",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 0,
+   "families": [],
+   "yaws": [],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 27.3,
+   "reject": {}
+  },
+  {
+   "seed": 147183,
+   "cat": "K4_upright",
+   "tier": "B_feasible_unrecovered",
+   "direct": false,
+   "n_feasible": 14,
+   "families": [
+    "rim"
+   ],
+   "yaws": [
+    -30,
+    0
+   ],
+   "tried": 4,
+   "selected": false,
+   "wall_s": 309.5,
+   "reject": {
+    "upright_fail|G1,G4,G6": 1,
+    "grasp_fail|G1,G4,G5,G6": 3
+   }
+  },
+  {
+   "seed": 150091,
+   "cat": "K2_side_grasp_no_chain",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 2,
+   "families": [
+    "rim"
+   ],
+   "yaws": [
+    -30
+   ],
+   "tried": 4,
+   "selected": true,
+   "wall_s": 193.6,
+   "sel_family": "rim",
+   "sel_cid": 0,
+   "sel_yaw": 0,
+   "spot": [
+    0.08,
+    -0.04
+   ],
+   "alpha": 30,
+   "alpha_now": 30.7,
+   "upright_deg": 0.0,
+   "spot_err_m": 0.002,
+   "expert": "S3-S4",
+   "frames": 405,
+   "prefix_frames": 336,
+   "z_state_max": 4.83,
+   "max_step": 0.148,
+   "G8_info": false,
+   "reject": {
+    "no_feasible_chain|G1,G4": 2,
+    "grasp_fail|G1,G4": 1
+   }
+  },
+  {
+   "seed": 150152,
+   "cat": "K4_upright",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 0,
+   "families": [],
+   "yaws": [],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 56.6,
+   "reject": {}
+  },
+  {
+   "seed": 152026,
+   "cat": "K3_side_has_chain",
+   "tier": "B_feasible_unrecovered",
+   "direct": false,
+   "n_feasible": 3,
+   "families": [
+    "rim"
+   ],
+   "yaws": [
+    -30,
+    30
+   ],
+   "tried": 5,
+   "selected": false,
+   "wall_s": 576.4,
+   "reject": {
+    "grasp_fail|G1,G4,G5,G6": 4,
+    "no_feasible_chain|G1,G4": 1
+   }
+  },
+  {
+   "seed": 152083,
+   "cat": "K1_side_no_grasp",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 0,
+   "families": [],
+   "yaws": [],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 32.4,
+   "reject": {}
+  },
+  {
+   "seed": 152126,
+   "cat": "K2_side_grasp_no_chain",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 2,
+   "families": [
+    "rim"
+   ],
+   "yaws": [
+    -30,
+    30
+   ],
+   "tried": 6,
+   "selected": false,
+   "wall_s": 271.9,
+   "reject": {
+    "grasp_fail|G1,G4,G5,G6": 4,
+    "upright_fail|G1,G4,G5,G6": 2
+   }
+  },
+  {
+   "seed": 152142,
+   "cat": "K4_upright",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 1,
+   "families": [
+    "rim"
+   ],
+   "yaws": [
+    -30
+   ],
+   "tried": 3,
+   "selected": false,
+   "wall_s": 171.9,
+   "reject": {
+    "grasp_fail|G1,G4": 3
+   }
+  },
+  {
+   "seed": 154097,
+   "cat": "K1_side_no_grasp",
+   "tier": "C_no_feasible_chain",
+   "direct": false,
+   "n_feasible": 0,
+   "families": [],
+   "yaws": [],
+   "tried": 0,
+   "selected": false,
+   "wall_s": 27.9,
+   "reject": {}
+  }
+ ]
+}
