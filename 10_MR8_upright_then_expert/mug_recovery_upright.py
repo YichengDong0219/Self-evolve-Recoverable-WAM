@@ -38,10 +38,12 @@ import mug_recovery_chain as MRC
 import mug_recovery_direct as MRD
 import recovery_dispatch as RD
 import takeover_diag as TD
+import takeover_fixes as TF
 from envs._GLOBAL_CONFIGS import GRASP_DIRECTION_DIC
 from envs.utils import *  # noqa: F401,F403
 
-PRE_DIS = 0.08
+PRE_DIS = 0.10  # v5: 0.08 -> 0.10 (v4: 11/34 grasp failures shoved the mug on the way to the pre-grasp pose)
+MUG_BOX_PAD = 0.03  # v5: cuRobo mug obstacle padding 1 cm -> 3 cm while moving to the pre-grasp pose (same reason)
 LIFTS = (0.10, 0.07, 0.05)
 YAWS_UPRIGHT = (0, -30, 30, -45, 45)  # v3: an upright mug far back needs the approach pitched toward the robot;
                                      # at the side rim points a yaw about the finger axis does that while the fingers
@@ -55,7 +57,9 @@ GRID = 0.04
 #   B = the right arm's pick region around middle_pos (0, -0.15), incl. where v1's S3-S4 hangs succeeded -> stock S3-S4
 REGIONS = {"A": ((-0.25, -0.10), (-0.05, 0.05)), "B": ((-0.04, 0.14), (-0.16, 0.04))}
 A_PENALTY = 0.08    # v4
-USE_HANDLE = False  # v2: handle grasps paused (v1: 0/22 held or stood the mug up)
+USE_HANDLE = False
+_orig_mug_box = TF._mug_box
+TF._mug_box = lambda env, pad=None: _orig_mug_box(env, pad=MUG_BOX_PAD if pad is None else pad)  # v5  # v2: handle grasps paused (v1: 0/22 held or stood the mug up)
 RACK_CLEAR = 0.18  # spot to rack base (xy); MR4 used the same margin
 RACK_FREE = 0.12   # an upright mug closer than this to the rack is restaged (MRv1: grasps next to the rack slipped)
 SPOTS_PER_GRASP = 4
@@ -481,8 +485,12 @@ def run(env, forced=None, list_only=False):
     log.append({"stage": "pre_grasp_reached", "rot_gap_rad": [round(g, 4) for g in gaps],
                 "mug_disp_m": round(float(np.linalg.norm(np.asarray(env.mug.get_pose().p) - mug0)), 4)})
     env._world_set(rack=True, mug=False)
-    env.move((tag, [Action(tag, "move", target_pose=poses["grasp"], constraint_pose=APPROACH_CONSTRAINT),  # noqa: F405
-                    Action(tag, "close", target_gripper_pos=0.0)]))  # noqa: F405
+    env.move((tag, [Action(tag, "move", target_pose=poses["grasp"], constraint_pose=APPROACH_CONSTRAINT)]))  # noqa: F405
+    if not env.plan_success:  # v5: the straight-line approach was rejected (v4: 5/34, orientation gap 0.32 rad > the
+        env.plan_success = True  # 0.3 the pp fix accepts): one unconstrained short approach to the same grasp pose
+        env.move((tag, [Action(tag, "move", target_pose=poses["grasp"])]))  # noqa: F405
+        log.append({"stage": "approach_fallback", "plan_success": bool(env.plan_success)})
+    env.move((tag, [Action(tag, "close", target_gripper_pos=0.0)]))  # noqa: F405
     env.move((tag, [Action(tag, "move", target_pose=poses["lift"])]))  # noqa: F405
     held = TD.holder(env, env.mug)
     log.append({"stage": "grasp+lift", "arm": arm, "cid": cid, "yaw": yaw, "flip": flip,
