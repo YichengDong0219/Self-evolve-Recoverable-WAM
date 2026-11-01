@@ -42,8 +42,11 @@ import takeover_fixes as TF
 from envs._GLOBAL_CONFIGS import GRASP_DIRECTION_DIC
 from envs.utils import *  # noqa: F401,F403
 
-PRE_DIS = 0.10  # v5: 0.08 -> 0.10 (v4: 11/34 grasp failures shoved the mug on the way to the pre-grasp pose)
-MUG_BOX_PAD = 0.03  # v5: cuRobo mug obstacle padding 1 cm -> 3 cm while moving to the pre-grasp pose (same reason)
+PRE_DIS = 0.08  # v6: back from v5's 0.10 (v5 did not reduce shoving, 11 -> 16)
+MUG_BOX_PAD = 0.01  # v6: back from v5's 0.03 (same)
+CLOSED_TRANSIT = False  # v6 tried True (not better: old-40 subset 4/35 vs v4 7/36, stopped 11-01); False = v4 behaviour.
+# v6: move to the pre-grasp pose with the gripper closed, open it there (the open fingers span
+                       # ~9 cm; shoving on the way was the top grasp failure in v4 and v5)
 LIFTS = (0.10, 0.07, 0.05)
 YAWS_UPRIGHT = (0, -30, 30, -45, 45)  # v3: an upright mug far back needs the approach pitched toward the robot;
                                      # at the side rim points a yaw about the finger axis does that while the fingers
@@ -476,6 +479,8 @@ def run(env, forced=None, list_only=False):
     tag = ArmTag(arm)  # noqa: F405
     mug0 = np.asarray(env.mug.get_pose().p)
     env.plan_success = True
+    if CLOSED_TRANSIT:  # tagged so quality_gates_mr8 does not take it for the grasp close (G5 must still see the transit)
+        env.move((tag, [Action(tag, "close", target_gripper_pos=0.0, _prim="transit_close")]))  # noqa: F405
     env._world_set(rack=True, mug=True)
     env.move((tag, [Action(tag, "move", target_pose=poses["pre"])]))  # noqa: F405
     gaps = [MRC._ee_gap(env, arm, poses["pre"])]
@@ -485,12 +490,10 @@ def run(env, forced=None, list_only=False):
     log.append({"stage": "pre_grasp_reached", "rot_gap_rad": [round(g, 4) for g in gaps],
                 "mug_disp_m": round(float(np.linalg.norm(np.asarray(env.mug.get_pose().p) - mug0)), 4)})
     env._world_set(rack=True, mug=False)
-    env.move((tag, [Action(tag, "move", target_pose=poses["grasp"], constraint_pose=APPROACH_CONSTRAINT)]))  # noqa: F405
-    if not env.plan_success:  # v5: the straight-line approach was rejected (v4: 5/34, orientation gap 0.32 rad > the
-        env.plan_success = True  # 0.3 the pp fix accepts): one unconstrained short approach to the same grasp pose
-        env.move((tag, [Action(tag, "move", target_pose=poses["grasp"])]))  # noqa: F405
-        log.append({"stage": "approach_fallback", "plan_success": bool(env.plan_success)})
-    env.move((tag, [Action(tag, "close", target_gripper_pos=0.0)]))  # noqa: F405
+    if CLOSED_TRANSIT:
+        env.move((tag, [Action(tag, "open", target_gripper_pos=1.0, _prim="transit_open")]))  # noqa: F405
+    env.move((tag, [Action(tag, "move", target_pose=poses["grasp"], constraint_pose=APPROACH_CONSTRAINT),  # noqa: F405
+                    Action(tag, "close", target_gripper_pos=0.0)]))  # noqa: F405  (v6: v5's unconstrained fallback removed)
     env.move((tag, [Action(tag, "move", target_pose=poses["lift"])]))  # noqa: F405
     held = TD.holder(env, env.mug)
     log.append({"stage": "grasp+lift", "arm": arm, "cid": cid, "yaw": yaw, "flip": flip,
