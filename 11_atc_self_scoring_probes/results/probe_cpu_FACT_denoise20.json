@@ -1,0 +1,224 @@
+{
+ "tag": "FACT_denoise20",
+ "feats": "feats_chunks_FACT_denoise20.npz",
+ "chunks": 1682,
+ "states": 188,
+ "test_states": 53,
+ "value": {
+  "pair_acc_test": {
+   "all": {
+    "acc": 0.625,
+    "pairs": 392,
+    "ties": 1
+   },
+   "place": {
+    "acc": 0.604,
+    "pairs": 207,
+    "ties": 1
+   },
+   "recovery": {
+    "acc": 0.649,
+    "pairs": 185,
+    "ties": 0
+   }
+  },
+  "best_of_8_test": {
+   "all": {
+    "states": 53,
+    "picked": 0.336,
+    "random": 0.294,
+    "oracle": 0.525,
+    "gain": 0.042,
+    "gain_ci": [
+     -0.021,
+     0.109
+    ],
+    "oracle_gain": 0.231,
+    "frac_of_oracle": 0.182
+   },
+   "place": {
+    "states": 22,
+    "picked": 0.5,
+    "random": 0.489,
+    "oracle": 0.709,
+    "gain": 0.011,
+    "gain_ci": [
+     -0.086,
+     0.108
+    ],
+    "oracle_gain": 0.22,
+    "frac_of_oracle": 0.052
+   },
+   "recovery": {
+    "states": 31,
+    "picked": 0.219,
+    "random": 0.156,
+    "oracle": 0.394,
+    "gain": 0.064,
+    "gain_ci": [
+     -0.012,
+     0.143
+    ],
+    "oracle_gain": 0.238,
+    "frac_of_oracle": 0.268
+   }
+  },
+  "pair_acc_train": {
+   "all": {
+    "acc": 0.484,
+    "pairs": 1096,
+    "ties": 12
+   },
+   "place": {
+    "acc": 0.48,
+    "pairs": 740,
+    "ties": 7
+   },
+   "recovery": {
+    "acc": 0.492,
+    "pairs": 356,
+    "ties": 5
+   }
+  },
+  "best_of_8_train": {
+   "all": {
+    "states": 135,
+    "picked": 0.239,
+    "random": 0.219,
+    "oracle": 0.516,
+    "gain": 0.02,
+    "gain_ci": [
+     -0.021,
+     0.063
+    ],
+    "oracle_gain": 0.296,
+    "frac_of_oracle": 0.067
+   },
+   "place": {
+    "states": 61,
+    "picked": 0.331,
+    "random": 0.302,
+    "oracle": 0.708,
+    "gain": 0.03,
+    "gain_ci": [
+     -0.048,
+     0.106
+    ],
+    "oracle_gain": 0.407,
+    "frac_of_oracle": 0.073
+   },
+   "recovery": {
+    "states": 74,
+    "picked": 0.163,
+    "random": 0.151,
+    "oracle": 0.357,
+    "gain": 0.012,
+    "gain_ci": [
+     -0.035,
+     0.06
+    ],
+    "oracle_gain": 0.206,
+    "frac_of_oracle": 0.059
+   }
+  },
+  "P1_decomposition_all_states": {
+   "states": 188,
+   "between_spearman": -0.021,
+   "between_ci": [
+    -0.163,
+    0.118
+   ],
+   "within_states": 134,
+   "within_mean_spearman": 0.065,
+   "within_ci": [
+    -0.001,
+    0.131
+   ],
+   "within_frac_positive": 0.552,
+   "between_var_frac_score": 0.827,
+   "between_var_frac_label": 0.587
+  }
+ },
+ "ridge_fs": {
+  "lambda_": 100.0,
+  "cv_pair_acc": 0.758,
+  "pair_acc_test": {
+   "all": {
+    "acc": 0.724,
+    "pairs": 392,
+    "ties": 0
+   },
+   "place": {
+    "acc": 0.826,
+    "pairs": 207,
+    "ties": 0
+   },
+   "recovery": {
+    "acc": 0.611,
+    "pairs": 185,
+    "ties": 0
+   }
+  },
+  "best_of_8_test": {
+   "all": {
+    "states": 53,
+    "picked": 0.377,
+    "random": 0.294,
+    "oracle": 0.525,
+    "gain": 0.083,
+    "gain_ci": [
+     0.021,
+     0.147
+    ],
+    "oracle_gain": 0.231,
+    "frac_of_oracle": 0.362
+   },
+   "place": {
+    "states": 22,
+    "picked": 0.6,
+    "random": 0.489,
+    "oracle": 0.709,
+    "gain": 0.111,
+    "gain_ci": [
+     0.035,
+     0.2
+    ],
+    "oracle_gain": 0.22,
+    "frac_of_oracle": 0.505
+   },
+   "recovery": {
+    "states": 31,
+    "picked": 0.219,
+    "random": 0.156,
+    "oracle": 0.394,
+    "gain": 0.064,
+    "gain_ci": [
+     -0.023,
+     0.15
+    ],
+    "oracle_gain": 0.238,
+    "frac_of_oracle": 0.268
+   }
+  },
+  "P1_decomposition_oof_train_plus_test": {
+   "states": 188,
+   "between_spearman": 0.564,
+   "between_ci": [
+    0.457,
+    0.658
+   ],
+   "within_states": 134,
+   "within_mean_spearman": 0.174,
+   "within_ci": [
+    0.099,
+    0.245
+   ],
+   "within_frac_positive": 0.582,
+   "between_var_frac_score": 0.748,
+   "between_var_frac_label": 0.587
+  }
+ },
+ "P1_labels_reference": {
+  "between_var_frac_label": 0.587
+ }
+}
