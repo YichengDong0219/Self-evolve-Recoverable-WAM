@@ -15,6 +15,8 @@
 | `07_MR7_joint_box_and_mix_arm` | 10-30 | MR7 关节盒与 G8、冻结失败状态资产、混合组（52/100） |
 | `08_eval_videos_and_failure_analysis` | 10-31 | 逐位重放渲染评测视频、失败阶段分类、恢复率指标 |
 | `09_round2_self_evolution_wip` | 10-31 ~ | 第二轮：线 1 扩充 cuRobo 数据，线 2 策略自采样 + cuRobo 兜底 |
+| `10_MR8_upright_then_expert` | 11-01 ~ | MR8：掉杯后先扶正，再交给 RoboTwin 自带专家流程（分支 `mr8-upright-then-expert`） |
+| `11_atc_self_scoring_probes` | 11-21 ~ | 新方向：WAM 用自己的想象给候选打分（ATC）；CPU / 单卡探针（分支 `atc-self-scoring-probes`） |
 
 ## 第一轮结论（seeds100 上的成功数）
 | 组 | 训练数据 | step 1000 | step 2000 | step 3000 | 恢复率 |

@@ -1,0 +1,502 @@
+{
+ "tag": "R2",
+ "feats": "feats_chunks.npz",
+ "chunks": 1682,
+ "states": 188,
+ "test_states": 53,
+ "value": {
+  "pair_acc_test": {
+   "all": {
+    "acc": 0.638,
+    "pairs": 392,
+    "ties": 1
+   },
+   "place": {
+    "acc": 0.667,
+    "pairs": 207,
+    "ties": 0
+   },
+   "recovery": {
+    "acc": 0.605,
+    "pairs": 185,
+    "ties": 1
+   }
+  },
+  "best_of_8_test": {
+   "all": {
+    "states": 53,
+    "picked": 0.355,
+    "random": 0.294,
+    "oracle": 0.525,
+    "gain": 0.061,
+    "gain_ci": [
+     -0.013,
+     0.131
+    ],
+    "oracle_gain": 0.231,
+    "frac_of_oracle": 0.264
+   },
+   "place": {
+    "states": 22,
+    "picked": 0.518,
+    "random": 0.489,
+    "oracle": 0.709,
+    "gain": 0.03,
+    "gain_ci": [
+     -0.09,
+     0.146
+    ],
+    "oracle_gain": 0.22,
+    "frac_of_oracle": 0.134
+   },
+   "recovery": {
+    "states": 31,
+    "picked": 0.239,
+    "random": 0.156,
+    "oracle": 0.394,
+    "gain": 0.083,
+    "gain_ci": [
+     -0.0,
+     0.171
+    ],
+    "oracle_gain": 0.238,
+    "frac_of_oracle": 0.349
+   }
+  },
+  "pair_acc_train": {
+   "all": {
+    "acc": 0.494,
+    "pairs": 1096,
+    "ties": 5
+   },
+   "place": {
+    "acc": 0.511,
+    "pairs": 740,
+    "ties": 2
+   },
+   "recovery": {
+    "acc": 0.458,
+    "pairs": 356,
+    "ties": 3
+   }
+  },
+  "best_of_8_train": {
+   "all": {
+    "states": 135,
+    "picked": 0.224,
+    "random": 0.219,
+    "oracle": 0.516,
+    "gain": 0.005,
+    "gain_ci": [
+     -0.035,
+     0.048
+    ],
+    "oracle_gain": 0.296,
+    "frac_of_oracle": 0.018
+   },
+   "place": {
+    "states": 61,
+    "picked": 0.328,
+    "random": 0.302,
+    "oracle": 0.708,
+    "gain": 0.026,
+    "gain_ci": [
+     -0.048,
+     0.103
+    ],
+    "oracle_gain": 0.407,
+    "frac_of_oracle": 0.065
+   },
+   "recovery": {
+    "states": 74,
+    "picked": 0.139,
+    "random": 0.151,
+    "oracle": 0.357,
+    "gain": -0.012,
+    "gain_ci": [
+     -0.06,
+     0.035
+    ],
+    "oracle_gain": 0.206,
+    "frac_of_oracle": -0.057
+   }
+  },
+  "P1_decomposition_all_states": {
+   "states": 188,
+   "between_spearman": 0.075,
+   "between_ci": [
+    -0.059,
+    0.209
+   ],
+   "within_states": 134,
+   "within_mean_spearman": 0.09,
+   "within_ci": [
+    0.022,
+    0.159
+   ],
+   "within_frac_positive": 0.575,
+   "between_var_frac_score": 0.882,
+   "between_var_frac_label": 0.587
+  }
+ },
+ "ridge_fs": {
+  "lambda_": 1000.0,
+  "cv_pair_acc": 0.777,
+  "pair_acc_test": {
+   "all": {
+    "acc": 0.696,
+    "pairs": 392,
+    "ties": 0
+   },
+   "place": {
+    "acc": 0.802,
+    "pairs": 207,
+    "ties": 0
+   },
+   "recovery": {
+    "acc": 0.578,
+    "pairs": 185,
+    "ties": 0
+   }
+  },
+  "best_of_8_test": {
+   "all": {
+    "states": 53,
+    "picked": 0.381,
+    "random": 0.294,
+    "oracle": 0.525,
+    "gain": 0.087,
+    "gain_ci": [
+     0.033,
+     0.146
+    ],
+    "oracle_gain": 0.231,
+    "frac_of_oracle": 0.378
+   },
+   "place": {
+    "states": 22,
+    "picked": 0.609,
+    "random": 0.489,
+    "oracle": 0.709,
+    "gain": 0.12,
+    "gain_ci": [
+     0.048,
+     0.208
+    ],
+    "oracle_gain": 0.22,
+    "frac_of_oracle": 0.546
+   },
+   "recovery": {
+    "states": 31,
+    "picked": 0.219,
+    "random": 0.156,
+    "oracle": 0.394,
+    "gain": 0.064,
+    "gain_ci": [
+     -0.011,
+     0.14
+    ],
+    "oracle_gain": 0.238,
+    "frac_of_oracle": 0.268
+   }
+  },
+  "P1_decomposition_oof_train_plus_test": {
+   "states": 188,
+   "between_spearman": 0.593,
+   "between_ci": [
+    0.482,
+    0.683
+   ],
+   "within_states": 134,
+   "within_mean_spearman": 0.204,
+   "within_ci": [
+    0.132,
+    0.274
+   ],
+   "within_frac_positive": 0.687,
+   "between_var_frac_score": 0.785,
+   "between_var_frac_label": 0.587
+  }
+ },
+ "P1_labels_reference": {
+  "between_var_frac_label": 0.587
+ },
+ "P2_rule": {
+  "pair_acc_test": {
+   "all": {
+    "acc": 0.702,
+    "pairs": 392,
+    "ties": 36
+   },
+   "place": {
+    "acc": 0.86,
+    "pairs": 207,
+    "ties": 6
+   },
+   "recovery": {
+    "acc": 0.524,
+    "pairs": 185,
+    "ties": 30
+   }
+  },
+  "best_of_8_test": {
+   "all": {
+    "states": 53,
+    "picked": 0.376,
+    "random": 0.294,
+    "oracle": 0.525,
+    "gain": 0.082,
+    "gain_ci": [
+     0.032,
+     0.136
+    ],
+    "oracle_gain": 0.231,
+    "frac_of_oracle": 0.356
+   },
+   "place": {
+    "states": 22,
+    "picked": 0.635,
+    "random": 0.489,
+    "oracle": 0.709,
+    "gain": 0.146,
+    "gain_ci": [
+     0.067,
+     0.234
+    ],
+    "oracle_gain": 0.22,
+    "frac_of_oracle": 0.663
+   },
+   "recovery": {
+    "states": 31,
+    "picked": 0.192,
+    "random": 0.156,
+    "oracle": 0.394,
+    "gain": 0.037,
+    "gain_ci": [
+     -0.026,
+     0.099
+    ],
+    "oracle_gain": 0.238,
+    "frac_of_oracle": 0.154
+   }
+  },
+  "pair_acc_all": {
+   "all": {
+    "acc": 0.731,
+    "pairs": 1488,
+    "ties": 140
+   },
+   "place": {
+    "acc": 0.89,
+    "pairs": 947,
+    "ties": 20
+   },
+   "recovery": {
+    "acc": 0.453,
+    "pairs": 541,
+    "ties": 120
+   }
+  },
+  "best_of_8_all": {
+   "all": {
+    "states": 188,
+    "picked": 0.359,
+    "random": 0.24,
+    "oracle": 0.518,
+    "gain": 0.119,
+    "gain_ci": [
+     0.082,
+     0.154
+    ],
+    "oracle_gain": 0.278,
+    "frac_of_oracle": 0.428
+   },
+   "place": {
+    "states": 83,
+    "picked": 0.561,
+    "random": 0.351,
+    "oracle": 0.708,
+    "gain": 0.21,
+    "gain_ci": [
+     0.147,
+     0.276
+    ],
+    "oracle_gain": 0.357,
+    "frac_of_oracle": 0.588
+   },
+   "recovery": {
+    "states": 105,
+    "picked": 0.199,
+    "random": 0.152,
+    "oracle": 0.368,
+    "gain": 0.047,
+    "gain_ci": [
+     0.014,
+     0.085
+    ],
+    "oracle_gain": 0.215,
+    "frac_of_oracle": 0.218
+   }
+  }
+ },
+ "P2_ridge_end_features": {
+  "features": [
+   "dx",
+   "dy",
+   "adx",
+   "ady",
+   "r",
+   "ex",
+   "held_left",
+   "held_right",
+   "released",
+   "success_end",
+   "dz",
+   "orient"
+  ],
+  "lambda_": 100.0,
+  "cv_pair_acc": 0.745,
+  "pair_acc_test": {
+   "all": {
+    "acc": 0.684,
+    "pairs": 392,
+    "ties": 34
+   },
+   "place": {
+    "acc": 0.845,
+    "pairs": 207,
+    "ties": 6
+   },
+   "recovery": {
+    "acc": 0.503,
+    "pairs": 185,
+    "ties": 28
+   }
+  },
+  "best_of_8_test": {
+   "all": {
+    "states": 53,
+    "picked": 0.402,
+    "random": 0.294,
+    "oracle": 0.525,
+    "gain": 0.108,
+    "gain_ci": [
+     0.058,
+     0.166
+    ],
+    "oracle_gain": 0.231,
+    "frac_of_oracle": 0.468
+   },
+   "place": {
+    "states": 22,
+    "picked": 0.636,
+    "random": 0.489,
+    "oracle": 0.709,
+    "gain": 0.148,
+    "gain_ci": [
+     0.069,
+     0.235
+    ],
+    "oracle_gain": 0.22,
+    "frac_of_oracle": 0.67
+   },
+   "recovery": {
+    "states": 31,
+    "picked": 0.235,
+    "random": 0.156,
+    "oracle": 0.394,
+    "gain": 0.08,
+    "gain_ci": [
+     0.012,
+     0.157
+    ],
+    "oracle_gain": 0.238,
+    "frac_of_oracle": 0.336
+   }
+  }
+ },
+ "P2_chunk_end_census": {
+  "place": {
+   "chunks": 745,
+   "success_at_end": 130,
+   "held_at_end": 169,
+   "mean_label": 0.41
+  },
+  "recovery": {
+   "chunks": 937,
+   "success_at_end": 4,
+   "held_at_end": 329,
+   "mean_label": 0.164
+  }
+ },
+ "P3_headroom": {
+  "all": {
+   "states": 188,
+   "pass_at_1": 0.264,
+   "pass_at_8": 0.649,
+   "states_all_fail": 66,
+   "states_all_success": 3,
+   "chunk_random": 0.24,
+   "chunk_oracle_noisy": 0.518
+  },
+  "place": {
+   "states": 83,
+   "pass_at_1": 0.372,
+   "pass_at_8": 0.807,
+   "states_all_fail": 16,
+   "states_all_success": 3,
+   "chunk_random": 0.351,
+   "chunk_oracle_noisy": 0.708
+  },
+  "recovery": {
+   "states": 105,
+   "pass_at_1": 0.179,
+   "pass_at_8": 0.524,
+   "states_all_fail": 50,
+   "states_all_success": 0,
+   "chunk_random": 0.152,
+   "chunk_oracle_noisy": 0.368
+  }
+ },
+ "P4_noise_free_selection": {
+  "all": {
+   "states": 183,
+   "candidates_mean": 2.82,
+   "random": 0.192,
+   "selected_by_2_outcomes": 0.254,
+   "naive_oracle": 0.351,
+   "gain_selected_2": 0.062,
+   "gain_ci": [
+    0.041,
+    0.084
+   ],
+   "gain_naive_oracle": 0.159
+  },
+  "place": {
+   "states": 78,
+   "candidates_mean": 2.833,
+   "random": 0.219,
+   "selected_by_2_outcomes": 0.3,
+   "naive_oracle": 0.403,
+   "gain_selected_2": 0.081,
+   "gain_ci": [
+    0.043,
+    0.122
+   ],
+   "gain_naive_oracle": 0.184
+  },
+  "recovery": {
+   "states": 105,
+   "candidates_mean": 2.81,
+   "random": 0.172,
+   "selected_by_2_outcomes": 0.22,
+   "naive_oracle": 0.312,
+   "gain_selected_2": 0.048,
+   "gain_ci": [
+    0.027,
+    0.073
+   ],
+   "gain_naive_oracle": 0.14
+  }
+ }
+}
