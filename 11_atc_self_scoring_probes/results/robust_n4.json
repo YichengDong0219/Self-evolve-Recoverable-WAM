@@ -1,0 +1,251 @@
+{
+ "note": "post hoc robustness check, labels with >= 4 continuations only",
+ "results": {
+  "FACT value 20-step (G1b)": {
+   "all": {
+    "pairs": 300,
+    "pair_acc": 0.56,
+    "states": 183,
+    "picked": 0.229,
+    "random": 0.192,
+    "oracle": 0.351,
+    "gain": 0.037,
+    "gain_ci": [
+     0.009,
+     0.064
+    ]
+   },
+   "place": {
+    "pairs": 200,
+    "pair_acc": 0.545,
+    "states": 78,
+    "picked": 0.269,
+    "random": 0.219,
+    "oracle": 0.403,
+    "gain": 0.05,
+    "gain_ci": [
+     0.006,
+     0.096
+    ]
+   },
+   "recovery": {
+    "pairs": 100,
+    "pair_acc": 0.59,
+    "states": 105,
+    "picked": 0.199,
+    "random": 0.172,
+    "oracle": 0.312,
+    "gain": 0.027,
+    "gain_ci": [
+     -0.008,
+     0.062
+    ]
+   }
+  },
+  "FACT value one-step (G1)": {
+   "all": {
+    "pairs": 300,
+    "pair_acc": 0.547,
+    "states": 183,
+    "picked": 0.237,
+    "random": 0.192,
+    "oracle": 0.351,
+    "gain": 0.045,
+    "gain_ci": [
+     0.017,
+     0.071
+    ]
+   },
+   "place": {
+    "pairs": 200,
+    "pair_acc": 0.555,
+    "states": 78,
+    "picked": 0.281,
+    "random": 0.219,
+    "oracle": 0.403,
+    "gain": 0.062,
+    "gain_ci": [
+     0.015,
+     0.109
+    ]
+   },
+   "recovery": {
+    "pairs": 100,
+    "pair_acc": 0.53,
+    "states": 105,
+    "picked": 0.204,
+    "random": 0.172,
+    "oracle": 0.312,
+    "gain": 0.032,
+    "gain_ci": [
+     0.001,
+     0.064
+    ]
+   }
+  },
+  "R2 value": {
+   "all": {
+    "pairs": 300,
+    "pair_acc": 0.527,
+    "states": 183,
+    "picked": 0.221,
+    "random": 0.192,
+    "oracle": 0.351,
+    "gain": 0.029,
+    "gain_ci": [
+     0.002,
+     0.055
+    ]
+   },
+   "place": {
+    "pairs": 200,
+    "pair_acc": 0.51,
+    "states": 78,
+    "picked": 0.254,
+    "random": 0.219,
+    "oracle": 0.403,
+    "gain": 0.035,
+    "gain_ci": [
+     -0.009,
+     0.079
+    ]
+   },
+   "recovery": {
+    "pairs": 100,
+    "pair_acc": 0.56,
+    "states": 105,
+    "picked": 0.197,
+    "random": 0.172,
+    "oracle": 0.312,
+    "gain": 0.025,
+    "gain_ci": [
+     -0.006,
+     0.057
+    ]
+   }
+  },
+  "ridge on FACT fs features (OOF+test)": {
+   "all": {
+    "pairs": 300,
+    "pair_acc": 0.78,
+    "states": 183,
+    "picked": 0.221,
+    "random": 0.192,
+    "oracle": 0.351,
+    "gain": 0.029,
+    "gain_ci": [
+     0.003,
+     0.054
+    ]
+   },
+   "place": {
+    "pairs": 200,
+    "pair_acc": 0.9,
+    "states": 78,
+    "picked": 0.269,
+    "random": 0.219,
+    "oracle": 0.403,
+    "gain": 0.05,
+    "gain_ci": [
+     0.005,
+     0.095
+    ]
+   },
+   "recovery": {
+    "pairs": 100,
+    "pair_acc": 0.54,
+    "states": 105,
+    "picked": 0.185,
+    "random": 0.172,
+    "oracle": 0.312,
+    "gain": 0.013,
+    "gain_ci": [
+     -0.016,
+     0.042
+    ]
+   }
+  },
+  "ridge on R2 fs features (OOF+test)": {
+   "all": {
+    "pairs": 300,
+    "pair_acc": 0.763,
+    "states": 183,
+    "picked": 0.21,
+    "random": 0.192,
+    "oracle": 0.351,
+    "gain": 0.018,
+    "gain_ci": [
+     -0.008,
+     0.043
+    ]
+   },
+   "place": {
+    "pairs": 200,
+    "pair_acc": 0.875,
+    "states": 78,
+    "picked": 0.274,
+    "random": 0.219,
+    "oracle": 0.403,
+    "gain": 0.055,
+    "gain_ci": [
+     0.015,
+     0.097
+    ]
+   },
+   "recovery": {
+    "pairs": 100,
+    "pair_acc": 0.54,
+    "states": 105,
+    "picked": 0.162,
+    "random": 0.172,
+    "oracle": 0.312,
+    "gain": -0.01,
+    "gain_ci": [
+     -0.04,
+     0.022
+    ]
+   }
+  },
+  "P2 rule, true chunk-end position": {
+   "all": {
+    "pairs": 300,
+    "pair_acc": 0.753,
+    "states": 183,
+    "picked": 0.226,
+    "random": 0.192,
+    "oracle": 0.351,
+    "gain": 0.034,
+    "gain_ci": [
+     0.009,
+     0.059
+    ]
+   },
+   "place": {
+    "pairs": 200,
+    "pair_acc": 0.905,
+    "states": 78,
+    "picked": 0.288,
+    "random": 0.219,
+    "oracle": 0.403,
+    "gain": 0.069,
+    "gain_ci": [
+     0.026,
+     0.113
+    ]
+   },
+   "recovery": {
+    "pairs": 100,
+    "pair_acc": 0.45,
+    "states": 105,
+    "picked": 0.18,
+    "random": 0.172,
+    "oracle": 0.312,
+    "gain": 0.008,
+    "gain_ci": [
+     -0.019,
+     0.033
+    ]
+   }
+  }
+ }
+}
