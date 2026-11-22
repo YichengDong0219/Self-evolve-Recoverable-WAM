@@ -1,0 +1,87 @@
+PRM-drop rollback simulation (post hoc, descriptive; 20 dev scenes)
+170001 FAIL last decision with a successful candidate 5 | phi_cur 0.00 0.20 0.30 0.54 0.54 0.64 0.75 0.47 0.12 0.17 | triggers {'T1': 7, 'T2': 7}
+   T1 fires at d7; roll back 1 -> d6: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+   T1 fires at d7; roll back 2 -> d5: successful candidates 1/8 | random 0.12 prm_phi 0.00 prm_hop 0.00 oracle 1.00
+   T1 fires at d7; roll back 3 -> d4: successful candidates 3/8 | random 0.38 prm_phi 0.50 prm_hop 0.50 oracle 1.00
+   T2 fires at d7; roll back 1 -> d6: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+   T2 fires at d7; roll back 2 -> d5: successful candidates 1/8 | random 0.12 prm_phi 0.00 prm_hop 0.00 oracle 1.00
+   T2 fires at d7; roll back 3 -> d4: successful candidates 3/8 | random 0.38 prm_phi 0.50 prm_hop 0.50 oracle 1.00
+170007 FAIL last decision with a successful candidate 1 | phi_cur 0.00 0.20 0.35 0.50 0.60 0.54 0.75 0.59 0.55 0.54 | triggers {'T1': 5, 'T2': 7}
+   T1 fires at d5; roll back 1 -> d4: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+   T1 fires at d5; roll back 2 -> d3: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+   T1 fires at d5; roll back 3 -> d2: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+   T2 fires at d7; roll back 1 -> d6: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+   T2 fires at d7; roll back 2 -> d5: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+   T2 fires at d7; roll back 3 -> d4: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+170012 FAIL last decision with a successful candidate 5 | phi_cur 0.00 0.20 0.46 0.50 0.60 0.54 0.75 0.54 0.52 0.52 | triggers {'T1': 5, 'T2': 7}
+   T1 fires at d5; roll back 1 -> d4: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+   T1 fires at d5; roll back 2 -> d3: successful candidates 1/8 | random 0.12 prm_phi 0.12 prm_hop 0.12 oracle 1.00
+   T1 fires at d5; roll back 3 -> d2: successful candidates 1/8 | random 0.12 prm_phi 0.12 prm_hop 0.00 oracle 1.00
+   T2 fires at d7; roll back 1 -> d6: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+   T2 fires at d7; roll back 2 -> d5: successful candidates 1/8 | random 0.12 prm_phi 0.12 prm_hop 0.00 oracle 1.00
+   T2 fires at d7; roll back 3 -> d4: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+170019 OK   last decision with a successful candidate 6 | phi_cur 0.00 0.17 0.37 0.52 0.59 0.54 0.79 | triggers {'T1': None, 'T2': None}
+170024 FAIL last decision with a successful candidate None | phi_cur 0.00 0.17 0.37 0.54 0.64 0.54 0.75 0.75 0.75 0.75 | triggers {'T1': 5, 'T2': None}
+   T1 fires at d5; roll back 1 -> d4: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+   T1 fires at d5; roll back 2 -> d3: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+   T1 fires at d5; roll back 3 -> d2: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+170031 FAIL last decision with a successful candidate 6 | phi_cur 0.00 0.21 0.38 0.47 0.59 0.53 0.76 0.65 0.76 0.69 | triggers {'T1': 5, 'T2': None}
+   T1 fires at d5; roll back 1 -> d4: successful candidates 1/8 | random 0.12 prm_phi 0.00 prm_hop 0.12 oracle 1.00
+   T1 fires at d5; roll back 2 -> d3: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+   T1 fires at d5; roll back 3 -> d2: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+170039 FAIL last decision with a successful candidate 6 | phi_cur 0.00 0.17 0.37 0.54 0.59 0.59 0.75 0.76 0.80 0.76 | triggers {'T1': None, 'T2': None}
+170045 OK   last decision with a successful candidate 6 | phi_cur 0.00 0.18 0.47 0.54 0.60 0.69 0.83 | triggers {'T1': None, 'T2': None}
+170051 FAIL last decision with a successful candidate None | phi_cur 0.00 0.13 0.26 0.54 0.60 0.54 0.79 0.80 0.93 0.93 | triggers {'T1': None, 'T2': None}
+170057 OK   last decision with a successful candidate 6 | phi_cur 0.00 0.18 0.30 0.38 0.54 0.69 0.75 | triggers {'T1': None, 'T2': None}
+170064 FAIL last decision with a successful candidate 4 | phi_cur 0.00 0.18 0.45 0.54 0.59 0.64 0.80 0.33 0.26 0.33 | triggers {'T1': 7, 'T2': 7}
+   T1 fires at d7; roll back 1 -> d6: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+   T1 fires at d7; roll back 2 -> d5: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+   T1 fires at d7; roll back 3 -> d4: successful candidates 3/8 | random 0.38 prm_phi 0.00 prm_hop 0.20 oracle 1.00
+   T2 fires at d7; roll back 1 -> d6: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+   T2 fires at d7; roll back 2 -> d5: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+   T2 fires at d7; roll back 3 -> d4: successful candidates 3/8 | random 0.38 prm_phi 0.00 prm_hop 0.20 oracle 1.00
+170070 FAIL last decision with a successful candidate None | phi_cur 0.00 0.18 0.33 0.52 0.59 0.64 0.79 0.60 0.65 0.60 | triggers {'T1': 7, 'T2': 7}
+   T1 fires at d7; roll back 1 -> d6: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+   T1 fires at d7; roll back 2 -> d5: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+   T1 fires at d7; roll back 3 -> d4: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+   T2 fires at d7; roll back 1 -> d6: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+   T2 fires at d7; roll back 2 -> d5: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+   T2 fires at d7; roll back 3 -> d4: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+170075 OK   last decision with a successful candidate 6 | phi_cur 0.00 0.18 0.33 0.52 0.59 0.47 0.71 | triggers {'T1': 5, 'T2': None}
+   T1 fires at d5; roll back 1 -> d4: successful candidates 8/8 | random 1.00 prm_phi 1.00 prm_hop 1.00 oracle 1.00
+   T1 fires at d5; roll back 2 -> d3: successful candidates 8/8 | random 1.00 prm_phi 1.00 prm_hop 1.00 oracle 1.00
+   T1 fires at d5; roll back 3 -> d2: successful candidates 8/8 | random 1.00 prm_phi 1.00 prm_hop 1.00 oracle 1.00
+170081 FAIL last decision with a successful candidate 3 | phi_cur 0.00 0.15 0.34 0.52 0.59 0.52 0.76 0.89 0.76 0.69 | triggers {'T1': 5, 'T2': 9}
+   T1 fires at d5; roll back 1 -> d4: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+   T1 fires at d5; roll back 2 -> d3: successful candidates 1/8 | random 0.12 prm_phi 0.20 prm_hop 0.00 oracle 1.00
+   T1 fires at d5; roll back 3 -> d2: successful candidates 1/8 | random 0.12 prm_phi 0.17 prm_hop 1.00 oracle 1.00
+   T2 fires at d9; roll back 1 -> d8: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+   T2 fires at d9; roll back 2 -> d7: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+   T2 fires at d9; roll back 3 -> d6: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+170086 FAIL last decision with a successful candidate None | phi_cur 0.00 0.17 0.37 0.54 0.61 0.54 0.60 0.75 0.87 0.80 | triggers {'T1': None, 'T2': None}
+170092 OK   last decision with a successful candidate 6 | phi_cur 0.00 0.18 0.35 0.50 0.59 0.71 0.80 | triggers {'T1': None, 'T2': None}
+170097 OK   last decision with a successful candidate 6 | phi_cur 0.00 0.12 0.30 0.48 0.60 0.54 0.67 | triggers {'T1': 5, 'T2': None}
+   T1 fires at d5; roll back 1 -> d4: successful candidates 1/8 | random 0.12 prm_phi 0.00 prm_hop 0.00 oracle 1.00
+   T1 fires at d5; roll back 2 -> d3: successful candidates 1/8 | random 0.12 prm_phi 0.00 prm_hop 0.12 oracle 1.00
+   T1 fires at d5; roll back 3 -> d2: successful candidates 2/8 | random 0.25 prm_phi 1.00 prm_hop 0.67 oracle 1.00
+170103 FAIL last decision with a successful candidate None | phi_cur 0.00 0.17 0.41 0.54 0.60 0.67 0.83 0.38 0.33 0.33 | triggers {'T1': 7, 'T2': 7}
+   T1 fires at d7; roll back 1 -> d6: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+   T1 fires at d7; roll back 2 -> d5: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+   T1 fires at d7; roll back 3 -> d4: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+   T2 fires at d7; roll back 1 -> d6: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+   T2 fires at d7; roll back 2 -> d5: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+   T2 fires at d7; roll back 3 -> d4: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+170108 OK   last decision with a successful candidate 6 | phi_cur 0.00 0.17 0.34 0.52 0.60 0.64 0.76 | triggers {'T1': None, 'T2': None}
+170115 FAIL last decision with a successful candidate None | phi_cur 0.00 0.12 0.41 0.54 0.64 0.64 0.54 0.54 0.52 0.54 | triggers {'T1': 6, 'T2': None}
+   T1 fires at d6; roll back 1 -> d5: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+   T1 fires at d6; roll back 2 -> d4: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+   T1 fires at d6; roll back 3 -> d3: successful candidates 0/8 | random 0.00 prm_phi 0.00 prm_hop 0.00 oracle 0.00
+
+T1: fires in 10/13 failed scenes and 2/7 successful scenes
+   roll back 1: expected rescued failed scenes random 0.12, prm_phi 0.00, prm_hop 0.12, oracle 1.00 | successful scenes kept after a false trigger random 1.12, prm_phi 1.00, prm_hop 1.00, oracle 2.00
+   roll back 2: expected rescued failed scenes random 0.38, prm_phi 0.33, prm_hop 0.12, oracle 3.00 | successful scenes kept after a false trigger random 1.12, prm_phi 1.00, prm_hop 1.12, oracle 2.00
+   roll back 3: expected rescued failed scenes random 1.00, prm_phi 0.79, prm_hop 1.70, oracle 4.00 | successful scenes kept after a false trigger random 1.25, prm_phi 2.00, prm_hop 1.67, oracle 2.00
+T2: fires in 7/13 failed scenes and 0/7 successful scenes
+   roll back 1: expected rescued failed scenes random 0.00, prm_phi 0.00, prm_hop 0.00, oracle 0.00 | successful scenes kept after a false trigger random 0.00, prm_phi 0.00, prm_hop 0.00, oracle 0.00
+   roll back 2: expected rescued failed scenes random 0.25, prm_phi 0.12, prm_hop 0.00, oracle 2.00 | successful scenes kept after a false trigger random 0.00, prm_phi 0.00, prm_hop 0.00, oracle 0.00
+   roll back 3: expected rescued failed scenes random 0.75, prm_phi 0.50, prm_hop 0.70, oracle 2.00 | successful scenes kept after a false trigger random 0.00, prm_phi 0.00, prm_hop 0.00, oracle 0.00
