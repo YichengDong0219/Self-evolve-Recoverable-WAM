@@ -9,7 +9,9 @@ Inputs per episode in --round-dir: <ep>.json (TTS episode), <ep>.exec.json (offl
      L2 strength by 5-fold CV grouped by scene (within-state pair accuracy on y, |gap| >= 0.1).
   Gate (--mode gate): train on non-held-out scenes, evaluate BoN-8 on the held-out gate states with true outcomes.
   Fit (--mode fit): train on all scenes with the CV-chosen L2, write the critic JSON for prm_service.py.
-usage: python critic_train.py --round-dir <dir> --mode gate|fit --out <json> [--gamma 0.9]
+usage: python critic_train.py --round-dir <dir> --scan-start 170000 --mode gate|fit --out <json> [--gamma 0.9]
+Episodes: only the kept seeds (round_select.py: first 100 expert-valid in [scan-start, scan-start+140)); held-out
+gate scenes = kept[::5] (PROTOCOL addendum 3).
 """
 import argparse
 import json
@@ -20,21 +22,28 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from prm_common import Q_FEATURES, action_features  # noqa: E402
+from round_select import held_out, kept_seeds  # noqa: E402
 
 PLAN, TAU = 48, 0.1
 L2S = [1e-3, 1e-2, 1e-1, 1.0]
 
 
-def load_round(rd, gamma):
-    eps = []
-    for epf in sorted(rd.glob("hanging_mug_seed*.json")):
-        if epf.name.endswith((".exec.json", ".prm.json")):
-            continue
+def load_round(rd, kept):
+    """Episodes of the kept seeds (round_select: first 100 expert-valid, ascending); returns (episodes, missing)."""
+    eps, missing = [], []
+    for seed in kept:
+        epf = rd / f"hanging_mug_seed{seed}.json"
         pf, xf = epf.with_suffix(".prm.json"), epf.with_suffix(".exec.json")
         if not (pf.exists() and xf.exists()):
+            missing.append(seed)
             continue
-        ep = json.loads(epf.read_text()); prm = json.loads(pf.read_text())["features"]; ex = json.loads(xf.read_text())
-        z = np.load(epf.with_suffix(".tts.npz"))
+        prm_all = json.loads(pf.read_text())
+        if prm_all.get("version", 1) >= 2 and not prm_all.get("complete"):   # v2 files accumulate incrementally
+            missing.append(seed)
+            continue
+        ep = json.loads(epf.read_text()); prm = prm_all["features"]; ex = json.loads(xf.read_text())
+        zn = np.load(epf.with_suffix(".tts.npz"))
+        z = {k: zn[k] for k in ("cands", "state", "k")}     # each npz access decompresses: load once
         cont = {}
         cf = epf.with_suffix(".cont.jsonl")
         if cf.exists():
@@ -42,7 +51,7 @@ def load_round(rd, gamma):
                 if r.get("start_ok"):
                     cont[(r["decision"], r["cand"])] = float(r["success"])
         eps.append(dict(seed=ep["env_seed"], ep=ep, prm=prm, ex=ex, z=z, cont=cont))
-    return eps
+    return eps, missing
 
 
 def grips(cap):
@@ -98,7 +107,7 @@ def q_groups(e, V, gamma):
     D, N = z["cands"].shape[:2]
     out = []
     for d in range(D):
-        F, Y, TR = [], [], []
+        F, Y, TR, RE = [], [], [], []
         okd = True
         for i in range(N):
             r = rows.get((d, i)); key = f"{d}_{i}"
@@ -108,23 +117,64 @@ def q_groups(e, V, gamma):
             vx = [prm["phi_re48"][key], prm["hop_cur_to_re48"][key], (d + 1) * PLAN / ep["step_lim"]] + grips(r["end_capture"])
             Y.append(1.0 if r["success_within_chunk"] else gamma * float(pred_logreg(V, [vx])[0]))
             F.append(f); TR.append(e["cont"].get((d, i)))
+            RE.append([prm["phi_re48"][key], prm["hop_cur_to_re48"][key]])
         if okd:
-            out.append(dict(seed=e["seed"], d=d, F=np.nan_to_num(np.asarray(F, float)), Y=np.asarray(Y), true=TR))
+            out.append(dict(seed=e["seed"], d=d, F=np.nan_to_num(np.asarray(F, float)), Y=np.asarray(Y), true=TR,
+                            RE=np.nan_to_num(np.asarray(RE, float))))
     return out
 
 
+def rank_avg(x):
+    x = np.asarray(x, float)
+    r = np.empty(len(x)); r[np.argsort(x, kind="mergesort")] = np.arange(len(x))
+    for v in np.unique(x):
+        m = x == v; r[m] = r[m].mean()
+    return r
+
+
+def spearman(a, b):
+    ra, rb = rank_avg(a), rank_avg(b)
+    if ra.std() == 0 or rb.std() == 0:
+        return None
+    return float(np.corrcoef(ra, rb)[0, 1])
+
+
+def bon_gain(groups, score_fn):
+    """Mean over states of (true outcome of the top-scored candidate, averaged over ties) - (mean true outcome)."""
+    g_ = []
+    for g in groups:
+        t, s = np.asarray(g["true"], float), np.asarray(score_fn(g), float)
+        top = np.isclose(s, s.max())
+        g_.append(t[top].mean() - t.mean())
+    return float(np.mean(g_)) if g_ else None
+
+
+def pair_acc_true(groups, score_fn):
+    """Within-state pairs with different true outcomes: share ordered correctly by the score (ties count 0.5)."""
+    ok = []
+    for g in groups:
+        t, s = np.asarray(g["true"], float), np.asarray(score_fn(g), float)
+        for a in range(len(t)):
+            for b in range(len(t)):
+                if t[a] > t[b]:
+                    ok.append(1.0 if s[a] > s[b] else 0.5 if s[a] == s[b] else 0.0)
+    return float(np.mean(ok)) if ok else None
+
+
 def fit_q(groups, l2, iters=3000, lr=0.05):
-    F = np.concatenate([g["F"] for g in groups]); mu, sd = F.mean(0), F.std(0) + 1e-6
-    w, b = np.zeros(F.shape[1]), 0.0
+    """Full-batch gradient descent on the mean over states of [listwise softmax CE (tau) + 0.1 * per-state MSE];
+    vectorized over states (every group has the same N candidates)."""
+    F = np.stack([g["F"] for g in groups]); Y = np.stack([g["Y"] for g in groups])      # [G, N, F], [G, N]
+    flat = F.reshape(-1, F.shape[-1]); mu, sd = flat.mean(0), flat.std(0) + 1e-6
+    Z = (F - mu) / sd
+    T = np.exp((Y - Y.max(1, keepdims=True)) / TAU); T /= T.sum(1, keepdims=True)
+    G, N = Y.shape
+    w, b = np.zeros(F.shape[-1]), 0.0
     for _ in range(iters):
-        gw, gb = np.zeros_like(w), 0.0
-        for g in groups:
-            Z = (g["F"] - mu) / sd; q = Z @ w + b
-            p = np.exp((q - q.max())); p /= p.sum()
-            t = np.exp((g["Y"] - g["Y"].max()) / TAU); t /= t.sum()
-            gq = (p - t) + 0.1 * 2 * (q - g["Y"]) / len(q)
-            gw += Z.T @ gq; gb += gq.sum()
-        w -= lr * (gw / len(groups) + l2 * w); b -= lr * gb / len(groups)
+        q = Z @ w + b
+        p = np.exp(q - q.max(1, keepdims=True)); p /= p.sum(1, keepdims=True)
+        gq = (p - T) + 0.1 * 2 * (q - Y) / N
+        w -= lr * (np.einsum("gn,gnf->f", gq, Z) / G + l2 * w); b -= lr * gq.sum() / G
     return dict(features=Q_FEATURES, mean=mu.tolist(), std=sd.tolist(), w=w.tolist(), b=float(b), l2=l2)
 
 
@@ -163,16 +213,19 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--round-dir", type=Path, required=True); ap.add_argument("--mode", choices=["gate", "fit"], required=True)
     ap.add_argument("--out", type=Path, required=True); ap.add_argument("--gamma", type=float, default=0.9)
+    ap.add_argument("--scan-start", type=int, required=True)
+    ap.add_argument("--scan-n", type=int, default=140); ap.add_argument("--keep", type=int, default=100)
     a = ap.parse_args()
-    eps = load_round(a.round_dir, a.gamma)
-    seeds = sorted(e["seed"] for e in eps)
-    held = set(seeds[::5]) if a.mode == "gate" else set()
+    kept, sel = kept_seeds(a.round_dir, a.scan_start, a.scan_n, a.keep)      # raises if the kept set is not final
+    eps, missing = load_round(a.round_dir, kept)
+    held = set(held_out(kept)) if a.mode == "gate" else set()
     tr_eps = [e for e in eps if e["seed"] not in held]
     VX, Vy, Vsucc = [], [], []
     for e in tr_eps:
         X, y = v_rows(e, a.gamma); VX += X; Vy += y; Vsucc += [float(e["ep"]["success"])] * len(y)
     V = fit_logreg(VX, Vy, 1e-2)
-    report = dict(mode=a.mode, episodes=len(eps), train_episodes=len(tr_eps), held_out=sorted(held), gamma=a.gamma,
+    report = dict(mode=a.mode, kept=len(kept), cutoff=sel["cutoff"], episodes=len(eps), missing_features=missing,
+                  train_episodes=len(tr_eps), held_out=sorted(held), gamma=a.gamma,
                   V=V, V_auc_train=auc(pred_logreg(V, VX), Vsucc))
     if held:
         HX, Hs = [], []
@@ -198,6 +251,23 @@ def main():
                       gate_gain=float(np.mean(gains)) if gains else None,
                       gate_gain_ci=[float(np.percentile(boot, 2.5)), float(np.percentile(boot, 97.5))] if boot else None)
         report["gate_pass"] = bool(report["gate_gain_ci"] and report["gate_gain_ci"][0] > 0)
+        # Diagnostics the protocol asks for when the gate fails (computed always, never used to choose anything).
+        fi = {n: j for j, n in enumerate(Q_FEATURES)}
+        allg = groups + hg
+        scorers = dict(q=lambda g: q_pred(Q, g["F"]), prm_real_phi48=lambda g: g["RE"][:, 0],
+                       prm_real_hop48=lambda g: g["RE"][:, 1], prm_imag_phi48=lambda g: g["F"][:, fi["phi_im48"]],
+                       prm_imag_hop48=lambda g: g["F"][:, fi["hop_cur_to_im48"]])
+
+        def mean_sp(i_col, r_col):
+            v = [spearman(g["F"][:, i_col], g["RE"][:, r_col]) for g in allg]
+            v = [x for x in v if x is not None]
+            return dict(mean=float(np.mean(v)) if v else None, states=len(v))
+        report["diagnostics"] = dict(
+            held_out_states=len(hg), gate_states_partial=sum(1 for g in hg if any(t is not None for t in g["true"])
+                                                             and not all(t is not None for t in g["true"])),
+            bon_gain_by={k: bon_gain(gate, f) for k, f in scorers.items()},
+            pair_acc_true_by={k: pair_acc_true(gate, f) for k, f in scorers.items()},
+            imag_real_spearman=dict(phi48=mean_sp(fi["phi_im48"], 0), hop48=mean_sp(fi["hop_cur_to_im48"], 1)))
     a.out.write_text(json.dumps(report, indent=1))
     print(json.dumps({k: v for k, v in report.items() if k not in ("V", "Q")}, indent=1))
 

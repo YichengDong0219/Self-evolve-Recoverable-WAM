@@ -79,11 +79,25 @@ def main():
     ap.add_argument("--episode", type=Path, required=True)
     ap.add_argument("--decisions", default="all"); ap.add_argument("--candidates", default="all")
     ap.add_argument("--render-prefix", action="store_true", help="call get_obs() on every prefix step like G0 replay")
+    ap.add_argument("--render", choices=["every", "keyframes"], default="keyframes",
+                    help="candidate chunk: render on every step (as online) or only at the +12/24/36/48 keyframes "
+                         "(default since 11-22 00:38: 16/16 candidates of 170010 d3,d6 gave bit-identical keyframes, "
+                         "end captures and outcomes vs every-step rendering, cross-machine)")
+    ap.add_argument("--render-sync", choices=["every", "skip"], default="skip",
+                    help="skip = FACT's own fast-eval patch (_patch_robotwin_low_frequency_rgb with "
+                         "_fact_skip_action_render_sync): take_action skips scene.update_render() (renderer pose sync "
+                         "only; physics untouched); every get_obs still does the full sync before rendering. Default since "
+                         "11-22 00:48: 16/16 candidates bit-identical (keyframes, end captures, outcomes) vs the reference")
     ap.add_argument("--out-suffix", default="exec")
     a = ap.parse_args()
     out_npz, out_json = a.episode.with_suffix(f".{a.out_suffix}.npz"), a.episode.with_suffix(f".{a.out_suffix}.json")
     if out_npz.exists() or out_json.exists():
         raise SystemExit("refusing to overwrite exec outputs")
+    if a.render_sync == "skip":
+        from envs._base_task import Base_Task
+        from evaluation.robotwin.model2robotwin_interface import _patch_robotwin_low_frequency_rgb
+        _patch_robotwin_low_frequency_rgb()
+        Base_Task._fact_skip_action_render_sync = True        # low-frequency RGB stays off: get_obs is always full
     ep = json.loads(a.episode.read_text())
     z = np.load(a.episode.with_suffix(".tts.npz"))
     cands, ks = z["cands"], z["k"]
@@ -109,7 +123,8 @@ def main():
             if ok:
                 ims, fin_at = [], None
                 for t in range(PLAN):
-                    env.get_obs()
+                    if a.render == "every":
+                        env.get_obs()
                     env.take_action(np.asarray(cands[d, i, t], dtype=np.float32))
                     if env.eval_success and fin_at is None:
                         fin_at = t + 1
@@ -129,7 +144,8 @@ def main():
             env.close_env()
             print(json.dumps({k: v for k, v in row.items() if k != "end_capture"}), flush=True)
     np.savez_compressed(out_npz, **{k: v for k, v in kf.items() if v is not None})
-    out_json.write_text(json.dumps(dict(episode=str(a.episode), env_seed=seed, decisions=D, n=N, rows=rows,
+    out_json.write_text(json.dumps(dict(episode=str(a.episode), env_seed=seed, decisions=D, n=N, render=a.render,
+                                        render_sync=a.render_sync, rows=rows,
                                         wall_s=round(time.time() - t_all, 1))))
     print("EXEC_DONE", json.dumps(dict(pairs=len(rows), start_ok=sum(r["start_ok"] for r in rows),
                                        consistency_ok=sum(r.get("consistency_ok", False) for r in rows))))

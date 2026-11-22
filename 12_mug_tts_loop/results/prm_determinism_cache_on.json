@@ -1,0 +1,135 @@
+{
+ "tag": "cache_on",
+ "episode": "hanging_mug_seed170002.json",
+ "queries": 101,
+ "compare": {
+  "A1_vs_A2": {
+   "items": 101,
+   "differ": 5,
+   "max_abs": 0.16700000000000004,
+   "mean_abs": 0.0019900990099009906,
+   "examples": [
+    {
+     "name": "phi_im48_d3_c1",
+     "a": 0.607,
+     "b": 0.6
+    },
+    {
+     "name": "phi_im48_d3_c2",
+     "a": 0.607,
+     "b": 0.6
+    },
+    {
+     "name": "hop_im48_d6_c1",
+     "a": -0.136,
+     "b": -0.14300000000000002
+    },
+    {
+     "name": "hop_im48_d6_c5",
+     "a": 0.667,
+     "b": 0.5
+    },
+    {
+     "name": "phi_im48_d6_c5",
+     "a": 0.833,
+     "b": 0.846
+    }
+   ]
+  },
+  "A2_vs_B": {
+   "items": 101,
+   "differ": 6,
+   "max_abs": 0.09999999999999998,
+   "mean_abs": 0.0015247524752475248,
+   "examples": [
+    {
+     "name": "phi_re48_d0_c7",
+     "a": 0.13,
+     "b": 0.138
+    },
+    {
+     "name": "phi_im48_d3_c1",
+     "a": 0.6,
+     "b": 0.607
+    },
+    {
+     "name": "hop_re48_d3_c6",
+     "a": 0.231,
+     "b": 0.25
+    },
+    {
+     "name": "hop_im48_d6_c1",
+     "a": -0.14300000000000002,
+     "b": -0.136
+    },
+    {
+     "name": "phi_re48_d6_c2",
+     "a": 0.833,
+     "b": 0.846
+    },
+    {
+     "name": "hop_im48_d6_c5",
+     "a": 0.5,
+     "b": 0.6
+    }
+   ]
+  },
+  "A2_vs_C": {
+   "items": 101,
+   "differ": 9,
+   "max_abs": 0.09999999999999998,
+   "mean_abs": 0.002346534653465347,
+   "examples": [
+    {
+     "name": "phi_im48_d3_c1",
+     "a": 0.6,
+     "b": 0.607
+    },
+    {
+     "name": "hop_re48_d3_c1",
+     "a": 0.25,
+     "b": 0.231
+    },
+    {
+     "name": "hop_im48_d3_c2",
+     "a": 0.154,
+     "b": 0.2
+    },
+    {
+     "name": "phi_im48_d3_c4",
+     "a": 0.6,
+     "b": 0.607
+    },
+    {
+     "name": "hop_re48_d3_c6",
+     "a": 0.231,
+     "b": 0.25
+    },
+    {
+     "name": "phi_re48_d6_c2",
+     "a": 0.833,
+     "b": 0.846
+    }
+   ]
+  },
+  "A2_vs_D": {
+   "items": 24,
+   "differ": 0,
+   "max_abs": 0.0,
+   "mean_abs": 0.0,
+   "examples": []
+  },
+  "C_vs_D": {
+   "items": 24,
+   "differ": 0,
+   "max_abs": 0.0,
+   "mean_abs": 0.0,
+   "examples": []
+  }
+ },
+ "score_spread": {
+  "min": -0.87,
+  "max": 0.885,
+  "distinct": 26
+ }
+}

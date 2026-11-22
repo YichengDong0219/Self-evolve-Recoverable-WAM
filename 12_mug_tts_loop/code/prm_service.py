@@ -33,11 +33,11 @@ def load_prompt(src):
 
 
 class GRM:
-    def __init__(self, model_path, blank_goal):
+    def __init__(self, model_path, blank_goal, prefix_cache=True):
         from transformers import AutoProcessor
         from vllm import LLM, SamplingParams
         self.llm = LLM(model=model_path, gpu_memory_utilization=0.85, max_model_len=8192, limit_mm_per_prompt={"image": 8},
-                       enable_prefix_caching=True, trust_remote_code=True)
+                       enable_prefix_caching=prefix_cache, trust_remote_code=True)
         self.sp = SamplingParams(temperature=0.0, max_tokens=24)
         self.processor = AutoProcessor.from_pretrained(model_path, trust_remote_code=True)
         if hasattr(self.processor, "image_processor"):
@@ -95,10 +95,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", required=True); ap.add_argument("--port", type=int, default=8650)
     ap.add_argument("--critic"); ap.add_argument("--prompt-src", required=True); ap.add_argument("--blank-goal", required=True)
+    ap.add_argument("--no-prefix-cache", action="store_true",
+                    help="disable vLLM prefix caching (official example enables it; a cache hit changes float rounding)")
     a = ap.parse_args()
     global SYSTEM_PROMPT
     SYSTEM_PROMPT = load_prompt(a.prompt_src)
-    grm = GRM(a.model, a.blank_goal)
+    grm = GRM(a.model, a.blank_goal, prefix_cache=not a.no_prefix_cache)
     critic = json.loads(Path(a.critic).read_text()) if a.critic else None
     print("PRM_SERVICE_READY", a.port, "critic" if critic else "no-critic", flush=True)
     with Listener(("127.0.0.1", a.port), authkey=b"mug-tts-critic") as lis:
