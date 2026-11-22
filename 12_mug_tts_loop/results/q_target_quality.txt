@@ -1,0 +1,9 @@
+{'gamma': 0.9, 'Q_l2': 1.0, 'Q_cv_pair_acc': 0.416674467903498, 'Q_train_states': 1160, 'train_episodes': 80, 'V_auc_train': 0.812358395989975, 'V_auc_heldout': 0.8120713872593572}
+V w [ 0.076  0.181 -1.306 -0.05  -0.493] b -2.566 (features phi, hop_prev, t_frac, grip_l, grip_r)
+Q w {'hop_cur_to_im48': 0.006, 'phi_im48': -0.002, 'phi_im24': -0.003, 'dq_left': 0.002, 'dq_right': 0.009, 'dgrip_left': -0.002, 'dgrip_right': 0.004}
+episode lengths (steps): [299. 900. 900.] step_lim 900
+train states 1160; target=1 (success inside the chunk) share 0.0261
+train target spread: across-state SD 0.1758, mean within-state SD 0.0067
+gate states 296
+target Y as a scorer on true outcomes: BoN gain +0.0173, pair acc 0.535
+frozen Q as a scorer:                  BoN gain +0.0114, pair acc 0.542
