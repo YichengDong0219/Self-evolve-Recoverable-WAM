@@ -104,4 +104,6 @@
 | `unit_select.py`、`continue_record.py`、`unit_common.py`、`unit_run.py`、`unit_chain.py`、`unit_prm.py`、`unit_analysis.py` | 多 chunk 单元测量：抽状态、带记录的续跑、调度、PRM 打分、预注册分析 |
 | `start_server_bw.sh`、`unit_smoke_bw.sh`、`unit_run_bw.py`、`unit_reassign.py`、`unit_handoff.py` | 多 chunk 单元测量的 Pro 6000 分担 |
 | `unit_decompose.py` | 单元测量的事后分解（仅描述） |
+| `n32_generate.py`、`n32_score.py`、`continue_n32.py`、`n32_run.py`、`n32_chain.py`、`n32_analysis.py`、`start_server_multi_cluster.sh`、`n32_smoke_*.sh` | N = 32 快照检验（协议补充四） |
+| `gate_phase_table.py`、`unit_orientation_probe.py`、`unit_candidate_effect.py`、`prm_rollback_sim.py` | 事后描述性分析 |
 | `inference_server_multi.py`、`start_server_multi.sh`、`multi_server_test.py` | 多连接 FACT 服务（一个服务接多个仿真进程，CPU 线程受限）及其测试 |

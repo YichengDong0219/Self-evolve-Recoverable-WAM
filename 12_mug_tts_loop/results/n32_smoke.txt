@@ -1,0 +1,12 @@
+amax=1 cluster=1
+16:42:27 SMOKE_DONE
+{"decision": 0, "start_ok": true, "start_maxdiff": 0.0, "n": 32, "ids07_equal": true, "ids07_maxdiff": 0.0, "server_s": [32.49, 6.51, 6.54, 6.52], "instruction": "Pick the printed beige mug from the table, rotate it, place it in the middle, and hang it onto the dark gray rack with flat back.", "wall_s": 83.5, "host": "Amax-Server"}
+{"decision": 0, "cand": 0, "start_ok": true, "start_maxdiff": 0.0, "max_steps": 450, "success": true, "steps": 329, "success_rel": 329, "capped": false, "cont_actions": 281, "cont_actions_sha": "137abec80ba60a07", "wall_s": 71.8, "host": "Amax-Server"}
+tail: option used in invalid context -- 3
+16:41:37 SMOKE_DONE
+{"decision": 0, "cand": 0, "start_ok": true, "start_maxdiff": 0.0, "max_steps": 450, "success": true, "steps": 329, "success_rel": 329, "capped": false, "cont_actions": 281, "cont_actions_sha": "137abec80ba60a07", "wall_s": 63.1, "host": "user"}
+line_search_cu not found, JIT compiling...
+missing pytorch3d
+{"decision": 0, "cand": 0, "start_ok": true, "start_maxdiff": 0.0, "max_steps": 450, "success": true, "steps": 329, "success_rel": 329, "capped": false, "cont_actions": 281, "cont_actions_sha": "137abec80ba60a07", "wall_s": 63.1, "host": "user"}
+
+[exited with code 0]
