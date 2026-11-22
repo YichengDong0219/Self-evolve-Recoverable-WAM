@@ -1,0 +1,7 @@
+candidate effect (post hoc, descriptive)
+K1 vs K2 (share first chunk only): both-mixed states 10; co-success 19 vs null 16.0 (p 0.0832); mean within-state r +0.28; oracle pick transfer +0.194 of possible +0.580 (n 22)
+K1 vs K3 (share first chunk only): both-mixed states 9; co-success 25 vs null 22.4 (p 0.0996); mean within-state r +0.27; oracle pick transfer +0.093 of possible +0.598 (n 23)
+K2 vs K3 (share first two chunks): both-mixed states 8; co-success 24 vs null 15.9 (p 0.0000); mean within-state r +0.54; oracle pick transfer +0.209 of possible +0.595 (n 21)
+decisions 0-2: states 17, K1 mixed 7, success 0.434, +48 mug spread median 0.17 cm
+decisions 3-5: states 18, K1 mixed 5, success 0.431, +48 mug spread median 0.48 cm
+decisions 6-9: states 19, K1 mixed 0, success 0.211, +48 mug spread median 0.00 cm
