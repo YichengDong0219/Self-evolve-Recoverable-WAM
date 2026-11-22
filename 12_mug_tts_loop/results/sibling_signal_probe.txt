@@ -1,0 +1,27 @@
+states 296, mixed 46, scenes 20
+privileged state after +48, sibling spread vs across-state spread:
+  mug_z             within-state SD 0.0031   across-state SD 0.0608
+  mug_disp          within-state SD 0.0224   across-state SD 0.1639
+  mug_rot           within-state SD 0.0323   across-state SD 0.5786
+  mug_speed         within-state SD 0.0122   across-state SD 0.0604
+  mug_rack_xy       within-state SD 0.0215   across-state SD 0.1610
+  mug_minus_rack_z  within-state SD 0.0031   across-state SD 0.0608
+  grip_l            within-state SD 0.0017   across-state SD 0.2504
+  grip_r            within-state SD 0.0012   across-state SD 0.3405
+mixed states, mean (success - failure) candidate difference:
+  mug_z             +0.0010 (positive in 54% of mixed states)
+  mug_disp          -0.0023 (positive in 48% of mixed states)
+  mug_rot           -0.0461 (positive in 43% of mixed states)
+  mug_speed         +0.0014 (positive in 39% of mixed states)
+  mug_rack_xy       -0.0018 (positive in 43% of mixed states)
+  mug_minus_rack_z  +0.0010 (positive in 54% of mixed states)
+  grip_l            -0.0007 (positive in 28% of mixed states)
+  grip_r            -0.0087 (positive in 48% of mixed states)
+{"set": "Q7", "pair_acc": 0.5302277432712216, "pair_acc_ci": [0.44130467132505174, 0.6328060300207039], "bon_gain": 0.008023648648648648, "bon_gain_ci": [-0.011834881756756756, 0.030827702702702704], "null_pair_acc_mean": 0.5026539855072464, "null_pair_acc_95": 0.5676248706004141, "perm_p": 0.2682926829268293, "mixed_states": 46}
+{"set": "ACT4", "pair_acc": 0.5137034161490682, "pair_acc_ci": [0.4265489130434782, 0.602090450310559], "bon_gain": -0.0021114864864864866, "bon_gain_ci": [-0.020703125, 0.01648015202702697], "null_pair_acc_mean": 0.5000132634575569, "null_pair_acc_95": 0.5809103260869564, "perm_p": 0.36585365853658536, "mixed_states": 46}
+{"set": "IMAG3", "pair_acc": 0.5063923395445135, "pair_acc_ci": [0.4203209109730848, 0.5968505758281574], "bon_gain": 0.0046452702702702705, "bon_gain_ci": [-0.014358108108108109, 0.02533783783783784], "null_pair_acc_mean": 0.5061746247412009, "null_pair_acc_95": 0.5684776138716355, "perm_p": 0.5365853658536586, "mixed_states": 46}
+{"set": "PRMREAL2", "pair_acc": 0.4741136128364389, "pair_acc_ci": [0.3912855848861283, 0.5554879981884058], "bon_gain": -0.0021114864864864866, "bon_gain_ci": [-0.020692567567567568, 0.016891891891891893], "null_pair_acc_mean": 0.4986864324534162, "null_pair_acc_95": 0.561896350931677, "perm_p": 0.7317073170731707, "mixed_states": 46}
+{"set": "PRIV8", "pair_acc": 0.4976643374741201, "pair_acc_ci": [0.414966194358178, 0.5871160067287784], "bon_gain": 0.011402027027027027, "bon_gain_ci": [-0.009290540540540541, 0.032939189189189186], "null_pair_acc_mean": 0.5062150621118013, "null_pair_acc_95": 0.5534235895445136, "perm_p": 0.6097560975609756, "mixed_states": 46}
+{"set": "PRIV8+PRMREAL2", "pair_acc": 0.5197140269151139, "pair_acc_ci": [0.42191268762939965, 0.6158453027950311], "bon_gain": 0.001266891891891892, "bon_gain_ci": [-0.02027027027027027, 0.025348395270270215], "null_pair_acc_mean": 0.5014169254658385, "null_pair_acc_95": 0.5601633669772255, "perm_p": 0.36585365853658536, "mixed_states": 46}
+
+[exited with code 0]
