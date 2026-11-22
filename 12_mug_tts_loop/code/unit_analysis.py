@@ -112,6 +112,15 @@ def main():
         for r in map(json.loads, f.read_text().splitlines()):
             if r.get("start_ok"):
                 gate[(s, r["decision"], r["cand"])] = r
+    bw = set()
+    if (od / "unit_reassign.json").exists():       # 13:58 hand-off: these states ran with FACT on the PRO 6000s
+        bw = {tuple(x) for x in json.loads((od / "unit_reassign.json").read_text())["to_bw"]}
+    res["pro6000_states"] = sorted(bw)
+    for tag, sel in (("4090", lambda k: k[:2] not in bw), ("pro6000", lambda k: k[:2] in bw)):
+        kk = [(k, r) for k, r in rows.items() if k[3] == 1 and k[:3] in gate and sel(k)]
+        res["determinism"][f"K1_vs_gate_{tag}"] = dict(
+            pairs=len(kk), action_hash_equal=sum(r["cont_actions_sha"] == gate[k[:3]]["cont_actions_sha"] for k, r in kk),
+            outcome_equal=sum(r["success"] == gate[k[:3]]["success"] for k, r in kk))
     k1 = [(k, r) for k, r in rows.items() if k[3] == 1 and k[:3] in gate]
     res["determinism"]["K1_vs_gate"] = dict(
         pairs=len(k1), action_hash_equal=sum(r["cont_actions_sha"] == gate[k[:3]]["cont_actions_sha"] for k, r in k1),

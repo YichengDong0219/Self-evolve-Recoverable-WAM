@@ -1,6 +1,8 @@
 """Multi-chunk unit measurement end to end, on Amax (Claude, 2026-11-22; PROTOCOL addendum 3). System python3.
  1. send the code + unit_states.json to the cluster and check their sha256 on both machines;
  2. launch unit_run.py on Amax (smi 4-8, states j % 9 in 0..4) and on the cluster (0-3, j % 9 in 5..8);
+    13:55 hand-off: the tails of both queues run on the PRO 6000s (unit_run_bw.py, unit_reassign.json "to_bw");
+    the chain then also waits for UNIT_DONE_<host>-bw.json, audits those logs, and skips cluster rows of moved states;
  3. wait for both UNIT_DONE_<host>.json; audit every job log for render errors (OIDN / DeviceLost / vk:: / cannot
     create / out of memory): such jobs are excluded (excluded.json) and reported, not rerun;
  4. pull the cluster's rows and recordings into Amax's unit_measure (rows merged by (decision, cand));
@@ -79,19 +81,29 @@ def main():
     while True:
         a_done = (OD / "UNIT_DONE_Amax-Server.json").exists()
         c_done = ssh(f"ls {COD}/UNIT_DONE_user.json 2>/dev/null") != ""
-        if a_done and c_done:
+        bw_done = (OD / "UNIT_DONE_Amax-Server-bw.json").exists() or not (OD / "unit_reassign.json").exists()
+        if a_done and c_done and bw_done:
             break
         if time.time() - t0 > 8 * 3600:
             log("timeout waiting for unit_run (8 h); abort"); return
         time.sleep(120)
-    log("both machines done: Amax " + (OD / "UNIT_DONE_Amax-Server.json").read_text().strip()
-        + " | cluster " + ssh(f"cat {COD}/UNIT_DONE_user.json"))
+    log("all runners done: Amax " + (OD / "UNIT_DONE_Amax-Server.json").read_text().strip()
+        + " | cluster " + ssh(f"cat {COD}/UNIT_DONE_user.json")
+        + (" | PRO 6000 " + (OD / "UNIT_DONE_Amax-Server-bw.json").read_text().strip()
+           if (OD / "UNIT_DONE_Amax-Server-bw.json").exists() else ""))
+    # 13:55 hand-off (user: "能否在Pro6000上也并行"): states moved to the PRO 6000 runner (unit_run_bw.py)
+    bw = set()
+    if (OD / "unit_reassign.json").exists():
+        bw = {tuple(x) for x in json.loads((OD / "unit_reassign.json").read_text())["to_bw"]}
+        log(f"states run by the PRO 6000 runner (fixed by queue position): {sorted(bw)}")
     # audit
     st = [(x["seed"], x["decision"]) for x in json.loads((OD / "unit_states.json").read_text())["states"]]
     tainted = []
     for j, (s, d) in enumerate(st):
         for K in (1, 2, 3):
-            if j % 9 in {0, 1, 2, 3, 4}:
+            if (s, d) in bw:
+                n = sh(f"grep -ciE '{BAD}' {OD}/logs_Amax-Server-bw/seed{s}_d{d}_u{K}.log 2>/dev/null || true")
+            elif j % 9 in {0, 1, 2, 3, 4}:
                 n = sh(f"grep -ciE '{BAD}' {OD}/logs_Amax-Server/seed{s}_d{d}_u{K}.log 2>/dev/null || true")
             else:
                 n = ssh(f"grep -ciE \"{BAD}\" {COD}/logs_user/seed{s}_d{d}_u{K}.log 2>/dev/null || true")
@@ -109,12 +121,17 @@ def main():
         have = set()
         if dst.exists():
             have = {(r["decision"], r["cand"]) for r in map(json.loads, dst.read_text().splitlines()) if r}
-        new = [l for l in f.read_text().splitlines() if l.strip() and (json.loads(l)["decision"], json.loads(l)["cand"]) not in have]
+        seed_ = int(f.name[4:10])
+        new = [l for l in f.read_text().splitlines() if l.strip() and (json.loads(l)["decision"], json.loads(l)["cand"]) not in have
+               and (seed_, json.loads(l)["decision"]) not in bw]
         with dst.open("a") as fo:
             for l in new:
                 fo.write(l + "\n"); n_rows += 1
     n_npz = 0
     for f in (pull / "rec").glob("*.npz"):
+        s_, d_ = int(f.name[4:10]), int(f.name.split("_d")[1].split("_")[0])
+        if (s_, d_) in bw:
+            continue
         if not (OD / "rec" / f.name).exists():
             f.rename(OD / "rec" / f.name); n_npz += 1
     log(f"cluster merged: {n_rows} rows, {n_npz} recordings")
