@@ -45,6 +45,7 @@ def main():
     ap.add_argument("--machine", choices=list(CFG), required=True); ap.add_argument("--round-dir", type=Path, required=True)
     ap.add_argument("--gpus", required=True); ap.add_argument("--per-gpu", type=int, default=4)
     ap.add_argument("--mod", type=int, default=1); ap.add_argument("--rems", default="0")
+    ap.add_argument("--pairs-file", default="gate_pairs.json", help="state list in the round dir")
     ap.add_argument("--states", default="", help="explicit seed:decision list (overrides mod/rems), e.g. reruns")
     ap.add_argument("--cc-args", default="", help="extra continue_candidates.py arguments, e.g. --fast-obs")
     a = ap.parse_args()
@@ -56,13 +57,13 @@ def main():
         with lock, logf.open("a") as f:
             f.write(time.strftime("%F %T ") + msg + "\n")
 
-    gp = json.loads((rd / "gate_pairs.json").read_text())
+    gp = json.loads((rd / a.pairs_file).read_text())
     rems = {int(x) for x in a.rems.split(",")}
     states = [(s["seed"], s["decision"]) for j, s in enumerate(gp["states"]) if j % a.mod in rems]
     if a.states:
         want = {tuple(map(int, x.split(":"))) for x in a.states.split(",")}
         states = [st for st in [(s["seed"], s["decision"]) for s in gp["states"]] if st in want]
-    log(f"start: {len(states)} of {len(gp['states'])} states (mod {a.mod} rems {sorted(rems)}), gpus {a.gpus}, "
+    log(f"start ({a.pairs_file}): {len(states)} of {len(gp['states'])} states (mod {a.mod} rems {sorted(rems)}), gpus {a.gpus}, "
         f"per gpu {a.per_gpu}, continue_candidates extra args: '{a.cc_args}'")
     # One driver per server: the FACT server (world_action_model.sockets) serves ONE connection at a time, so each
     # driver thread gets its own server ("slot"); slot k on card g listens on 8300 + 10 g + k.
