@@ -1,0 +1,16 @@
+post-hoc decomposition (descriptive; the pre-registered rule is unchanged)
+K=1 (unit end +48): mixed 12 (with a within-unit success 0), states with any within-unit success 4
+   gain over 54 states: within-unit success only +0.000 [0.0, 0.0] | goal -0.021 [-0.051, 0.005] | prm -0.002 [-0.036, 0.03]
+   states without a within-unit success (n=50, mixed 12): goal -0.022 [-0.055, 0.005] | prm -0.002 [-0.038, 0.033]
+   mixed states (seed, decision, gpu): prm gain / goal gain: (170001,0,4090) +0.500/-0.500, (170001,1,4090) +0.150/-0.250, (170001,2,4090) +0.083/-0.250, (170001,3,4090) -0.250/+0.000, (170001,4,4090) +0.125/-0.375, (170001,5,4090) -0.125/-0.125, (170012,3,4090) +0.000/+0.000, (170039,2,4090) +0.000/-0.125, (170057,0,4090) -0.083/+0.250, (170092,5,pro6000) +0.125/+0.125, (170097,0,pro6000) -0.625/+0.000, (170108,2,pro6000) +0.000/+0.125
+   per-scene mean prm gain on mixed states: {170001: +0.081, 170012: +0.000, 170039: +0.000, 170057: -0.083, 170092: +0.125, 170097: -0.625, 170108: +0.000}; scenes + 2 / - 2, one-sided sign test p = 0.6875
+K=2 (unit end +96): mixed 10 (with a within-unit success 2), states with any within-unit success 8
+   gain over 54 states: within-unit success only +0.014 [0.0, 0.037] | goal -0.005 [-0.062, 0.051] | prm +0.018 [-0.03, 0.068]
+   states without a within-unit success (n=46, mixed 8): goal -0.022 [-0.087, 0.043] | prm +0.004 [-0.047, 0.063]
+   mixed states (seed, decision, gpu): prm gain / goal gain: (170001,0,4090) -0.500/-0.500, (170001,1,4090) +0.042/-0.625, (170001,2,4090) +0.875/-0.125, (170001,4,4090) -0.050/-0.250, (170001,5,4090) +0.500/+0.500, (170012,3,4090) +0.083/+0.750, (170039,2,4090) -0.250/+0.750, (170057,0,4090) -0.500/-0.500, (170092,5,pro6000) +0.250/+0.250, (170097,0,pro6000) +0.500/-0.500
+   per-scene mean prm gain on mixed states: {170001: +0.173, 170012: +0.083, 170039: -0.250, 170057: -0.500, 170092: +0.250, 170097: +0.500}; scenes + 4 / - 2, one-sided sign test p = 0.3438
+K=3 (unit end +144): mixed 11 (with a within-unit success 3), states with any within-unit success 11
+   gain over 54 states: within-unit success only +0.025 [0.0, 0.06] | goal +0.021 [-0.028, 0.074] | prm +0.045 [0.017, 0.081]
+   states without a within-unit success (n=43, mixed 8): goal -0.006 [-0.055, 0.047] | prm +0.024 [0.008, 0.046]
+   mixed states (seed, decision, gpu): prm gain / goal gain: (170001,0,4090) +0.083/-0.250, (170001,1,4090) +0.000/-0.500, (170001,2,4090) +0.075/-0.125, (170001,4,4090) +0.625/+0.625, (170001,5,4090) +0.500/+0.500, (170057,0,4090) +0.125/+0.125, (170086,1,pro6000) +0.375/+0.875, (170092,5,pro6000) +0.250/+0.250, (170097,0,pro6000) +0.125/-0.375, (170103,0,pro6000) +0.125/-0.125, (170108,2,pro6000) +0.125/+0.125
+   per-scene mean prm gain on mixed states: {170001: +0.257, 170057: +0.125, 170086: +0.375, 170092: +0.250, 170097: +0.125, 170103: +0.125, 170108: +0.125}; scenes + 7 / - 0, one-sided sign test p = 0.0078

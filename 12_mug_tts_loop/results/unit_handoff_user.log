@@ -1,0 +1,4 @@
+2026-11-22 13:58:15 start: keep 14 states (42 jobs), moved 10 states, runner 337717, servers ['/workspace_cluster/fact_local/mug_loop_1121/runs_server/server_unit_r0_gpu0_s0', '/workspace_cluster/fact_local/mug_loop_1121/runs_server/server_unit_r0_gpu1_s0', '/workspace_cluster/fact_local/mug_loop_1121/runs_server/server_unit_r0_gpu2_s0', '/workspace_cluster/fact_local/mug_loop_1121/runs_server/server_unit_r0_gpu3_s0']
+2026-11-22 14:49:29 all kept jobs dispatched; runner stopped (its running drivers continue)
+2026-11-22 14:56:32 servers stopped
+2026-11-22 14:56:32 done: {'host': 'user', 'jobs': 42, 'incomplete': [], 'moved_to_bw': [(170075, 0), (170075, 2), (170086, 4), (170086, 6), (170086, 7), (170086, 9), (170108, 2), (170108, 5), (170115, 5), (170115, 9)]}

@@ -1,0 +1,81 @@
+2026-11-22 13:58:24 start: 54 jobs (18 states, reverse queue order), server gpus 0,1,2,3 x 2, driver gpus 4,5,6,7,8
+2026-11-22 13:58:26 server unitbw_r0_gpu0_s0 started on gpu 0 port 8400; its driver runs on 4090 gpu 4
+2026-11-22 13:58:46 server unitbw_r0_gpu0_s1 started on gpu 0 port 8401; its driver runs on 4090 gpu 5
+2026-11-22 13:59:06 server unitbw_r0_gpu1_s0 started on gpu 1 port 8410; its driver runs on 4090 gpu 6
+2026-11-22 13:59:27 server unitbw_r0_gpu1_s1 started on gpu 1 port 8411; its driver runs on 4090 gpu 7
+2026-11-22 13:59:47 server unitbw_r0_gpu2_s0 started on gpu 2 port 8420; its driver runs on 4090 gpu 8
+2026-11-22 14:00:07 server unitbw_r0_gpu2_s1 started on gpu 2 port 8421; its driver runs on 4090 gpu 4
+2026-11-22 14:00:28 server unitbw_r0_gpu3_s0 started on gpu 3 port 8430; its driver runs on 4090 gpu 5
+2026-11-22 14:00:48 server unitbw_r0_gpu3_s1 started on gpu 3 port 8431; its driver runs on 4090 gpu 6
+2026-11-22 14:01:08 slot (0, 0) server ready
+2026-11-22 14:01:08 slot (0, 1) server ready
+2026-11-22 14:01:08 slot (1, 0) server ready
+2026-11-22 14:01:08 slot (1, 1) server ready
+2026-11-22 14:01:08 slot (2, 0) server ready
+2026-11-22 14:01:18 slot (2, 1) server ready
+2026-11-22 14:01:38 slot (3, 0) server ready
+2026-11-22 14:01:48 slot (3, 1) server ready
+2026-11-22 14:06:21 job 170108:5:K1 slot (3, 0) (driver gpu 5) rc 0 pairs 8/8 183s
+2026-11-22 14:06:39 job 170108:5:K2 slot (3, 1) (driver gpu 6) rc 0 pairs 8/8 186s
+2026-11-22 14:08:20 job 170115:9:K2 slot (0, 1) (driver gpu 5) rc 0 pairs 8/8 377s
+2026-11-22 14:08:25 job 170115:9:K1 slot (0, 0) (driver gpu 4) rc 0 pairs 8/8 397s
+2026-11-22 14:08:36 job 170115:9:K3 slot (1, 0) (driver gpu 6) rc 0 pairs 8/8 378s
+2026-11-22 14:09:15 job 170108:5:K3 slot (3, 0) (driver gpu 5) rc 0 pairs 8/8 174s
+2026-11-22 14:10:06 job 170115:5:K1 slot (1, 1) (driver gpu 7) rc 0 pairs 8/8 453s
+2026-11-22 14:10:14 job 170115:5:K2 slot (2, 0) (driver gpu 8) rc 0 pairs 8/8 446s
+2026-11-22 14:10:42 job 170115:5:K3 slot (2, 1) (driver gpu 4) rc 0 pairs 8/8 459s
+2026-11-22 14:11:05 job 170108:2:K1 slot (3, 1) (driver gpu 6) rc 0 pairs 8/8 266s
+2026-11-22 14:12:06 job 170108:2:K2 slot (0, 1) (driver gpu 5) rc 0 pairs 8/8 225s
+2026-11-22 14:12:51 job 170108:2:K3 slot (0, 0) (driver gpu 4) rc 0 pairs 8/8 266s
+2026-11-22 14:15:18 job 170086:9:K1 slot (1, 0) (driver gpu 6) rc 0 pairs 8/8 403s
+2026-11-22 14:16:33 job 170086:9:K2 slot (3, 0) (driver gpu 5) rc 0 pairs 8/8 438s
+2026-11-22 14:17:15 job 170086:9:K3 slot (1, 1) (driver gpu 7) rc 0 pairs 8/8 429s
+2026-11-22 14:17:51 job 170086:7:K1 slot (2, 0) (driver gpu 8) rc 0 pairs 8/8 457s
+2026-11-22 14:18:29 job 170086:7:K2 slot (2, 1) (driver gpu 4) rc 0 pairs 8/8 467s
+2026-11-22 14:18:59 job 170086:7:K3 slot (3, 1) (driver gpu 6) rc 0 pairs 8/8 473s
+2026-11-22 14:20:43 job 170086:6:K1 slot (0, 1) (driver gpu 5) rc 0 pairs 8/8 518s
+2026-11-22 14:22:04 job 170086:6:K2 slot (0, 0) (driver gpu 4) rc 0 pairs 8/8 554s
+2026-11-22 14:22:35 job 170075:2:K1 slot (2, 1) (driver gpu 4) rc 0 pairs 8/8 246s
+2026-11-22 14:23:07 job 170075:2:K2 slot (3, 1) (driver gpu 6) rc 0 pairs 8/8 248s
+2026-11-22 14:23:46 job 170086:6:K3 slot (1, 0) (driver gpu 6) rc 0 pairs 8/8 508s
+2026-11-22 14:24:43 job 170075:2:K3 slot (0, 1) (driver gpu 5) rc 0 pairs 8/8 240s
+2026-11-22 14:25:46 job 170086:4:K1 slot (3, 0) (driver gpu 5) rc 0 pairs 8/8 552s
+2026-11-22 14:26:26 job 170086:4:K2 slot (1, 1) (driver gpu 7) rc 0 pairs 8/8 550s
+2026-11-22 14:26:57 job 170086:4:K3 slot (2, 0) (driver gpu 8) rc 0 pairs 8/8 547s
+2026-11-22 14:27:07 job 170075:0:K1 slot (0, 0) (driver gpu 4) rc 0 pairs 8/8 302s
+2026-11-22 14:27:35 job 170075:0:K2 slot (2, 1) (driver gpu 4) rc 0 pairs 8/8 301s
+2026-11-22 14:28:05 job 170075:0:K3 slot (3, 1) (driver gpu 6) rc 0 pairs 8/8 298s
+2026-11-22 14:29:15 job 170097:6:K1 slot (1, 1) (driver gpu 7) rc 0 pairs 8/8 170s
+2026-11-22 14:29:41 job 170097:6:K2 slot (2, 0) (driver gpu 8) rc 0 pairs 8/8 164s
+2026-11-22 14:29:51 job 170097:6:K3 slot (0, 0) (driver gpu 4) rc 0 pairs 8/8 164s
+2026-11-22 14:32:14 job 170092:6:K1 slot (2, 0) (driver gpu 8) rc 0 pairs 8/8 153s
+2026-11-22 14:32:22 job 170092:6:K2 slot (0, 0) (driver gpu 4) rc 0 pairs 8/8 151s
+2026-11-22 14:34:12 job 170103:0:K1 slot (1, 0) (driver gpu 6) rc 0 pairs 8/8 626s
+2026-11-22 14:34:30 job 170097:0:K1 slot (2, 1) (driver gpu 4) rc 0 pairs 8/8 414s
+2026-11-22 14:34:44 job 170092:6:K3 slot (2, 0) (driver gpu 8) rc 0 pairs 8/8 150s
+2026-11-22 14:34:59 job 170103:0:K2 slot (0, 1) (driver gpu 5) rc 0 pairs 8/8 616s
+2026-11-22 14:35:31 job 170103:0:K3 slot (3, 0) (driver gpu 5) rc 0 pairs 8/8 585s
+2026-11-22 14:35:56 job 170092:5:K1 slot (0, 0) (driver gpu 4) rc 0 pairs 8/8 214s
+2026-11-22 14:35:56 job 170097:0:K2 slot (3, 1) (driver gpu 6) rc 0 pairs 8/8 471s
+2026-11-22 14:37:12 job 170097:0:K3 slot (1, 1) (driver gpu 7) rc 0 pairs 8/8 477s
+2026-11-22 14:38:22 job 170092:5:K2 slot (1, 0) (driver gpu 6) rc 0 pairs 8/8 249s
+2026-11-22 14:38:30 job 170092:5:K3 slot (2, 1) (driver gpu 4) rc 0 pairs 8/8 240s
+2026-11-22 14:43:30 job 170081:7:K1 slot (0, 0) (driver gpu 4) rc 0 pairs 8/8 455s
+2026-11-22 14:43:42 job 170081:7:K2 slot (3, 1) (driver gpu 6) rc 0 pairs 8/8 466s
+2026-11-22 14:44:26 job 170086:1:K1 slot (2, 0) (driver gpu 8) rc 0 pairs 8/8 582s
+2026-11-22 14:44:42 job 170086:1:K2 slot (0, 1) (driver gpu 5) rc 0 pairs 8/8 583s
+2026-11-22 14:44:44 job 170086:1:K3 slot (3, 0) (driver gpu 5) rc 0 pairs 8/8 553s
+2026-11-22 14:45:05 job 170081:7:K3 slot (1, 1) (driver gpu 7) rc 0 pairs 8/8 472s
+2026-11-22 14:47:40 job 170081:1:K1 slot (1, 0) (driver gpu 6) rc 0 pairs 8/8 558s
+2026-11-22 14:47:52 job 170081:1:K2 slot (2, 1) (driver gpu 4) rc 0 pairs 8/8 562s
+2026-11-22 14:51:20 job 170081:1:K3 slot (0, 0) (driver gpu 4) rc 0 pairs 8/8 470s
+2026-11-22 14:51:20 first pass done; retrying 0 jobs
+2026-11-22 14:53:25 server of slot (0, 0) stopped
+2026-11-22 14:53:30 server of slot (0, 1) stopped
+2026-11-22 14:53:35 server of slot (1, 0) stopped
+2026-11-22 14:53:40 server of slot (1, 1) stopped
+2026-11-22 14:53:46 server of slot (2, 0) stopped
+2026-11-22 14:53:51 server of slot (2, 1) stopped
+2026-11-22 14:53:56 server of slot (3, 0) stopped
+2026-11-22 14:54:01 server of slot (3, 1) stopped
+2026-11-22 14:54:01 done: {'host': 'Amax-Server-bw', 'jobs': 54, 'incomplete': []}

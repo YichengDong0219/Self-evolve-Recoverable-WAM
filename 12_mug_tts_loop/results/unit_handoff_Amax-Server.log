@@ -1,0 +1,4 @@
+2026-11-22 13:58:15 start: keep 22 states (66 jobs), moved 8 states, runner 1805319, servers ['/workspace/fact_local/runs_server/server_unit_r0_gpu4_s0', '/workspace/fact_local/runs_server/server_unit_r0_gpu5_s0', '/workspace/fact_local/runs_server/server_unit_r0_gpu6_s0', '/workspace/fact_local/runs_server/server_unit_r0_gpu7_s0', '/workspace/fact_local/runs_server/server_unit_r0_gpu8_s0']
+2026-11-22 14:50:41 all kept jobs dispatched; runner stopped (its running drivers continue)
+2026-11-22 14:53:11 servers stopped
+2026-11-22 14:53:11 done: {'host': 'Amax-Server', 'jobs': 66, 'incomplete': [], 'moved_to_bw': [(170081, 1), (170081, 7), (170086, 1), (170092, 5), (170092, 6), (170097, 0), (170097, 6), (170103, 0)]}

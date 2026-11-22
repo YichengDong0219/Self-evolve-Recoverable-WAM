@@ -1,0 +1,16 @@
+2026-11-22 13:37:04 start
+2026-11-22 13:37:06 code + states identical on both machines (6 files)
+2026-11-22 13:37:06 unit_run launched on Amax (4-8) and cluster (0-3)
+2026-11-22 13:42:06 servers ready after 5 min: Amax 5, cluster 4
+2026-11-22 13:58:16 start (resume)
+2026-11-22 14:58:27 all runners done: Amax {"host": "Amax-Server", "jobs": 66, "incomplete": [], "moved_to_bw": [[170081, 1], [170081, 7], [170086, 1], [170092, 5], [170092, 6], [170097, 0], [170097, 6], [170103, 0]]} | cluster {"host": "user", "jobs": 42, "incomplete": [], "moved_to_bw": [[170075, 0], [170075, 2], [170086, 4], [170086, 6], [170086, 7], [170086, 9], [170108, 2], [170108, 5], [170115, 5], [170115, 9]]} | PRO 6000 {"host": "Amax-Server-bw", "jobs": 54, "incomplete": []}
+2026-11-22 14:58:27 states run by the PRO 6000 runner (fixed by queue position): [(170075, 0), (170075, 2), (170081, 1), (170081, 7), (170086, 1), (170086, 4), (170086, 6), (170086, 7), (170086, 9), (170092, 5), (170092, 6), (170097, 0), (170097, 6), (170103, 0), (170108, 2), (170108, 5), (170115, 5), (170115, 9)]
+2026-11-22 14:58:43 audit: render-error jobs (excluded) []
+2026-11-22 14:58:58 cluster merged: 336 rows, 336 recordings
+2026-11-22 14:58:59 PRM service pid 2152064 on gpu 4
+2026-11-22 15:14:05 PRM features: UNIT_PRM_DONE 4407 keys
+2026-11-22 15:14:15 PRM service stopped
+2026-11-22 15:14:45 analysis: rel 240: mug SD 1.60 cm (mixed 8.647335819053039) ee SD 0.80 cm | pair acc goal 0.705 prm - priv 0.568 | gain goal 0.039 prm -
+   rel 288: mug SD 1.90 cm (mixed 13.728261703808506) ee SD 0.62 cm | pair acc goal 0.876 prm - priv 0.871 | gain goal 0.095 prm -
+recommendation {'qualifying_K': [], 'recommended_K': None}
+2026-11-22 15:14:45 done

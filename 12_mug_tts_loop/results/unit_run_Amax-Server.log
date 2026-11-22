@@ -1,0 +1,72 @@
+2026-11-22 13:37:06 start: 90 jobs (units [1, 2, 3], mod 9 rems [0, 1, 2, 3, 4]), gpus 4,5,6,7,8
+2026-11-22 13:37:06 server unit_r0_gpu4_s0 started on gpu 4 port 8340
+2026-11-22 13:37:26 server unit_r0_gpu5_s0 started on gpu 5 port 8350
+2026-11-22 13:37:47 server unit_r0_gpu6_s0 started on gpu 6 port 8360
+2026-11-22 13:38:07 server unit_r0_gpu7_s0 started on gpu 7 port 8370
+2026-11-22 13:38:28 server unit_r0_gpu8_s0 started on gpu 8 port 8380
+2026-11-22 13:38:48 gpu 4 server ready
+2026-11-22 13:38:48 gpu 5 server ready
+2026-11-22 13:38:48 gpu 6 server ready
+2026-11-22 13:38:58 gpu 7 server ready
+2026-11-22 13:39:18 gpu 8 server ready
+2026-11-22 13:44:18 job 170001:0:K1 gpu 4 rc 0 pairs 8/8 301s
+2026-11-22 13:44:41 job 170001:0:K2 gpu 5 rc 0 pairs 8/8 308s
+2026-11-22 13:44:54 job 170001:1:K2 gpu 8 rc 0 pairs 8/8 276s
+2026-11-22 13:45:42 job 170001:0:K3 gpu 6 rc 0 pairs 8/8 354s
+2026-11-22 13:45:57 job 170001:1:K1 gpu 7 rc 0 pairs 8/8 354s
+2026-11-22 13:49:20 job 170001:1:K3 gpu 4 rc 0 pairs 8/8 302s
+2026-11-22 13:50:17 job 170001:2:K1 gpu 5 rc 0 pairs 8/8 336s
+2026-11-22 13:51:00 job 170001:2:K2 gpu 8 rc 0 pairs 8/8 366s
+2026-11-22 13:51:21 job 170001:3:K1 gpu 7 rc 0 pairs 8/8 324s
+2026-11-22 13:51:45 job 170001:2:K3 gpu 6 rc 0 pairs 8/8 363s
+2026-11-22 13:55:43 job 170001:3:K2 gpu 4 rc 0 pairs 8/8 383s
+2026-11-22 13:56:05 job 170001:4:K1 gpu 8 rc 0 pairs 8/8 305s
+2026-11-22 13:56:37 job 170001:3:K3 gpu 5 rc 0 pairs 8/8 380s
+2026-11-22 13:56:46 job 170001:4:K3 gpu 6 rc 0 pairs 8/8 301s
+2026-11-22 13:56:47 job 170001:4:K2 gpu 7 rc 0 pairs 8/8 326s
+2026-11-22 14:02:54 job 170012:3:K2 gpu 7 rc 0 pairs 8/8 367s
+2026-11-22 14:03:02 job 170012:1:K1 gpu 4 rc 0 pairs 8/8 439s
+2026-11-22 14:03:22 job 170012:3:K1 gpu 6 rc 0 pairs 8/8 396s
+2026-11-22 14:03:42 job 170012:1:K2 gpu 8 rc 0 pairs 8/8 457s
+2026-11-22 14:04:07 job 170012:1:K3 gpu 5 rc 0 pairs 8/8 451s
+2026-11-22 14:07:15 job 170019:4:K1 gpu 5 rc 0 pairs 8/8 188s
+2026-11-22 14:09:51 job 170012:7:K1 gpu 4 rc 0 pairs 8/8 409s
+2026-11-22 14:10:07 job 170012:7:K2 gpu 6 rc 0 pairs 8/8 404s
+2026-11-22 14:10:24 job 170012:7:K3 gpu 8 rc 0 pairs 8/8 402s
+2026-11-22 14:10:27 job 170019:4:K2 gpu 5 rc 0 pairs 8/8 192s
+2026-11-22 14:10:41 job 170012:3:K3 gpu 7 rc 0 pairs 8/8 467s
+2026-11-22 14:13:00 job 170019:4:K3 gpu 4 rc 0 pairs 8/8 188s
+2026-11-22 14:16:59 job 170039:9:K1 gpu 7 rc 0 pairs 8/8 378s
+2026-11-22 14:18:36 job 170024:3:K1 gpu 6 rc 0 pairs 8/8 510s
+2026-11-22 14:18:53 job 170024:3:K2 gpu 8 rc 0 pairs 8/8 509s
+2026-11-22 14:18:54 job 170024:3:K3 gpu 5 rc 0 pairs 8/8 508s
+2026-11-22 14:19:47 job 170039:9:K2 gpu 4 rc 0 pairs 8/8 407s
+2026-11-22 14:23:00 job 170045:0:K1 gpu 6 rc 0 pairs 8/8 264s
+2026-11-22 14:23:08 job 170045:0:K2 gpu 8 rc 0 pairs 8/8 255s
+2026-11-22 14:23:20 job 170045:0:K3 gpu 5 rc 0 pairs 8/8 265s
+2026-11-22 14:23:28 job 170039:9:K3 gpu 7 rc 0 pairs 8/8 389s
+2026-11-22 14:23:36 job 170045:2:K1 gpu 4 rc 0 pairs 8/8 229s
+2026-11-22 14:26:56 job 170045:2:K2 gpu 6 rc 0 pairs 8/8 236s
+2026-11-22 14:27:09 job 170045:2:K3 gpu 8 rc 0 pairs 8/8 241s
+2026-11-22 14:31:36 job 170051:3:K2 gpu 7 rc 0 pairs 8/8 489s
+2026-11-22 14:31:44 job 170051:3:K1 gpu 5 rc 0 pairs 8/8 504s
+2026-11-22 14:31:56 job 170051:3:K3 gpu 4 rc 0 pairs 8/8 500s
+2026-11-22 14:34:50 job 170051:4:K1 gpu 6 rc 0 pairs 8/8 474s
+2026-11-22 14:35:00 job 170057:4:K1 gpu 5 rc 0 pairs 8/8 196s
+2026-11-22 14:35:01 job 170051:4:K2 gpu 8 rc 0 pairs 8/8 472s
+2026-11-22 14:35:10 job 170057:4:K2 gpu 4 rc 0 pairs 8/8 194s
+2026-11-22 14:37:55 job 170057:5:K2 gpu 8 rc 0 pairs 8/8 174s
+2026-11-22 14:37:59 job 170057:4:K3 gpu 6 rc 0 pairs 8/8 189s
+2026-11-22 14:38:02 job 170057:5:K1 gpu 5 rc 0 pairs 8/8 181s
+2026-11-22 14:38:11 job 170057:5:K3 gpu 4 rc 0 pairs 8/8 181s
+2026-11-22 14:39:01 job 170051:4:K3 gpu 7 rc 0 pairs 8/8 444s
+2026-11-22 14:40:37 job 170057:6:K1 gpu 8 rc 0 pairs 8/8 162s
+2026-11-22 14:40:43 job 170057:6:K2 gpu 6 rc 0 pairs 8/8 163s
+2026-11-22 14:40:46 job 170057:6:K3 gpu 5 rc 0 pairs 8/8 164s
+2026-11-22 14:45:21 job 170064:8:K1 gpu 4 rc 0 pairs 8/8 430s
+2026-11-22 14:45:55 job 170064:8:K2 gpu 7 rc 0 pairs 8/8 415s
+2026-11-22 14:47:32 job 170064:8:K3 gpu 8 rc 0 pairs 8/8 415s
+2026-11-22 14:48:48 job 170070:1:K1 gpu 6 rc 0 pairs 8/8 486s
+2026-11-22 14:49:01 job 170070:1:K2 gpu 5 rc 0 pairs 8/8 495s
+2026-11-22 14:49:04 job 170075:3:K1 gpu 7 rc 0 pairs 8/8 189s
+2026-11-22 14:50:38 job 170075:3:K2 gpu 8 rc 0 pairs 8/8 186s

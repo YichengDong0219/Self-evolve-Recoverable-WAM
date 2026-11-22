@@ -1,0 +1,27 @@
+states 54, excluded jobs []
+determinism {'K1_vs_gate_4090': {'pairs': 288, 'action_hash_equal': 282, 'outcome_equal': 288}, 'K1_vs_gate_pro6000': {'pairs': 144, 'action_hash_equal': 16, 'outcome_equal': 141}, 'K1_vs_gate': {'pairs': 432, 'action_hash_equal': 298, 'outcome_equal': 429, 'same_host_pairs': 288, 'same_host_hash_equal': 200}, 'K2_K3_first_96_steps_identical': [432, 432]}
+K=1: states 54 random 0.354 oracle 0.481 gap +0.127 CI [0.06, 0.204] mixed 12 all-fail 28 all-success 14 success-within-unit 0.074
+   unit end +48: goal pair acc {'mean': 0.4707341269841269, 'ci': [0.345734126984127, 0.5862177579365079], 'n': 12} | goal gain {'mean': -0.020833333333333332, 'ci': [-0.05092592592592592, 0.004629629629629629], 'n': 54} | per chunk {'mean': -0.020833333333333332, 'ci': [-0.05092592592592592, 0.004629629629629629], 'n': 54} | prm pair acc {'mean': 0.5109623015873016, 'ci': [0.3722668650793651, 0.6470994543650793], 'n': 12} | prm gain {'mean': -0.0018518518518518526, 'ci': [-0.03550154320987655, 0.02993827160493827], 'n': 54}
+   rel  48: mug SD 0.15 cm (mixed 0.16714296912912047) ee SD 0.21 cm | pair acc goal 0.471 prm 0.511 priv 0.593 | gain goal -0.021 prm -0.002
+   rel  96: mug SD 0.35 cm (mixed 1.4532897813934664) ee SD 0.27 cm | pair acc goal 0.544 prm 0.628 priv 0.384 | gain goal -0.002 prm 0.021
+   rel 144: mug SD 0.53 cm (mixed 1.8087505683810043) ee SD 0.37 cm | pair acc goal 0.569 prm 0.677 priv 0.629 | gain goal -0.002 prm 0.039
+   rel 192: mug SD 0.70 cm (mixed 7.002115021995405) ee SD 0.48 cm | pair acc goal 0.717 prm 0.677 priv 0.784 | gain goal 0.072 prm 0.056
+   rel 240: mug SD 1.14 cm (mixed 8.603514404988903) ee SD 0.54 cm | pair acc goal 0.800 prm - priv 0.719 | gain goal 0.090 prm -
+   rel 288: mug SD 1.24 cm (mixed 11.283281342727244) ee SD 0.51 cm | pair acc goal 0.851 prm - priv 0.909 | gain goal 0.109 prm -
+K=2: states 54 random 0.356 oracle 0.463 gap +0.106 CI [0.049, 0.174] mixed 10 all-fail 29 all-success 15 success-within-unit 0.134
+   unit end +96: goal pair acc {'mean': 0.5548214285714286, 'ci': [0.345, 0.7699999999999999], 'n': 10} | goal gain {'mean': -0.004629629629629629, 'ci': [-0.0625, 0.05098379629629598], 'n': 54} | per chunk {'mean': -0.0023148148148148147, 'ci': [-0.03125, 0.02549189814814799], 'n': 54} | prm pair acc {'mean': 0.643125, 'ci': [0.4764583333333333, 0.8171354166666663], 'n': 10} | prm gain {'mean': 0.017592592592592587, 'ci': [-0.030096450617283957, 0.06775077160493825], 'n': 54}
+   rel  48: mug SD 0.15 cm (mixed 0.1951995660119753) ee SD 0.21 cm | pair acc goal 0.519 prm 0.513 priv 0.500 | gain goal -0.028 prm -0.012
+   rel  96: mug SD 0.36 cm (mixed 2.5058270586956963) ee SD 0.35 cm | pair acc goal 0.555 prm 0.643 priv 0.545 | gain goal -0.005 prm 0.018
+   rel 144: mug SD 0.50 cm (mixed 1.625259552291697) ee SD 0.43 cm | pair acc goal 0.688 prm 0.749 priv 0.634 | gain goal 0.032 prm 0.035
+   rel 192: mug SD 0.75 cm (mixed 6.099579486837849) ee SD 0.54 cm | pair acc goal 0.714 prm 0.788 priv 0.857 | gain goal 0.051 prm 0.066
+   rel 240: mug SD 1.11 cm (mixed 9.90640369572578) ee SD 0.54 cm | pair acc goal 0.759 prm - priv 0.671 | gain goal 0.051 prm -
+   rel 288: mug SD 0.88 cm (mixed 11.395673543964246) ee SD 0.49 cm | pair acc goal 0.838 prm - priv 0.860 | gain goal 0.069 prm -
+K=3: states 54 random 0.350 oracle 0.463 gap +0.113 CI [0.051, 0.188] mixed 11 all-fail 29 all-success 14 success-within-unit 0.178
+   unit end +144: goal pair acc {'mean': 0.6029761904761904, 'ci': [0.41216450216450223, 0.7948051948051947], 'n': 11} | goal gain {'mean': 0.020833333333333332, 'ci': [-0.027777777777777776, 0.07407407407407407], 'n': 54} | per chunk {'mean': 0.006944444444444446, 'ci': [-0.009259259259259259, 0.024691358024691357], 'n': 54} | prm pair acc {'mean': 0.7857683982683983, 'ci': [0.6891707251082252, 0.8831168831168831], 'n': 11} | prm gain {'mean': 0.044598765432098765, 'ci': [0.016817129629629626, 0.08101851851851852], 'n': 54}
+   rel  48: mug SD 0.15 cm (mixed 0.21773770399842932) ee SD 0.21 cm | pair acc goal 0.343 prm 0.542 priv 0.437 | gain goal -0.028 prm -0.005
+   rel  96: mug SD 0.36 cm (mixed 2.03259271496531) ee SD 0.35 cm | pair acc goal 0.506 prm 0.693 priv 0.494 | gain goal 0.002 prm 0.003
+   rel 144: mug SD 0.56 cm (mixed 0.683991568601229) ee SD 0.47 cm | pair acc goal 0.603 prm 0.786 priv 0.634 | gain goal 0.021 prm 0.045
+   rel 192: mug SD 0.86 cm (mixed 2.932209325455524) ee SD 0.77 cm | pair acc goal 0.546 prm 0.620 priv 0.663 | gain goal 0.021 prm 0.015
+   rel 240: mug SD 1.60 cm (mixed 8.647335819053039) ee SD 0.80 cm | pair acc goal 0.705 prm - priv 0.568 | gain goal 0.039 prm -
+   rel 288: mug SD 1.90 cm (mixed 13.728261703808506) ee SD 0.62 cm | pair acc goal 0.876 prm - priv 0.871 | gain goal 0.095 prm -
+recommendation {'qualifying_K': [], 'recommended_K': None}
