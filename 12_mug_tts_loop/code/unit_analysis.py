@@ -161,10 +161,10 @@ def main():
             sc = [None] * len(groups)
             for s0 in sorted({g["seed"] for g in groups}):
                 tr = [g for g in groups if g["seed"] != s0]
-                m = C.fit_q(tr, 0.01)
+                m = C.fit_q(tr, 0.01) if tr else None
                 for j, g in enumerate(groups):
                     if g["seed"] == s0:
-                        sc[j] = C.q_pred(m, g["F"])
+                        sc[j] = C.q_pred(m, g["F"]) if m else np.zeros(8)
             sep[rel]["priv_loso"] = pair_acc(T[mixed], np.array(sc)[mixed])
         summ = lambda v: None if v is None else dict(mean=float(np.mean(v)) if len(v) else None, ci=boot(v), n=len(v))  # noqa: E731
         out["divergence"] = div
