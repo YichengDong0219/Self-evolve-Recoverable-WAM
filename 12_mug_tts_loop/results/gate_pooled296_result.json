@@ -1,0 +1,74 @@
+{
+ "pairs_file": "gate_pairs_pooled296.json",
+ "critic": "/workspace/fact_local/mug_loop_1121/r0/critic_gate.json",
+ "listed_states": 296,
+ "evaluated_states": 296,
+ "incomplete_states": [],
+ "missing_features": [],
+ "random": 0.16427364864864866,
+ "picked": 0.17567567567567569,
+ "oracle": 0.26013513513513514,
+ "gain": 0.011402027027027027,
+ "gain_ci": [
+  -0.004655827702702702,
+  0.028716216216216218
+ ],
+ "gate_pass": false,
+ "secondary": {
+  "randomization_p": 0.14844,
+  "all_fail_states": 219,
+  "all_success_states": 31,
+  "mixed_states": 46,
+  "critic_success_on_mixed": 21,
+  "random_expectation_on_mixed": 17.625,
+  "by_phase": {
+   "0-4": {
+    "states": 100,
+    "random": 0.3425,
+    "critic": 0.37,
+    "gain": 0.0275,
+    "gain_ci": [
+     -0.015031249999999998,
+     0.07378124999999983
+    ],
+    "mixed_states": 37
+   },
+   "5-9": {
+    "states": 79,
+    "random": 0.1819620253164557,
+    "critic": 0.189873417721519,
+    "gain": 0.007911392405063292,
+    "gain_ci": [
+     -0.00949367088607595,
+     0.03322784810126582
+    ],
+    "mixed_states": 9
+   },
+   ">=10": {
+    "states": 117,
+    "random": 0.0,
+    "critic": 0.0,
+    "gain": 0.0,
+    "gain_ci": [
+     0.0,
+     0.0
+    ],
+    "mixed_states": 0
+   }
+  },
+  "bon_gain_by": {
+   "q": 0.011402027027027027,
+   "prm_real_phi48": 0.010267857142857143,
+   "prm_real_hop48": -0.001403635778635779,
+   "prm_imag_phi48": 0.0007038288288288278,
+   "prm_imag_hop48": 0.0032215250965250963
+  },
+  "pair_acc_true_by": {
+   "q": 0.5422680412371134,
+   "prm_real_phi48": 0.520618556701031,
+   "prm_real_hop48": 0.49072164948453606,
+   "prm_imag_phi48": 0.4917525773195876,
+   "prm_imag_hop48": 0.5257731958762887
+  }
+ }
+}

@@ -1,0 +1,8 @@
+2026-11-22 10:22:31 start
+2026-11-22 10:24:38 start (resume: archive/launch already done, waiting)
+2026-11-22 12:35:11 start (resume: archive/launch already done, waiting)
+2026-11-22 12:51:14 both machines done
+2026-11-22 12:51:14 reassigned to Amax (assignment fixed by queue position): [(170103, 17), (170103, 18), (170115, 0), (170115, 1), (170115, 3), (170115, 4), (170115, 13), (170115, 14), (170115, 16), (170115, 17)]
+2026-11-22 12:51:48 audit: render-error states []; server error lines Amax 0 cluster 0
+2026-11-22 12:51:48 cluster rows merged
+2026-11-22 12:51:54 RESULT states 226 (incomplete 0) random 0.152 critic 0.155 gain +0.0033 CI [-0.012721238938053098, 0.020478429203539747] pass False

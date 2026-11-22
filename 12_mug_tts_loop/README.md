@@ -2,7 +2,19 @@
 
 协议见 [PROTOCOL.md](PROTOCOL.md)（开跑前冻结，后附实现细节补充）。
 
-**当前状态（2026-11-22 10:00）：第 0 轮完成，critic 门槛未通过（增益 +0.038，95% CI [−0.002, +0.084]），按协议停在第 1 轮之前。**
+**当前状态（2026-11-22 13:00）：第 0 轮完成；critic 门槛第一次未通过（70 个状态，增益 +0.038，CI [−0.002, +0.084]），预注册的独立重测（另外 226 个状态）也未通过（增益 +0.003，CI [−0.013, +0.021]，置换 p = 0.45）。按协议放弃这一版 critic，停在第 1 轮之前。**
+
+## 独立重测（`results/gate_retest_result.json`，协议补充二）
+| | 状态数 | 随机 | critic | oracle | 增益 | 95% CI |
+|---|---|---|---|---|---|---|
+| 第一次门槛 | 70 | 0.205 | 0.243 | 0.329 | +0.038 | [−0.002, +0.084] |
+| **独立重测（判据）** | 226 | 0.152 | 0.155 | 0.239 | **+0.003** | [−0.013, +0.021] |
+| 合并（仅描述） | 296 | 0.164 | 0.176 | 0.260 | +0.011 | [−0.005, +0.029] |
+
+- 重测 226 个状态：172 个全失败、22 个全成功、32 个有成有败；在这 32 个上 critic 挑中成功 13 次，随机期望 12.25。
+- 决策 0–4 阶段（预注册的次要假设）：+0.003，CI [−0.04, +0.05]。
+- 只用 PRM 给真实 +48 画面打分：增益 +0.012，两两准确率 0.51；给想象画面打分：−0.002 / 0.48。
+- 第一次的 +0.038 基本是小样本波动。
 
 ## 门槛结果（`results/critic_gate.json`）
 - 数据：前 100 个专家有效种子（170000–170119，扫描 140 个，21 个专家检查不通过）；80 个场景训练，20 个留出场景中随机抽 70 个决策状态（`results/gate_pairs.json`），每个状态 8 个候选执行后都交给 π0 续跑到结束（560 次，全部起始状态逐位一致）。
@@ -35,6 +47,7 @@
 | `build_server_tts.py`、`start_server_tts_amax.sh`、`run_worker_amax.sh`、`launch_round_amax.sh`、`second_pass_amax.sh` | 在线 TTS rollout |
 | `tts_driver.py` | 一局 TTS：随机或按 critic 挑选，记录所有候选 |
 | `exec_candidates.py`、`exec_scheduler.py` | 离线逐位重放并执行全部候选 |
+| `gate_eval.py`、`gate_retest_chain.py`、`cluster_handoff.py` | 门槛独立重测：冻结 critic 评估、自动审计合并、Amax 分担集群队列 |
 | `round_select.py`、`gate_select.py` | 前 100 个有效种子、留出场景、门槛状态抽取 |
 | `continue_candidates.py`、`gate_run.py`、`start_server_probe_cluster.sh`、`gate_sync_cluster.sh` | 门槛续跑（Amax + 集群） |
 | `prm_service.py`、`prm_common.py`、`prm_features.py`、`prm_chain_amax.sh`、`prm_smoke.py`、`prm_determinism.py`、`prm_diag_amax.sh` | PRM 服务、特征、检查 |
